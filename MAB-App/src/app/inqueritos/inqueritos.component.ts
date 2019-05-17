@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { InqueritoService } from '../_services/Inquerito.service';
-import { Inquerito } from '../_models/Inquerito';
+import { Inquerito } from '../_models/Cliente';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { template } from '@angular/core/src/render3';

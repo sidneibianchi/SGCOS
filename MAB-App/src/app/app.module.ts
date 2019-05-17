@@ -13,6 +13,7 @@ import { DateFormatPipePipe } from './_helps/DateFormatPipe.pipe';
 import { HourFormatPipePipe } from './_helps/HourFormatPipe.pipe';
 import { InqueritosComponent } from './inqueritos/inqueritos.component';
 import { InqueritoService } from './_services/Inquerito.service';
+import { ClientesComponent } from './clientes/clientes.component';
 
 @NgModule({
    declarations: [
@@ -21,7 +22,8 @@ import { InqueritoService } from './_services/Inquerito.service';
       NavComponent,
       DateFormatPipePipe,
       HourFormatPipePipe,
-      InqueritosComponent
+      InqueritosComponent,
+      ClientesComponent
    ],
    imports: [
       BrowserModule,
