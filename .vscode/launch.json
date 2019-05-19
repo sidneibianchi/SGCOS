@@ -11,9 +11,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/MAB.API/bin/Debug/netcoreapp2.2/MAB.API.dll",
+            "program": "${workspaceFolder}/SGCOS.API/bin/Debug/netcoreapp2.2/SGCOS.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/MAB.API",
+            "cwd": "${workspaceFolder}/SGCOS.API",
             "stopAtEntry": false,
             "launchBrowser": {
                 "enabled": true

@@ -1,13 +1,13 @@
-##MAB
+##SGCOS
 
 
 recriar banco de dados 
 
-no diretorio MAB.Repository executar :
+no diretorio SGCOS.Repository executar :
 
-dotnet ef --startup-project ../MAB.WeAPI migrations add init
+dotnet ef --startup-project ../SGCOS.WeAPI migrations add init
 
-dotnet ef --startup-project ../MAB.WebAPI database update
+dotnet ef --startup-project ../SGCOS.WebAPI database update
 
 
 Imagens 
