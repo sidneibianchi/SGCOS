@@ -25,9 +25,9 @@ export class ClientesComponent implements OnInit {
 
   FiltroLista: string;
 
-  constructor(private clienteService: ClienteService
-    , private modalService: BsModalService
-    , private fb: FormBuilder) { }
+  constructor(private clienteService: ClienteService,
+              private modalService: BsModalService,
+              private fb: FormBuilder) { }
 
 
     get filtroLista(): string {
@@ -38,28 +38,28 @@ export class ClientesComponent implements OnInit {
       this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
     }
 
-    editarCliente(cliente: Cliente, template: any) {
+    editarCliente(cliente: Cliente, Template: any) {
       this.modoSalvar = 'put';
-      this.openModal(template);
+      this.openModal(Template);
       this.cliente = Object.assign({}, cliente);
       this.registerForm.patchValue(this.cliente);
     }
 
-    novoCliente(template: any) {
+    novoCliente(Template: any) {
       this.modoSalvar = 'post';
-      this.openModal(template);
+      this.openModal(Template);
     }
 
-    excluirCliente(cliente: Cliente, template: any) {
+    excluirCliente(cliente: Cliente, Template: any) {
       this.openModal(template);
       this.cliente = cliente;
       this.bodyDeletarCliente = `Tem certeza que deseja excluir o cliente: ${cliente.nome}`;
     }
 
-    confirmeDelete(template: any) {
+    confirmeDelete(Template: any) {
       this.clienteService.deleteCliente(this.cliente.id).subscribe(
         () => {
-            template.hide();
+            Template.hide();
             this.getClientes();
           }, error => {
             console.log(error);
@@ -67,37 +67,37 @@ export class ClientesComponent implements OnInit {
       );
     }
 
-    openModal(template: any) {
+    openModal(Template: any) {
       this.registerForm.reset();
-      template.show();
+      Template.show();
     }
 
     ngOnInit() {
       this.getClientes();
       this.validation();
     }
-  
+
     filtrarClientes(filtrarPor: string): Cliente[] {
       filtrarPor = filtrarPor.toLocaleLowerCase();
       return this.clientes.filter(
         cliente => cliente.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
       );
     }
-  
+
     validation() {
       this.registerForm = this.fb.group({
         nome: ['', Validators.required]
       });
     }
-  
-    salvarAlteracao(template: any) {
+
+    salvarAlteracao(Template: any) {
       if (this.registerForm.valid) {
         if (this.modoSalvar === 'post') {
           console.log('post');
           this.cliente = Object.assign({}, this.registerForm.value);
           this.clienteService.postCliente(this.cliente).subscribe(
           (novoCliente: Cliente) => {
-            template.hide();
+            Template.hide();
             this.getClientes();
           }, error => {
             console.log(error);
@@ -107,7 +107,7 @@ export class ClientesComponent implements OnInit {
           this.cliente = Object.assign({id: this.cliente.id}, this.registerForm.value);
           this.clienteService.putCliente(this.cliente).subscribe(
             () => {
-              template.hide();
+              Template.hide();
               this.getClientes();
             }, error => {
               console.log(error);
@@ -115,7 +115,7 @@ export class ClientesComponent implements OnInit {
         }
       }
     }
-  
+
     getClientes() {
       this.clienteService.getAllCliente().subscribe(
         (Clientes: Cliente[]) => {
@@ -127,4 +127,4 @@ export class ClientesComponent implements OnInit {
       });
     }
 
-  }
+}
