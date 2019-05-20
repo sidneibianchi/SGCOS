@@ -37,6 +37,7 @@ export class ClientesComponent implements OnInit {
       this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
     }
 
+// tslint:disable-next-line: no-shadowed-variable
     editarCliente(cliente: Cliente, template: any) {
       this.modoSalvar = 'put';
       this.openModal(template);
@@ -44,28 +45,32 @@ export class ClientesComponent implements OnInit {
       this.registerForm.patchValue(this.cliente);
     }
 
+// tslint:disable-next-line: no-shadowed-variable
     novoCliente(template: any) {
       this.modoSalvar = 'post';
       this.openModal(template);
     }
 
+// tslint:disable-next-line: no-shadowed-variable
     excluirCliente(cliente: Cliente, template: any) {
       this.openModal(template);
       this.cliente = cliente;
       this.bodyDeletarCliente = `Tem certeza que deseja excluir o cliente: ${cliente.nome}`;
     }
 
+// tslint:disable-next-line: no-shadowed-variable
     confirmeDelete(template: any) {
       this.clienteService.deleteCliente(this.cliente.id).subscribe(
         () => {
           template.hide();
-            this.getClientes();
+          this.getClientes();
           }, error => {
             console.log(error);
           }
       );
     }
 
+// tslint:disable-next-line: no-shadowed-variable
     openModal(template: any) {
       this.registerForm.reset();
       template.show();
@@ -93,6 +98,7 @@ export class ClientesComponent implements OnInit {
       });
     }
 
+// tslint:disable-next-line: no-shadowed-variable
     salvarAlteracao(template: any) {
       if (this.registerForm.valid) {
         if (this.modoSalvar === 'post') {
