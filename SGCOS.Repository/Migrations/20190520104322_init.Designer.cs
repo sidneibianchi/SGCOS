@@ -9,14 +9,14 @@ using SGCOS.Repository;
 namespace SGCOS.Repository.Migrations
 {
     [DbContext(typeof(SGCOSContext))]
-    [Migration("20190520023019_init")]
+    [Migration("20190520104322_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
 
             modelBuilder.Entity("SGCOS.Domain.Chamado", b =>
                 {
@@ -64,14 +64,9 @@ namespace SGCOS.Repository.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<int?>("EnderecoId");
-
                     b.Property<string>("Nome");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EnderecoId")
-                        .IsUnique();
 
                     b.ToTable("Clientes");
                 });
@@ -87,6 +82,8 @@ namespace SGCOS.Repository.Migrations
 
                     b.Property<string>("Cidade");
 
+                    b.Property<int?>("ClienteId");
+
                     b.Property<string>("Logradouro");
 
                     b.Property<string>("Numero");
@@ -94,6 +91,9 @@ namespace SGCOS.Repository.Migrations
                     b.Property<string>("UF");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId")
+                        .IsUnique();
 
                     b.ToTable("Enderecos");
                 });
@@ -185,11 +185,11 @@ namespace SGCOS.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SGCOS.Domain.Cliente", b =>
+            modelBuilder.Entity("SGCOS.Domain.Endereco", b =>
                 {
-                    b.HasOne("SGCOS.Domain.Endereco", "Endereco")
-                        .WithOne("Cliente")
-                        .HasForeignKey("SGCOS.Domain.Cliente", "EnderecoId");
+                    b.HasOne("SGCOS.Domain.Cliente", "Cliente")
+                        .WithOne("Endereco")
+                        .HasForeignKey("SGCOS.Domain.Endereco", "ClienteId");
                 });
 
             modelBuilder.Entity("SGCOS.Domain.Equipamento", b =>

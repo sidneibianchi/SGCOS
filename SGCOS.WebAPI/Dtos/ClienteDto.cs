@@ -9,11 +9,13 @@ namespace SGCOS.WebAPI.Dtos
         
         [Required(ErrorMessage="O Campo Nome é obrigatório")]
         public string Nome { get; set; }
-        public string Visto { get; set; }
-        public string Assinatura { get; set; }
-        
-        [Required(ErrorMessage="O Campo {0} é obrigatório")]
-        public EnderecoDto Endereco { get; }
-        public List<TelefoneDto> Telefones { get; set; }
+        public string CPF_CNPJ { get; set; }
+        public string Contato { get; set; }
+        public string Email { get; set; }
+        public string Agencia { get; set; }
+        public EnderecoDto Endereco { get; set;}
+        public List<TelefoneDto> Telefones { get; set;}
+        public List<ChamadoDto> Chamados { get; set;}
+        public List<EquipamentoDto> Equipamentos { get; set;}
     }
 }

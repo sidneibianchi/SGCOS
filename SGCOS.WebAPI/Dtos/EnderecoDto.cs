@@ -11,6 +11,5 @@ namespace SGCOS.WebAPI.Dtos
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string UF { get; set; }
-        public ClienteDto Cliente { get; set; }
     }
 }

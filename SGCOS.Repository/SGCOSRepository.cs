@@ -85,7 +85,6 @@ namespace SGCOS.Repository
             IQueryable<Chamado> query = _context.Chamados
                                .Include(c => c.Cliente);               
                
-
             query = query.AsNoTracking()
                         .OrderBy(c => c.Id);
 

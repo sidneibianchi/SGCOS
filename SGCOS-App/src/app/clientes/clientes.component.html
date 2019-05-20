@@ -15,20 +15,27 @@
   <thead class="thead-light">
     <tr>
       <th>#</th>
-      <th>Contato</th>
       <th>Nome</th>
-      <th>E-mail</th>
-      <th>Agencia</th>
+      <th>Contato</th>
+      <th>CPF/CNPJ</th>
+      <th>Telefone</th>
       <th>Opções</th>
     </tr>
   </thead>
   <tbody *ngIf="clientes">
     <tr *ngFor="let cliente of clienteFiltrados">
       <td>{{cliente.id}}</td>
-      <td>{{cliente.contato}}</td>
       <td>{{cliente.nome | uppercase}}</td>
-      <td>{{cliente.email | uppercase}}</td>
-      <td>{{cliente.agencia | uppercase}}</td>
+      <td>{{cliente.contato | uppercase}}</td>
+      <td>{{cliente.cpF_CNPJ | uppercase}}</td>
+      <td>
+        <div *ngIf="!cliente.telefones.length" >
+          Não Informado
+        </div>
+        <div *ngIf="cliente.telefones.length" >
+          {{cliente.telefones[0].numero}}
+        </div>
+      </td>
       <td>
         <div class="btn-group">
         <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente, template)">
@@ -41,7 +48,7 @@
       </td> 
     </tr>
   </tbody>
-  <tfoot *ngIf="!cliente">
+  <tfoot *ngIf="!clientes">
     <tr>
       <td colspan="7" class="text-center">
         <h4>Nenhum cliente encontrado</h4>
@@ -63,16 +70,16 @@
       <div class="modal-body">
         <form [formGroup]="registerForm">  
           <div class="form-row">
-            <div class="form-group col-md-2">
-              <label>Nome</label>
+            <div class="form-group col-md-6">
+              <label>CPF/CNPJ</label>
               <input type="text" 
-              [ngClass]="{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}"
-              class="form-control" formControlName="nome" placeholder="Nome.">
+              [ngClass]="{'is-invalid': registerForm.get('cpF_CNPJ').errors && registerForm.get('cpF_CNPJ').touched}"
+              class="form-control" formControlName="cpF_CNPJ" placeholder="Nome.">
               <div class="invalid-feedback">
                 O Nome é obrigatório.
               </div>
             </div>
-            <div class="form-group col-md-10">
+            <div class="form-group col-md-6">
               <label>Contato</label>
               <input type="text"  class="form-control" formControlName="contato" placeholder="Contato">
             </div>

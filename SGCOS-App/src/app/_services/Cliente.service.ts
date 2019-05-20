@@ -19,6 +19,10 @@ getClienteById(id: number): Observable<Cliente> {
   return this.http.get<Cliente>(`${this.baseURL}/${id}`);
 }
 
+getClienteByNome(nome: string): Observable<Cliente> {
+  return this.http.get<Cliente>(`${this.baseURL}/${nome}`);
+}
+
 postCliente(cliente: Cliente) {
   return this.http.post(this.baseURL, cliente);
 }

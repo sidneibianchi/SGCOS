@@ -1,4 +1,3 @@
-
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ClienteService } from '../_services/Cliente.service';
 import { Cliente } from '../_models/Cliente';
@@ -38,28 +37,28 @@ export class ClientesComponent implements OnInit {
       this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
     }
 
-    editarCliente(cliente: Cliente, Template: any) {
+    editarCliente(cliente: Cliente, template: any) {
       this.modoSalvar = 'put';
-      this.openModal(Template);
+      this.openModal(template);
       this.cliente = Object.assign({}, cliente);
       this.registerForm.patchValue(this.cliente);
     }
 
-    novoCliente(Template: any) {
+    novoCliente(template: any) {
       this.modoSalvar = 'post';
-      this.openModal(Template);
+      this.openModal(template);
     }
 
-    excluirCliente(cliente: Cliente, Template: any) {
+    excluirCliente(cliente: Cliente, template: any) {
       this.openModal(template);
       this.cliente = cliente;
       this.bodyDeletarCliente = `Tem certeza que deseja excluir o cliente: ${cliente.nome}`;
     }
 
-    confirmeDelete(Template: any) {
+    confirmeDelete(template: any) {
       this.clienteService.deleteCliente(this.cliente.id).subscribe(
         () => {
-            Template.hide();
+          template.hide();
             this.getClientes();
           }, error => {
             console.log(error);
@@ -67,9 +66,9 @@ export class ClientesComponent implements OnInit {
       );
     }
 
-    openModal(Template: any) {
+    openModal(template: any) {
       this.registerForm.reset();
-      Template.show();
+      template.show();
     }
 
     ngOnInit() {
@@ -86,18 +85,22 @@ export class ClientesComponent implements OnInit {
 
     validation() {
       this.registerForm = this.fb.group({
-        nome: ['', Validators.required]
+        cpF_CNPJ: ['', Validators.required],
+        nome: ['', Validators.required],
+        email: ['', Validators.required],
+        contato: ['', Validators.required],
+        agencia: ['', Validators.required]
       });
     }
 
-    salvarAlteracao(Template: any) {
+    salvarAlteracao(template: any) {
       if (this.registerForm.valid) {
         if (this.modoSalvar === 'post') {
           console.log('post');
           this.cliente = Object.assign({}, this.registerForm.value);
           this.clienteService.postCliente(this.cliente).subscribe(
           (novoCliente: Cliente) => {
-            Template.hide();
+            template.hide();
             this.getClientes();
           }, error => {
             console.log(error);
@@ -107,7 +110,7 @@ export class ClientesComponent implements OnInit {
           this.cliente = Object.assign({id: this.cliente.id}, this.registerForm.value);
           this.clienteService.putCliente(this.cliente).subscribe(
             () => {
-              Template.hide();
+              template.hide();
               this.getClientes();
             }, error => {
               console.log(error);

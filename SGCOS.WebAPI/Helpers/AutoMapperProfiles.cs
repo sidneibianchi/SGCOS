@@ -11,6 +11,10 @@ namespace SGCOS.WebAPI.Helpers
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<Chamado, ChamadoDto>().ReverseMap();
             CreateMap<Endereco, EnderecoDto>().ReverseMap();
+            CreateMap<Equipamento, EquipamentoDto>().ReverseMap();
+            CreateMap<Telefone, TelefoneDto>().ReverseMap();
+            CreateMap<Servico, ServicoDto>().ReverseMap();
+            
         }
     }
 }

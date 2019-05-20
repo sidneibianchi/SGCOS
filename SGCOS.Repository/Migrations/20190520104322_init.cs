@@ -8,24 +8,6 @@ namespace SGCOS.Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Enderecos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CEP = table.Column<string>(nullable: true),
-                    Logradouro = table.Column<string>(nullable: true),
-                    Numero = table.Column<string>(nullable: true),
-                    Bairro = table.Column<string>(nullable: true),
-                    Cidade = table.Column<string>(nullable: true),
-                    UF = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Enderecos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Clientes",
                 columns: table => new
                 {
@@ -35,18 +17,11 @@ namespace SGCOS.Repository.Migrations
                     CPF_CNPJ = table.Column<string>(nullable: true),
                     Contato = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Agencia = table.Column<string>(nullable: true),
-                    EnderecoId = table.Column<int>(nullable: true)
+                    Agencia = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clientes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clientes_Enderecos_EnderecoId",
-                        column: x => x.EnderecoId,
-                        principalTable: "Enderecos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -69,6 +44,31 @@ namespace SGCOS.Repository.Migrations
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Enderecos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CEP = table.Column<string>(nullable: true),
+                    Logradouro = table.Column<string>(nullable: true),
+                    Numero = table.Column<string>(nullable: true),
+                    Bairro = table.Column<string>(nullable: true),
+                    Cidade = table.Column<string>(nullable: true),
+                    UF = table.Column<string>(nullable: true),
+                    ClienteId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enderecos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Enderecos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,9 +175,9 @@ namespace SGCOS.Repository.Migrations
                 column: "EquipamentoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clientes_EnderecoId",
-                table: "Clientes",
-                column: "EnderecoId",
+                name: "IX_Enderecos_ClienteId",
+                table: "Enderecos",
+                column: "ClienteId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -202,6 +202,9 @@ namespace SGCOS.Repository.Migrations
                 name: "ChamadosEquipamentos");
 
             migrationBuilder.DropTable(
+                name: "Enderecos");
+
+            migrationBuilder.DropTable(
                 name: "Servicos");
 
             migrationBuilder.DropTable(
@@ -215,9 +218,6 @@ namespace SGCOS.Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clientes");
-
-            migrationBuilder.DropTable(
-                name: "Enderecos");
         }
     }
 }

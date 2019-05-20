@@ -10,7 +10,6 @@ namespace SGCOS.Domain
         public string Contato { get; set; }
         public string Email { get; set; }
         public string Agencia { get; set; }
-        public int? EnderecoId { get; set; }
         public Endereco Endereco { get; set; }
         public List<Telefone> Telefones { get; set; }
         public List<Chamado> Chamados { get; set; }
