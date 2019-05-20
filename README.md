@@ -5,7 +5,7 @@ recriar banco de dados
 
 no diretorio SGCOS.Repository executar :
 
-dotnet ef --startup-project ../SGCOS.WeAPI migrations add init
+dotnet ef --startup-project ../SGCOS.WebAPI migrations add init
 
 dotnet ef --startup-project ../SGCOS.WebAPI database update
 

@@ -12,5 +12,7 @@ namespace SGCOS.Domain
         public DateTime DtAtendimento { get; set; }
         public decimal ValorServico { get; set; }
         public bool Status { get; set; }
+        public int EquipamentoId { get; set; }
+        public Equipamento Equipamento { get; set; }
     }
 }
