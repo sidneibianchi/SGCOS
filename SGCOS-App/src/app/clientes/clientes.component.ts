@@ -45,12 +45,12 @@ export class ClientesComponent implements OnInit {
       this.registerForm.patchValue(this.cliente);
     }
 
-    novoInquerito(template: any) {
+    novoCliente(template: any) {
       this.modoSalvar = 'post';
       this.openModal(template);
     }
 
-    excluirInquerito(cliente: Cliente, template: any) {
+    excluirCliente(cliente: Cliente, template: any) {
       this.openModal(template);
       this.cliente = cliente;
       this.bodyDeletarCliente = `Tem certeza que deseja excluir o cliente: ${cliente.nome}`;
@@ -77,19 +77,16 @@ export class ClientesComponent implements OnInit {
       this.validation();
     }
   
-    filtrarInqueritos(filtrarPor: string): Inquerito[] {
+    filtrarClientes(filtrarPor: string): Cliente[] {
       filtrarPor = filtrarPor.toLocaleLowerCase();
-      return this.inqueritos.filter(
-        inquerito => inquerito.nomeJuiz.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      return this.clientes.filter(
+        cliente => cliente.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
       );
     }
   
     validation() {
       this.registerForm = this.fb.group({
-        numeroInquerito: ['', Validators.required],
-        nomeJuiz: ['', Validators.required],
-        tribunal: ['', Validators.required],
-        varaCriminal: ['', Validators.required]
+        nome: ['', Validators.required]
       });
     }
   
@@ -97,21 +94,21 @@ export class ClientesComponent implements OnInit {
       if (this.registerForm.valid) {
         if (this.modoSalvar === 'post') {
           console.log('post');
-          this.inquerito = Object.assign({}, this.registerForm.value);
-          this.inqueritoService.postInquerito(this.inquerito).subscribe(
-          (novoInquerito: Inquerito) => {
+          this.cliente = Object.assign({}, this.registerForm.value);
+          this.clienteService.postCliente(this.cliente).subscribe(
+          (novoCliente: Cliente) => {
             template.hide();
-            this.getInqueritos();
+            this.getClientes();
           }, error => {
             console.log(error);
           });
         } else {
           console.log('put');
-          this.inquerito = Object.assign({id: this.inquerito.id}, this.registerForm.value);
-          this.inqueritoService.putInquerito(this.inquerito).subscribe(
+          this.cliente = Object.assign({id: this.cliente.id}, this.registerForm.value);
+          this.clienteService.putCliente(this.cliente).subscribe(
             () => {
               template.hide();
-              this.getInqueritos();
+              this.getClientes();
             }, error => {
               console.log(error);
             });
@@ -120,28 +117,14 @@ export class ClientesComponent implements OnInit {
     }
   
     getClientes() {
-      this.inqueritoService.getAllInquerito().subscribe(
-        (Inqueritos: Inquerito[]) => {
-        this.inqueritos = Inqueritos;
-        this.inqueritoFiltrados = this.inqueritos;
-        console.log(Inqueritos);
+      this.clienteService.getAllCliente().subscribe(
+        (Clientes: Cliente[]) => {
+        this.clientes = Clientes;
+        this.clienteFiltrados = this.clientes;
+        console.log(Clientes);
       }, error => {
         console.log(error);
       });
     }
 
-}
-
-
-
-
-
-
-
-  
-
- 
-
- 
-
-}
+  }

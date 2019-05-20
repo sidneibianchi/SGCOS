@@ -5,24 +5,19 @@ import { BsDropdownModule, ModalModule, TooltipModule, AccordionModule, BsDatepi
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AutosbuscaComponent } from './autosbusca/autosbusca.component';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AutoBuscaService } from './_services/AutoBusca.service';
 import { DateFormatPipePipe } from './_helps/DateFormatPipe.pipe';
 import { HourFormatPipePipe } from './_helps/HourFormatPipe.pipe';
-import { InqueritosComponent } from './inqueritos/inqueritos.component';
-import { InqueritoService } from './_services/Inquerito.service';
+import { ClienteService } from './_services/Cliente.service';
 import { ClientesComponent } from './clientes/clientes.component';
 
 @NgModule({
    declarations: [
       AppComponent,
-      AutosbuscaComponent,
       NavComponent,
       DateFormatPipePipe,
       HourFormatPipePipe,
-      InqueritosComponent,
       ClientesComponent
    ],
    imports: [
@@ -38,8 +33,7 @@ import { ClientesComponent } from './clientes/clientes.component';
       BsDatepickerModule.forRoot()
    ],
    providers: [
-      AutoBuscaService,
-      InqueritoService
+      ClienteService
    ],
    bootstrap: [
       AppComponent
