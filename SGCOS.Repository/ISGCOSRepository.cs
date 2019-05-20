@@ -18,5 +18,11 @@ namespace SGCOS.Repository
         Task<Cliente> GetAllClienteAsyncById(int clienteId);
         Task<Cliente[]> GetAllClienteAsyncByNome(string clienteNome);
         #endregion
+
+        #region Chamado
+        Task<Chamado[]> GetAllChamadoAsync();
+        Task<Chamado> GetAllChamadoAsyncById(int chamadoId);
+
+        #endregion
     }
 }
