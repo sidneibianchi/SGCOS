@@ -11,6 +11,7 @@ namespace SGCOS.WebAPI.Dtos
         public string Nome { get; set; }
         public string CPF_CNPJ { get; set; }
         public string Contato { get; set; }
+        [EmailAddress]
         public string Email { get; set; }
         public string Agencia { get; set; }
         public EnderecoDto Endereco { get; set;}
