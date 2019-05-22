@@ -3,7 +3,7 @@ import { ClienteService } from '../_services/Cliente.service';
 import { Cliente } from '../_models/Cliente';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { template } from '@angular/core/src/render3';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientes',
@@ -12,6 +12,7 @@ import { template } from '@angular/core/src/render3';
 })
 export class ClientesComponent implements OnInit {
 
+  titulo = 'Clientes';
   clienteFiltrados: Cliente[];
   clientes: Cliente[];
   cliente: Cliente;
@@ -26,7 +27,8 @@ export class ClientesComponent implements OnInit {
 
   constructor(private clienteService: ClienteService,
               private modalService: BsModalService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private toastr: ToastrService) { }
 
 
     get filtroLista(): string {
@@ -37,7 +39,6 @@ export class ClientesComponent implements OnInit {
       this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
     }
 
-// tslint:disable-next-line: no-shadowed-variable
     editarCliente(cliente: Cliente, template: any) {
       this.modoSalvar = 'put';
       this.openModal(template);
@@ -45,32 +46,30 @@ export class ClientesComponent implements OnInit {
       this.registerForm.patchValue(this.cliente);
     }
 
-// tslint:disable-next-line: no-shadowed-variable
     novoCliente(template: any) {
       this.modoSalvar = 'post';
       this.openModal(template);
     }
 
-// tslint:disable-next-line: no-shadowed-variable
     excluirCliente(cliente: Cliente, template: any) {
       this.openModal(template);
       this.cliente = cliente;
       this.bodyDeletarCliente = `Tem certeza que deseja excluir o cliente: ${cliente.nome}`;
     }
 
-// tslint:disable-next-line: no-shadowed-variable
     confirmeDelete(template: any) {
       this.clienteService.deleteCliente(this.cliente.id).subscribe(
         () => {
           template.hide();
           this.getClientes();
+          this.toastr.success('Cliente excluido com sucesso!');
           }, error => {
+            this.toastr.error('Erro ao tentar excluir cliente: ${ error}');
             console.log(error);
           }
       );
     }
 
-// tslint:disable-next-line: no-shadowed-variable
     openModal(template: any) {
       this.registerForm.reset();
       template.show();
@@ -98,28 +97,27 @@ export class ClientesComponent implements OnInit {
       });
     }
 
-// tslint:disable-next-line: no-shadowed-variable
     salvarAlteracao(template: any) {
       if (this.registerForm.valid) {
         if (this.modoSalvar === 'post') {
-          console.log('post');
           this.cliente = Object.assign({}, this.registerForm.value);
           this.clienteService.postCliente(this.cliente).subscribe(
           (novoCliente: Cliente) => {
             template.hide();
             this.getClientes();
+            this.toastr.success('Cliente inserido com sucesso!');
           }, error => {
-            console.log(error);
+            this.toastr.error('Erro ao incluir cliente: ${error}');
           });
         } else {
-          console.log('put');
           this.cliente = Object.assign({id: this.cliente.id}, this.registerForm.value);
           this.clienteService.putCliente(this.cliente).subscribe(
             () => {
               template.hide();
               this.getClientes();
+              this.toastr.success('Cliente alterado com sucesso!');
             }, error => {
-              console.log(error);
+              this.toastr.error('Erro ao alterar cliente: ${error}');
             });
         }
       }
@@ -130,9 +128,8 @@ export class ClientesComponent implements OnInit {
         (Clientes: Cliente[]) => {
         this.clientes = Clientes;
         this.clienteFiltrados = this.clientes;
-        console.log(Clientes);
-      }, error => {
-        console.log(error);
+         }, error => {
+          this.toastr.error('Erro ao tentar carregar cliente: ${error}');
       });
     }
 

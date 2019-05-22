@@ -1,4 +1,5 @@
 <br>
+<app-titulo [titulo]=titulo></app-titulo>
 <div class="d-flex">
 <div class="form-inline mr-auto" action="">
   <div class="form-group mb-2" ><input type="text" class="form-control mr-2" placeholder="Filtrar"
@@ -62,7 +63,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Clientes</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Manutenção Clientes</h4>
         <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -91,12 +92,18 @@
           </div>  
           <div class="form-row">
             <div class="form-group col-md-6">
+              <label>Contato</label>
+              <input type="text" class="form-control" formControlName="contato" placeholder="Contato.">
+            </div>
+            <div class="form-group col-md-6">
               <label>E-mail</label>
               <input type="text" class="form-control" formControlName="email" placeholder="E-mail.">
             </div>
-            <div class="form-group col-md-6">
-              <label>Agencia</label>
-              <input type="text" class="form-control" formControlName="agencia" placeholder="Agència.">
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Agência / Complemento</label>
+              <input type="text" class="form-control" formControlName="agencia" placeholder="Agêcia.">
             </div>
           </div>  
         </form>
@@ -129,10 +136,10 @@
     		</div>    
     		<div class="modal-footer btn-group d-flex">      
       			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-        			CENCELAR
+        			CANCELAR
       			</button>
       			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
-          			DELETAR
+          		DELETAR
         		</button>
     		</div>
   		</div>
