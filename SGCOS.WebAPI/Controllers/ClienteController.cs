@@ -6,6 +6,8 @@ using SGCOS.Domain;
 using SGCOS.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace SGCOS.WebAPI.Controllers
 {
@@ -20,6 +22,7 @@ namespace SGCOS.WebAPI.Controllers
             _mapper = mapper;
             _repo = repo;
         }
+
 
         // GET all
         [HttpGet]
