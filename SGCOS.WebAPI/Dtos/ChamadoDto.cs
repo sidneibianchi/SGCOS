@@ -8,6 +8,7 @@ namespace SGCOS.WebAPI.Dtos
         public string Data { get; set; }
         public string Hora { get; set; }
         public string Observacao { get; set; }
+        public bool Status { get; set; }
         public ClienteDto Cliente { get; set; }
         public List<EquipamentoDto> Equipamentos { get; set; }
     }

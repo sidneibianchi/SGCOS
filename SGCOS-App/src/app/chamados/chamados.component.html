@@ -1,5 +1,54 @@
 <br>
 <app-titulo [titulo]=titulo></app-titulo>
-<p>
-  chamados works!
-</p>
+<div class="d-flex">
+<div class="form-inline mr-auto" action="">
+  <div class="form-group mb-2" ><input type="text" class="form-control mr-2" placeholder="Filtrar"
+      [(ngModel)]="filtroLista">
+  </div>
+</div>
+<button class="btn btn-outline-primary" (click)="novoChamado(template)">
+  <i class="fa fa-plus-circle"></i>&nbsp;
+  Novo Chamado
+</button>  
+</div>
+<br>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Cliente</th>
+      <th>Data</th>
+      <th>Hora</th>
+      <th>Observação</th>
+      <th>Status</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="chamados">
+    <tr *ngFor="let chamado of chamadoFiltrados">
+      <td>{{chamado.id}}</td>
+      <td>{{chamado.clienteId}}</td>
+      <td>{{chamado.data | uppercase}}</td>
+      <td>{{chamado.hora | uppercase}}</td>
+      <td>{{chamado.observacao | uppercase}}</td>
+      <td>{{chamado.status}}</td>
+      <td>
+        <div class="btn-group">
+        <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarChamado(chamado, template)">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirChamado(chamado, confirm)">
+          <i class="fa fa-eraser"></i>
+        </button>
+      </div>
+      </td> 
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!chamados">
+    <tr>
+      <td colspan="7" class="text-center">
+        <h4>Nenhum cliente encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
