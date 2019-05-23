@@ -22,6 +22,7 @@ namespace SGCOS.Repository
         #region Chamado
         Task<Chamado[]> GetAllChamadoAsync();
         Task<Chamado> GetAllChamadoAsyncById(int chamadoId);
+        Task<Chamado> GetAllChamadoAsyncByClienteId(int clienteId);
 
         #endregion
     }

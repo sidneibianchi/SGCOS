@@ -33,6 +33,7 @@ namespace SGCOS.Repository.Migrations
                     Data = table.Column<DateTime>(nullable: false),
                     Hora = table.Column<DateTime>(nullable: false),
                     Observacao = table.Column<string>(nullable: true),
+                    Status = table.Column<bool>(nullable: false),
                     ClienteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

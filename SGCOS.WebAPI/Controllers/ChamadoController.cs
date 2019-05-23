@@ -40,13 +40,14 @@ namespace SGCOS.WebAPI.Controllers
             }
         }
 
+        
          //GET Por Id
-        [HttpGet("{ChamadoId}")]
-        public async Task<IActionResult> Get(int ChamadoId)
+        [HttpGet("{ClienteId}")]
+        public async Task<IActionResult> Get(int ClienteId, bool cliente = true )
         {
             try
             {
-                var chamado = await _repo.GetAllChamadoAsyncById(ChamadoId);
+                var chamado = await _repo.GetAllChamadoAsyncByClienteId(ClienteId);
 
                 var results = _mapper.Map<ChamadoDto>(chamado);
 

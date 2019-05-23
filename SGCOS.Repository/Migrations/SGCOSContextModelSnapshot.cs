@@ -29,6 +29,8 @@ namespace SGCOS.Repository.Migrations
 
                     b.Property<string>("Observacao");
 
+                    b.Property<bool>("Status");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");

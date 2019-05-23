@@ -102,6 +102,19 @@ namespace SGCOS.Repository
 
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task<Chamado> GetAllChamadoAsyncByClienteId(int clienteId)
+        {
+            IQueryable<Chamado> query = _context.Chamados
+                             .Include(c => c.Cliente);              
+               
+
+            query = query.AsNoTracking()
+                        .OrderBy(c => c.Id)
+                        .Where(c => c.ClienteId == clienteId);
+
+            return await query.FirstOrDefaultAsync();
+        }
         
         #endregion
     }

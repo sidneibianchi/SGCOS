@@ -9,7 +9,7 @@ using SGCOS.Repository;
 namespace SGCOS.Repository.Migrations
 {
     [DbContext(typeof(SGCOSContext))]
-    [Migration("20190520104322_init")]
+    [Migration("20190522225642_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,8 @@ namespace SGCOS.Repository.Migrations
                     b.Property<DateTime>("Hora");
 
                     b.Property<string>("Observacao");
+
+                    b.Property<bool>("Status");
 
                     b.HasKey("Id");
 

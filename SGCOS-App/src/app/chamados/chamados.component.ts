@@ -89,11 +89,11 @@ export class ChamadosComponent implements OnInit {
 
     validation() {
       this.registerForm = this.fb.group({
-        cpF_CNPJ: ['', Validators.required],
-        nome: ['', Validators.required],
-        email: ['', Validators.required],
-        contato: ['', Validators.required],
-        agencia: ['', Validators.required]
+        data: ['', Validators.required],
+        hora: ['', Validators.required],
+        observacao: ['', Validators.required],
+        status: ['', Validators.required],
+        clienteId: ['', Validators.required]
       });
     }
 
@@ -107,6 +107,7 @@ export class ChamadosComponent implements OnInit {
             this.getChamados();
             this.toastr.success('Chamado inserido com sucesso!');
           }, error => {
+            console.error();
             this.toastr.error('Erro ao incluir chamado: ${error}');
           });
         } else {
@@ -129,7 +130,8 @@ export class ChamadosComponent implements OnInit {
         this.chamados = Chamados;
         this.chamadoFiltrados = this.chamados;
          }, error => {
-          this.toastr.error('Erro ao tentar carregar chamado: ${error}');
+           console.error();
+           this.toastr.error('Erro ao tentar carregar chamado: ${error}');
       });
     }
 
