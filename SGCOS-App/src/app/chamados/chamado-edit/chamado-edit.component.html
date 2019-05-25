@@ -1,5 +1,134 @@
-<br>
-<app-titulo [titulo]=titulo></app-titulo>
-<p>
-  chamado-edit works!
-</p>
+<app-titulo [titulo]="titulo"></app-titulo>
+
+<form [formGroup]="registerForm">
+  <div class="row">
+    <div class="col-md-8">
+      <tabset>
+        <tab heading="Chamado">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Data</label>
+              <input type="text" [ngClass]="{'is-invalid': registerForm.get('data').errors && registerForm.get('data').touched }"
+                class="form-control" formControlName="data" placeholder="Data.">
+              <div class="invalid-feedback">
+                A Data é obrigatória.
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Hora</label>
+              <input
+                type="text"[ngClass]="{'is-invalid': registerForm.get('hora').errors && registerForm.get('hora').touched }"
+                class="form-control" formControlName="hora" placeholder="Hora" />
+              <div class="invalid-feedback">
+                A hora é obrigatória.
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>status</label>
+                <select class="form-control" formControlName="status">
+                  <option value="">Selecione</option>
+                  <option value="far fa-calendar-check">Ativo</option>
+                  <option value="fas fa-calendar-times">Finalizado</option>
+                </select>
+              </div>
+         </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Observação</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="observacao"
+                placeholder="Observação."
+              />
+            </div>
+          </div>
+        </tab>
+
+        <tab heading="Lotes">
+          <div>
+            <div>
+              <fieldset class="form-group">
+                <legend class="d-flex justify-content-between capitalize">
+                  {{ "Lotes" }}
+                  <button class="btn btn-sm btn-warning mb-1">remove</button>
+                </legend>
+                <div class="row"></div>
+              </fieldset>
+            </div>
+            <button class="btn btn-outline-primary">
+              Adicionar Lote
+            </button>
+          </div>
+        </tab>
+
+        <tab heading="Redes Sociais">
+          <div>
+            <fieldset class="form-group">
+              <legend class="d-flex justify-content-between capitalize">
+                <button class="btn btn-sm btn-warning mb-1">remove</button>
+              </legend>
+              <div class="row"></div>
+            </fieldset>
+          </div>
+          <button class="btn btn-outline-primary">
+            Adicionar Rede Social
+          </button>
+        </tab>
+      </tabset>
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-end">
+          <!-- {{registerForm.value | json}} -->
+          <button [disabled]="!registerForm.valid" class="btn btn-success my-2">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-row">
+        <div class="form-group col-md-9">
+          <!-- <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid"
+            formControlName="imagemURL" placeholder="" style="display: none"> -->
+        </div>
+      </div>
+      <div class="card profile-card-2">
+        <div class="card-img-block">
+          <!-- <img [src]="imagemURL" class="img-fluid" (click)="file.click()" style="cursor: pointer; width: 350px;"
+            alt="Card image cap" /> -->
+        </div>
+        <div class="card-body pt-3">
+          <h4>{{ chamado.observacao }}</h4>
+          <p class="card-text">
+            <b>Local:</b> {{ chamado.data }}
+            <br />
+            <b>Data:</b> {{ chamado.hora | HourFormatPipe }}
+          </p>
+          <hr />
+          <p class="card-text">
+            <b>Contatos</b><br />
+            <small class="text-muted"
+              >Telefone: {{ chamado.data | mask: "(000) 00000-0000" }}</small
+            >
+            <br />
+            <small class="text-muted">e-mail: {{ chamado.data }}</small>
+          </p>
+          <p class="card-text">
+            Capacidade:
+            <small class="text-muted">{{ chamado.data }}</small>
+          </p>
+          <div class="row">
+            <div class="icon-block col-md-8 iconesSociais">
+              <a class="mr-3" target="_blank">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+            <!--div class="col-md-4 d-flex justify-content-center">  
+              <a href="#" class="btn btn-outline-primary">Participar</a>
+            </div-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

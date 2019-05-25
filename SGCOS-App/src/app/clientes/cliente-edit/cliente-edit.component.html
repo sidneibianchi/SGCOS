@@ -1,0 +1,126 @@
+<app-titulo [titulo]="titulo"></app-titulo>
+
+<form [formGroup]="registerForm">
+  <div class="row">
+    <div class="col-md-12">
+      <tabset>
+        <tab heading="Cliente">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label>CPF/CNPJ</label>
+                  <input type="text" 
+                  [ngClass]="{'is-invalid': registerForm.get('cpF_CNPJ').errors && registerForm.get('cpF_CNPJ').touched}"
+                  class="form-control" formControlName="cpF_CNPJ" placeholder="CPF/CNPJ.">
+                  <div class="invalid-feedback">
+                    O CPF/CNPJ é obrigatório.
+                  </div>
+                </div>
+                <div class="form-group col-md-9">
+                  <label>Nome</label>
+                  <input type="text"  
+                  [ngClass]="{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}"
+                  class="form-control" formControlName="nome" placeholder="Nome">
+                  <div class="invalid-feedback">
+                    O Nome é obrigatório.
+                  </div>
+                </div>
+              </div>  
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Contato</label>
+                  <input type="text" class="form-control" formControlName="contato" placeholder="Contato.">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>E-mail</label>
+                  <input type="text" class="form-control" formControlName="email" placeholder="E-mail.">
+                </div>
+              </div> 
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label>Agência / Complemento</label>
+                  <input type="text" class="form-control" formControlName="agencia" placeholder="Agêcia.">
+                </div>
+              </div>
+              <hr>
+              <div>
+                <div>
+                  <h5>Endereço</h5>
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label>CEP</label>
+                      <input type="text" class="form-control" formControlName="cep" placeholder="Cep.">
+                    </div>
+                    <div class="form-group col-md-8">
+                      <label>Logradouro</label>
+                      <input type="text" class="form-control" formControlName="logradouro" placeholder="Logradouro.">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Número</label>
+                        <input type="text" class="form-control" formControlName="numero" placeholder="Numero.">
+                    </div>
+                  </div> 
+                  <div class="form-row">
+                      <div class="form-group col-md-5">
+                          <label>Bairro</label>
+                          <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro.">
+                        </div>
+                        <div class="form-group col-md-5">
+                          <label>Cidade</label>
+                          <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade.">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Estado</label>
+                            <select class="form-control" formControlName="uf">
+                                <option value="">Selecione</option>
+                                <option value="far fa-calendar-check">Ativo</option>
+                                <option value="fas fa-calendar-times">Finalizado</option>
+                              </select>
+                        </div>
+                  </div>
+                </div>
+              </div> 
+              <div>
+                  <div>
+                    <h5>Telefones</h5>
+                      <fieldset class="form-group">
+                        <legend class="d-flex justify-content-between capitalize">
+                          <button class="btn btn-sm btn-warning mb-1">remove</button>
+                        </legend>
+                        <div class="row"></div>
+                      </fieldset>
+                  </div>
+                  <button class="btn btn-outline-primary">
+                    Adicionar Telefone
+                  </button> 
+                </div> 
+        </tab>
+        <tab heading="Equipamentos">
+          <div>
+            <div>
+              <fieldset class="form-group">
+                <legend class="d-flex justify-content-between capitalize">
+                  {{ "Equipamentos" }}
+                  <button class="btn btn-sm btn-warning mb-1">remove</button>
+                </legend>
+                <div class="row"></div>
+              </fieldset>
+            </div>
+            <button class="btn btn-outline-primary">
+              Adicionar Equipamento
+            </button>
+          </div>
+        </tab>
+
+         
+      </tabset>
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-end">
+          <!-- {{registerForm.value | json}} -->
+          <button [disabled]="!registerForm.valid" class="btn btn-success my-2">
+            Salvar Alterações
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

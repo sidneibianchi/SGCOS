@@ -21,6 +21,7 @@
       <th>CPF/CNPJ</th>
       <th>Telefone</th>
       <th>Opções</th>
+      <th>Dados do Cliente</th>
     </tr>
   </thead>
   <tbody *ngIf="clientes">
@@ -46,6 +47,10 @@
           <i class="fa fa-eraser"></i>
         </button>
       </div>
+      </td>
+      <td>
+          <a [routerLink]="['/cliente', cliente.id, 'edit']" tooltip="Edição detalhada" class="btn btn-sm btn-warning">
+          <i class="fa fa-edit"></i></a>
       </td> 
     </tr>
   </tbody>

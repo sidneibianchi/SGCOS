@@ -22,6 +22,7 @@
       <th>Observação</th>
       <th>Status</th>
       <th>Opções</th>
+      <th>Edicao</th>
     </tr>
   </thead>
   <tbody *ngIf="chamados">
@@ -42,6 +43,11 @@
         </button>
       </div>
       </td> 
+      <td>
+        <a [routerLink]="['/chamado', chamado.id, 'edit']" tooltip="Edição detalhada" class="btn btn-sm btn-warning">
+          <i class="fa fa-edit"></i>
+        </a>
+      </td>
     </tr>
   </tbody>
   <tfoot *ngIf="!chamados">
