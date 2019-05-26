@@ -6,6 +6,6 @@ export interface Servico {
     observacao: string;
     dtAtendimento: Date;
     valorServico: number;
-    status: boolean;
+    qtdDiasGarantia: number;
     equipamentoId: number;
 }

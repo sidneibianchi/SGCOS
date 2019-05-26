@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SGCOS.Domain
@@ -13,5 +14,6 @@ namespace SGCOS.Domain
         public Cliente Cliente { get; set; }
         public List<Servico> Servicos { get; set; }
         public List<ChamadoEquipamento> ChamadosEquipamentos { get; set; }
+
     }
 }

@@ -9,7 +9,7 @@ namespace SGCOS.WebAPI.Dtos
         public string Observacao { get; set; }
         public string DtAtendimento { get; set; }
         public decimal ValorServico { get; set; }
-        public bool Status { get; set; }
+        public int QtdDiasGarantia { get; set; }
         public EquipamentoDto Equipamento { get; set; }
     }
 }

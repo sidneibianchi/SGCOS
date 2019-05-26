@@ -11,8 +11,25 @@ namespace SGCOS.Domain
         public string Observacao { get; set; }
         public DateTime DtAtendimento { get; set; }
         public decimal ValorServico { get; set; }
-        public bool Status { get; set; }
+        public int QtdDiasGarantia { get; set; }          
         public int EquipamentoId { get; set; }
         public Equipamento Equipamento { get; set; }
+
+        public bool VerificaGarantia()
+        {
+            bool ret = false;
+
+            try
+            {
+                if (DtAtendimento.AddDays(QtdDiasGarantia) > DateTime.Now)
+                        return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao verificar a garantia " + ex.Message);
+            }
+
+            return ret;
+        } 
     }
 }
