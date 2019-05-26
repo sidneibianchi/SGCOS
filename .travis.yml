@@ -1,5 +1,8 @@
 language: csharp
-mono: none
-dotnet: 2.2.202
+solution: SGCOS.sln
+install:
+  - nuget restore SGCOS.sln
+  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
 script:
- - dotnet restore
+  - msbuild /p:Configuration=Debug SGCOS.sln
+  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./NUnitTestSGCOS.csproj/bin/Debug/NUnitTestSGCOS.Tests.dll
