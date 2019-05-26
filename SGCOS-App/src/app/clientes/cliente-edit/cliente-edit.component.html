@@ -42,8 +42,8 @@
                 </div>
               </div>
               <hr>
-              <div>
-                <div>
+              <div >
+                <div formGroupName="endereco" class="form-group">
                   <h5>Endereço</h5>
                   <div class="form-row">
                     <div class="form-group col-md-2">
@@ -61,57 +61,87 @@
                   </div> 
                   <div class="form-row">
                       <div class="form-group col-md-5">
-                          <label>Bairro</label>
-                          <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro.">
-                        </div>
-                        <div class="form-group col-md-5">
-                          <label>Cidade</label>
-                          <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade.">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label>Estado</label>
-                            <select class="form-control" formControlName="uf">
-                                <option value="">Selecione</option>
-                                <option value="far fa-calendar-check">Ativo</option>
-                                <option value="fas fa-calendar-times">Finalizado</option>
-                              </select>
-                        </div>
+                        <label>Bairro</label>
+                        <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro.">
+                      </div>
+                      <div class="form-group col-md-5">
+                        <label>Cidade</label>
+                        <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade.">
+                      </div>
+                      <div class="form-group col-md-2">
+                        <label>Estado</label>
+                          <select class="form-control" formControlName="uf">
+                            <option value="">Selecione</option>
+                            <option value="far fa-calendar-check">Ativo</option>
+                            <option value="fas fa-calendar-times">Finalizado</option>
+                           </select>
+                      </div>
                   </div>
                 </div>
               </div> 
               <div>
-                  <div>
+                <div formArrayName="telefones" *ngFor="let telefone of telefones.controls; let i=index" >
+                  <div [formGroupName]="i" class="form-group">
                     <h5>Telefones</h5>
-                      <fieldset class="form-group">
-                        <legend class="d-flex justify-content-between capitalize">
-                          <button class="btn btn-sm btn-warning mb-1">remove</button>
-                        </legend>
-                        <div class="row"></div>
-                      </fieldset>
-                  </div>
-                  <button class="btn btn-outline-primary">
-                    Adicionar Telefone
-                  </button> 
-                </div> 
+                    <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label>Numero</label>
+                        <input type="text" class="form-control" formControlName="numero" placeholder="Número.">
+                    </div>
+                    <div class="form-group col-md-2">
+                          <label>Tipo</label>
+                          <select class="form-control" formControlName="tipo">
+                              <option value="">Selecione</option>
+                              <option value="1">Celular</option>
+                              <option value="2">Comercial</option>
+                           </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                      <br>
+                      <button type="button" class="btn btn-outline-danger mt-2" (click)="removerTelefone(i)">Remover</button>
+                    </div>
+                    </div> 
+                </div>
+            </div>
+            <button class="btn btn-outline-primary" (click)="adicionarTelefone();">
+                Adicionar Telefone
+              </button> 
+              </div>
         </tab>
         <tab heading="Equipamentos">
           <div>
-            <div>
-              <fieldset class="form-group">
-                <legend class="d-flex justify-content-between capitalize">
-                  {{ "Equipamentos" }}
-                  <button class="btn btn-sm btn-warning mb-1">remove</button>
-                </legend>
-                <div class="row"></div>
-              </fieldset>
-            </div>
-            <button class="btn btn-outline-primary">
-              Adicionar Equipamento
-            </button>
+          <div formArrayName="equipamentos" *ngFor="let equipamento of equipamentos.controls; let i=index">
+            <div [formGroupName]="i" class="form-group"> 
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label>Numero de série</label>
+                      <input type="text" class="form-control" formControlName="nrSerie" placeholder="Numero.">
+                    </div>
+                    <div class="form-group col-md-5">
+                      <label>Marca</label>
+                      <input type="text" class="form-control" formControlName="marca" placeholder="Marca.">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label>Modelo</label>
+                        <input type="text" class="form-control" formControlName="modelo" placeholder="Modelo.">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Descrição</label>
+                        <input type="text" class="form-control" formControlName="descricao" placeholder="Descrição.">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-6" >
+                          <button class="btn btn-outline-danger" (click)="removerEquipamento(i)">Remover</button>
+                      </div>
+                  </div>
+              </div>
           </div>
+            <button class="btn btn-outline-primary" (click)="adicionarEquipamento();">Adicionar Equipamento</button>
+           </div>
         </tab>
-
-         
       </tabset>
       <div class="row">
         <div class="col-md-12 d-flex justify-content-end">

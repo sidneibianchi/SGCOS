@@ -1,8 +1,8 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChamadoService } from '../_services/Chamado.service';
 import { Chamado } from '../_models/Chamado';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -65,7 +65,6 @@ export class ChamadosComponent implements OnInit {
           this.toastr.success('Chamado excluido com sucesso!');
           }, error => {
             this.toastr.error('Erro ao tentar excluir chamado: ${ error}');
-            console.log(error);
           }
       );
     }
@@ -107,7 +106,6 @@ export class ChamadosComponent implements OnInit {
             this.getChamados();
             this.toastr.success('Chamado inserido com sucesso!');
           }, error => {
-            console.error();
             this.toastr.error('Erro ao incluir chamado: ${error}');
           });
         } else {
@@ -130,7 +128,6 @@ export class ChamadosComponent implements OnInit {
         this.chamados = Chamados;
         this.chamadoFiltrados = this.chamados;
          }, error => {
-           console.error();
            this.toastr.error('Erro ao tentar carregar chamado: ${error}');
       });
     }

@@ -16,7 +16,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteEditComponent } from './clientes/cliente-edit/cliente-edit.component';
 import { ChamadosComponent } from './chamados/chamados.component';
-import { ChamadoEditComponent } from './chamados/chamado-edit/chamado-edit.component';
 import { EquipamentosComponent } from './equipamentos/equipamentos.component';
 import { DateFormatPipePipe } from './_helps/DateFormatPipe.pipe';
 import { HourFormatPipePipe } from './_helps/HourFormatPipe.pipe';
@@ -32,7 +31,6 @@ import {NgxMaskModule} from 'ngx-mask';
       ClientesComponent,
       ClienteEditComponent,
       ChamadosComponent,
-      ChamadoEditComponent,
       EquipamentosComponent,
       DashboardComponent,
       TituloComponent

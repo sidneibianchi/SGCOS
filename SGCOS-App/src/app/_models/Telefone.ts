@@ -1,4 +1,4 @@
 export interface Telefone {
-    id:number;
-    numero:string;
+    id: number;
+    numero: string;
 }
