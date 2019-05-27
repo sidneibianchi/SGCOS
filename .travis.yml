@@ -1,6 +1,13 @@
+dist: xenial
 language: csharp
 solution: SGCOS.sln
 mono: none
 sudo: required
-dist: xenial
 dotnet: 2.2
+stages:
+  - build
+jobs:
+  include:
+    - stage: build
+      name: build solution
+      script: dotnet restore && dotnet build
