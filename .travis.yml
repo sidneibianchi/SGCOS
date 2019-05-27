@@ -9,4 +9,4 @@ linguagem : csharp
 mono : nenhum
 roteiro :
   - sudo snap alias dotnet-sdk.dotnet dotnet
-  - dotnet --version
+  - dotnet 2.2.202
