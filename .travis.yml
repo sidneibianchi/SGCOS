@@ -1,2 +1,12 @@
+dist: xenial
+addons:
+  snaps:
+  - name: dotnet-sdk
+    classic: true
+    channel: latest/beta
+sudo: required
 language: csharp
-solution: SGCOS.sln
+mono: none
+script:
+  - sudo snap alias dotnet-sdk.dotnet dotnet
+  - dotnet --version
