@@ -1,9 +1,12 @@
-language: csharp
-solution: SGCOS.sln
-
-matrix:
-  include:
-    - dotnet: 2.2.202
-      mono: none
-      env: DOTNETCORE=2  # optional, can be used to take different code paths in your script
-    - mono: latest
+dist : xenial
+addons :
+  snaps :
+  - nome : dotnet-sdk
+    clássico : true
+    canal : latest / beta
+sudo : obrigatório
+linguagem : csharp
+mono : nenhum
+roteiro :
+  - sudo snap alias dotnet-sdk.dotnet dotnet
+  - dotnet --version
