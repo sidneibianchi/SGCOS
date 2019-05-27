@@ -69,6 +69,7 @@ carregarCliente() {
       contato: ['', Validators.required],
       agencia: ['', Validators.required],
       endereco: this.fb.group({
+        id:[],
         cep: ['', Validators.required],
         logradouro: ['', Validators.required],
         numero: ['', Validators.required],
@@ -115,4 +116,14 @@ carregarCliente() {
     this.equipamentos.removeAt(id);
   }
 
-}
+  salvarCliente() {
+        this.cliente = Object.assign({id: this.cliente.id}, this.registerForm.value);
+        this.clienteService.putCliente(this.cliente).subscribe(
+          () => {
+            this.toastr.success('Cliente alterado com sucesso!');
+          }, error => {
+            this.toastr.error('Erro ao alterar cliente: ${error}');
+          });
+    }
+ }
+

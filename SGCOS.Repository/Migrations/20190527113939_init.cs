@@ -151,7 +151,7 @@ namespace SGCOS.Repository.Migrations
                     Observacao = table.Column<string>(nullable: true),
                     DtAtendimento = table.Column<DateTime>(nullable: false),
                     ValorServico = table.Column<decimal>(nullable: false),
-                    Status = table.Column<bool>(nullable: false),
+                    QtdDiasGarantia = table.Column<int>(nullable: false),
                     EquipamentoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

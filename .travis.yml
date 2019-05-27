@@ -3,7 +3,7 @@ language: csharp
 solution: SGCOS.sln
 mono: none
 sudo: required
-dotnet: 2.2.202
+dotnet: 2.2.203
 stages:
   - build
 jobs:

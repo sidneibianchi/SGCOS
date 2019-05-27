@@ -9,7 +9,7 @@ using SGCOS.Repository;
 namespace SGCOS.Repository.Migrations
 {
     [DbContext(typeof(SGCOSContext))]
-    [Migration("20190522225642_init")]
+    [Migration("20190527113939_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,9 +137,9 @@ namespace SGCOS.Repository.Migrations
 
                     b.Property<string>("PecasSubstituidas");
 
-                    b.Property<string>("ServicosExecutados");
+                    b.Property<int>("QtdDiasGarantia");
 
-                    b.Property<bool>("Status");
+                    b.Property<string>("ServicosExecutados");
 
                     b.Property<decimal>("ValorServico");
 
