@@ -1,38 +1,34 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using SGCOS.WebAPI.Dtos;
-using SGCOS.Domain;
-using SGCOS.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Net.Http.Headers;
+using SGCOS.Domain;
+using SGCOS.Repository;
+using SGCOS.WebAPI.Dtos;
 
 namespace SGCOS.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClienteController : ControllerBase
-    {/* 
+    public class EquipamentoController : ControllerBase
+    {
         public readonly ISGCOSRepository _repo;
         public readonly IMapper _mapper;
-        public ClienteController(ISGCOSRepository repo, IMapper mapper)
+        public EquipamentoController(ISGCOSRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
         }
 
-
-        // GET all
+         // GET all
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var clientes = await _repo.GetAllClienteAsync();
+                var equipamentos = await _repo.GetAllEquipamentoAsync();
 
-                var results = _mapper.Map<ClienteDto[]>(clientes);
+                var results = _mapper.Map<EquipamentoDto[]>(equipamentos);
 
                 return Ok(results);
             }
@@ -44,14 +40,14 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //GET Por Id
-        [HttpGet("{ClienteId}")]
-        public async Task<IActionResult> Get(int ClienteId)
+        [HttpGet("{EquipamentoId}")]
+        public async Task<IActionResult> Get(int EquipamentoId)
         {
             try
             {
-                var cliente = await _repo.GetAllClienteAsyncById(ClienteId);
+                var equipamento = await _repo.GetAllEquipamentoAsyncById(EquipamentoId);
 
-                var results = _mapper.Map<ClienteDto>(cliente);
+                var results = _mapper.Map<EquipamentoDto>(equipamento);
 
                 return Ok(results);
             }
@@ -63,14 +59,14 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //GET Por Nome
-        [HttpGet("getByNome/{nomeCliente}")]
-        public async Task<IActionResult> Get(string nomeCliente)
+        [HttpGet("getByNrSerie/{nrSerie}")]
+        public async Task<IActionResult> Get(string nrSerie)
         {
             try
             {
-                var cliente = await _repo.GetAllClienteAsyncByNome(nomeCliente);
+                var equipamento = await _repo.GetAllEquipamentoAsyncByNrSerie(nrSerie);
 
-                var results = _mapper.Map<ClienteDto>(cliente);
+                var results = _mapper.Map<EquipamentoDto>(equipamento);
 
                 return Ok(results);
             }
@@ -81,21 +77,19 @@ namespace SGCOS.WebAPI.Controllers
             }
         }
 
-        //Post Cliente
+        //Post Equipamento
         [HttpPost]
-        public async Task<IActionResult> Post(ClienteDto model)
+        public async Task<IActionResult> Post(EquipamentoDto model)
         {
             try
             {
-                
+                var equipamento = _mapper.Map<Equipamento>(model);    
 
-                var cliente = _mapper.Map<Cliente>(model);    
-
-                _repo.Add(cliente);
+                _repo.Add(equipamento);
 
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/cliente/{model.Id}", _mapper.Map<ClienteDto>(cliente));
+                    return Created($"/api/equipamento/{model.Id}", _mapper.Map<EquipamentoDto>(equipamento));
                 }
             }
             catch (System.Exception ex)
@@ -108,21 +102,21 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //Put 
-        [HttpPut("{ClienteId}")]
-        public async Task<IActionResult> Put(int ClienteId, ClienteDto model)
+        [HttpPut("{EquipamentoId}")]
+        public async Task<IActionResult> Put(int EquipamentoId, EquipamentoDto model)
         {
             try
             {
-                var cliente = await _repo.GetAllClienteAsyncById(ClienteId);
-                if (cliente == null) return NotFound();
+                var equipamento = await _repo.GetAllEquipamentoAsyncById(EquipamentoId);
+                if (equipamento == null) return NotFound();
 
-                _mapper.Map(model, cliente);
+                _mapper.Map(model, equipamento);
 
-                _repo.Update(cliente);
+                _repo.Update(equipamento);
 
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/cliente/{model.Id}", _mapper.Map<ClienteDto>(cliente));
+                    return Created($"/api/equipamento/{model.Id}", _mapper.Map<EquipamentoDto>(equipamento));
                 }
             }
             catch (System.Exception ex)
@@ -135,15 +129,15 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //Delete 
-        [HttpDelete("{ClienteId}")]
-        public async Task<IActionResult> Delete(int ClienteId)
+        [HttpDelete("{EquipamentoId}")]
+        public async Task<IActionResult> Delete(int EquipamentoId)
         {
             try
             {
-                var cliente = await _repo.GetAllClienteAsyncById(ClienteId);
-                if (cliente == null) return NotFound();
+                var equipamento = await _repo.GetAllEquipamentoAsyncById(EquipamentoId);
+                if (equipamento == null) return NotFound();
 
-                _repo.Delete(cliente);
+                _repo.Delete(equipamento);
 
                 if (await _repo.SaveChangesAsync())
                 {
@@ -157,7 +151,8 @@ namespace SGCOS.WebAPI.Controllers
             }
 
             return BadRequest();
-        }*/
+        }
 
-    } 
+
+    }
 }

@@ -20,7 +20,8 @@ import { EquipamentosComponent } from './equipamentos/equipamentos.component';
 import { DateFormatPipePipe } from './_helps/DateFormatPipe.pipe';
 import { HourFormatPipePipe } from './_helps/HourFormatPipe.pipe';
 import { TituloComponent } from './_shared/titulo/titulo.component';
-import {NgxMaskModule} from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
+import { ServicosComponent } from './servicos/servicos.component';
 
 @NgModule({
    declarations: [
@@ -33,7 +34,8 @@ import {NgxMaskModule} from 'ngx-mask';
       ChamadosComponent,
       EquipamentosComponent,
       DashboardComponent,
-      TituloComponent
+      TituloComponent,
+      ServicosComponent
    ],
    imports: [
       BrowserModule,
@@ -45,7 +47,7 @@ import {NgxMaskModule} from 'ngx-mask';
       ToastrModule.forRoot(),
       BsDropdownModule.forRoot(),
       ModalModule.forRoot(),
-      TabsModule .forRoot(),
+      TabsModule.forRoot(),
       TooltipModule.forRoot(),
       BsDatepickerModule.forRoot(),
       NgxMaskModule.forRoot()

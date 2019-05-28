@@ -1,3 +1,131 @@
-<p>
-  equipamentos works!
-</p>
+<br>
+<app-titulo [titulo]=titulo></app-titulo>
+<div class="d-flex">
+  <div class="form-inline mr-auto" action="">
+    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
+        [(ngModel)]="filtroLista">
+    </div>
+  </div>
+  <button class="btn btn-outline-primary" (click)="novoEquipamento(template)">
+    <i class="fa fa-plus-circle"></i>&nbsp;
+    Novo Equipamento
+  </button>
+</div>
+<br>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Nr Série</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Opções</th> 
+      <th>Serviços</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="equipamentos">
+    <tr *ngFor="let equipamento of equipamentoFiltrados">
+      <td>{{equipamento.id}}</td>
+      <td>{{equipamento.nrSerie | uppercase}}</td>
+      <td>{{equipamento.marca | uppercase}}</td>
+      <td>{{equipamento.modelo | uppercase}}</td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarEquipamento(equipamento, template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirEquipamento(equipamento, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
+      </td>
+      <td>
+        <a [routerLink]="['/servico', equipamento.id, 'edit']" tooltip="Cadastrar serviços" class="btn btn-sm btn-warning">
+          <i class="fa fa-edit"></i></a>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!equipamentos">
+    <tr>
+      <td colspan="7" class="text-center">
+        <h4>Nenhum equipamento encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Equipamentos</h4>
+        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerForm">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label>Número de Série</label>
+                      <input type="text" class="form-control" formControlName="nrSerie" placeholder="Número de Série.">
+                    </div>
+                    <div class="form-group col-md-9">
+                      <label>Marca</label>
+                      <input type="text" class="form-control" formControlName="marca" placeholder="Marca">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>Modelo</label>
+                      <input type="text" class="form-control" formControlName="modelo" placeholder="Modelo.">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label>Descrição</label>
+                      <input type="text" class="form-control" formControlName="descricao" placeholder="Descrição.">
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="template.hide()">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarEquipamento(template)">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          Deletando Equipamento
+        </h4>
+        <button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{bodyDeletarEquipamento}}</p>
+      </div>
+      <div class="modal-footer btn-group d-flex">
+        <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+          CANCELAR
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          DELETAR
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

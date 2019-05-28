@@ -35,7 +35,7 @@ namespace SGCOS.Repository
         
         #endregion
 
-        #region Cliente
+       /*  #region Cliente
 
         public async Task<Cliente[]> GetAllClienteAsync()
         {
@@ -78,7 +78,7 @@ namespace SGCOS.Repository
 
         #endregion
 
-        #region Chamado
+        #region Chamado 
 
         public async Task<Chamado[]> GetAllChamadoAsync()
         {
@@ -116,6 +116,81 @@ namespace SGCOS.Repository
             return await query.FirstOrDefaultAsync();
         }
         
+        #endregion
+
+*/
+        #region Equipamento
+
+        public async Task<Equipamento[]> GetAllEquipamentoAsync()
+        {
+            IQueryable<Equipamento> query = _context.Equipamentos
+                               .Include(e => e.Servicos);               
+               
+            query = query.AsNoTracking()
+                        .OrderBy(e => e.Id);
+
+            return await query.ToArrayAsync();
+        }
+        public async Task<Equipamento> GetAllEquipamentoAsyncById(int equipamentoId)
+        {
+            IQueryable<Equipamento> query = _context.Equipamentos
+                             .Include(e => e.Servicos);              
+               
+
+            query = query.AsNoTracking()
+                        .OrderBy(e => e.Id)
+                        .Where(e => e.Id == equipamentoId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+        public async Task<Equipamento> GetAllEquipamentoAsyncByNrSerie(string nrSerie)
+        {
+            IQueryable<Equipamento> query = _context.Equipamentos
+                .Include(e => e.Servicos);
+                             
+                query = query.AsNoTracking()
+                         .OrderBy(e => e.Id)
+                         .Where(e => e.NrSerie == nrSerie);
+                         
+            return await query.FirstOrDefaultAsync();
+        }
+
+        #endregion
+
+        #region Servicos 
+        public async Task<Servico[]> GetAllServicoAsync()
+        {
+            IQueryable<Servico> query = _context.Servicos;               
+               
+            query = query.AsNoTracking()
+                        .OrderBy(s => s.Id);
+
+            return await query.ToArrayAsync();
+        }
+
+        public async Task<Servico> GetAllServicoAsyncById(int servicoId)
+        {
+           IQueryable<Servico> query = _context.Servicos;              
+               
+
+            query = query.AsNoTracking()
+                        .OrderBy(e => e.Id)
+                        .Where(e => e.Id == servicoId);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<Servico[]> GetAllServicoAsyncByEquipamento(string equipamentoId)
+        {
+            IQueryable<Servico> query = _context.Servicos;
+                             
+                query = query.AsNoTracking()
+                         .OrderBy(s => s.Id)
+                         .Where(s => s.EquipamentoId == Convert.ToInt32(equipamentoId ));
+                         
+            return await query.ToArrayAsync();
+        }
+
         #endregion
     }
 }

@@ -10,10 +10,7 @@ namespace SGCOS.Domain
         public string Descricao { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
-        public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
         public List<Servico> Servicos { get; set; }
-        public List<ChamadoEquipamento> ChamadosEquipamentos { get; set; }
 
     }
 }

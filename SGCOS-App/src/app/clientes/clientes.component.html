@@ -1,15 +1,15 @@
 <br>
 <app-titulo [titulo]=titulo></app-titulo>
 <div class="d-flex">
-<div class="form-inline mr-auto" action="">
-  <div class="form-group mb-2" ><input type="text" class="form-control mr-2" placeholder="Filtrar"
-      [(ngModel)]="filtroLista">
+  <div class="form-inline mr-auto" action="">
+    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
+        [(ngModel)]="filtroLista">
+    </div>
   </div>
-</div>
-<button class="btn btn-outline-primary" (click)="novoCliente(template)">
-  <i class="fa fa-plus-circle"></i>&nbsp;
-  Novo Cliente
-</button>  
+  <button class="btn btn-outline-primary" (click)="novoCliente(template)">
+    <i class="fa fa-plus-circle"></i>&nbsp;
+    Novo Cliente
+  </button>
 </div>
 <br>
 <table class="table table-striped">
@@ -18,7 +18,6 @@
       <th>#</th>
       <th>Nome</th>
       <th>Contato</th>
-      <th>CPF/CNPJ</th>
       <th>Telefone</th>
       <th>Opções</th>
       <th>Dados do Cliente</th>
@@ -29,29 +28,28 @@
       <td>{{cliente.id}}</td>
       <td>{{cliente.nome | uppercase}}</td>
       <td>{{cliente.contato | uppercase}}</td>
-      <td>{{cliente.cpF_CNPJ | uppercase}}</td>
       <td>
-        <div *ngIf="!cliente.telefones.length" >
+        <div *ngIf="!cliente.telefones.length">
           Não Informado
         </div>
-        <div *ngIf="cliente.telefones.length" >
+        <div *ngIf="cliente.telefones.length">
           {{cliente.telefones[0].numero}}
         </div>
       </td>
       <td>
         <div class="btn-group">
-        <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente, template)">
-          <i class="fa fa-edit"></i>
-        </button>
-        <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirCliente(cliente, confirm)">
-          <i class="fa fa-eraser"></i>
-        </button>
-      </div>
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente, template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirCliente(cliente, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
       </td>
       <td>
-          <a [routerLink]="['/cliente', cliente.id, 'edit']" tooltip="Edição detalhada" class="btn btn-sm btn-warning">
+        <a [routerLink]="['/cliente', cliente.id, 'edit']" tooltip="Edição detalhada" class="btn btn-sm btn-warning">
           <i class="fa fa-edit"></i></a>
-      </td> 
+      </td>
     </tr>
   </tbody>
   <tfoot *ngIf="!clientes">
@@ -63,8 +61,7 @@
   </tfoot>
 </table>
 
-<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -74,43 +71,133 @@
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="registerForm">  
-          <div class="form-row">
-            <div class="form-group col-md-3">
-              <label>CPF/CNPJ</label>
-              <input type="text" 
-              [ngClass]="{'is-invalid': registerForm.get('cpF_CNPJ').errors && registerForm.get('cpF_CNPJ').touched}"
-              class="form-control" formControlName="cpF_CNPJ" placeholder="CPF/CNPJ.">
-              <div class="invalid-feedback">
-                O CPF/CNPJ é obrigatório.
+        <form [formGroup]="registerForm">
+          <div class="row">
+            <div class="col-md-12">
+              <tabset>
+                <tab heading="Cliente">
+                  <div class="form-row">
+                    <div class="form-group col-md-3">
+                      <label>CPF/CNPJ</label>
+                      <input type="text" class="form-control" formControlName="cpfCnpj" placeholder="CPF/CNPJ.">
+                    </div>
+                    <div class="form-group col-md-9">
+                      <label>Nome</label>
+                      <input type="text" class="form-control" formControlName="nome" placeholder="Nome">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label>Contato</label>
+                      <input type="text" class="form-control" formControlName="contato" placeholder="Contato.">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label>E-mail</label>
+                      <input type="text" class="form-control" formControlName="email" placeholder="E-mail.">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <label>Complemento</label>
+                      <input type="text" class="form-control" formControlName="complemento" placeholder="Complemento.">
+                    </div>
+                  </div>
+                </tab>
+                <tab heading="Endereco">
+                <div formGroupName="endereco" class="form-group">
+                  <h5>Endereço</h5>
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label>CEP</label>
+                      <input type="text" class="form-control" formControlName="cep" placeholder="Cep.">
+                    </div>
+                    <div class="form-group col-md-8">
+                      <label>Logradouro</label>
+                      <input type="text" class="form-control" formControlName="logradouro" placeholder="Logradouro.">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label>Número</label>
+                      <input type="text" class="form-control" formControlName="numero" placeholder="Numero.">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-5">
+                        <label>Bairro</label>
+                        <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro.">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label>Cidade</label>
+                        <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade.">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Estado</label>
+                          <select class="form-control" formControlName="uf" data-search="false" >
+                            <option value="">Selecione</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                           </select>
+                      </div>
+                  </div>
+                </div>
+                </tab>
+                <tab heading="telefones">
+                <div>
+                <div formArrayName="telefones" *ngFor="let telefone of telefones.controls; let i=index" >
+                  <div [formGroupName]="i" class="form-group">
+                    <h5>Telefones</h5>
+                    <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label>Numero</label>
+                        <input type="text" class="form-control" formControlName="numero" placeholder="Número.">
+                    </div>
+                    <div class="form-group col-md-2">
+                          <label>Tipo</label>
+                          <select class="form-control" formControlName="tipo">
+                              <option value="">Selecione</option>
+                              <option value="1">Celular</option>
+                              <option value="2">Comercial</option>
+                           </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                      <br>
+                      <button type="button" class="btn btn-outline-danger mt-2" (click)="removerTelefone(i)">Remover</button>
+                    </div>
+                    </div> 
+                </div>
+            </div>
+            <button class="btn btn-outline-primary" (click)="adicionarTelefone();">
+                Adicionar Telefone
+              </button> 
               </div>
+                </tab>
+              </tabset>
             </div>
-            <div class="form-group col-md-9">
-              <label>Nome</label>
-              <input type="text"  
-              [ngClass]="{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}"
-              class="form-control" formControlName="nome" placeholder="Nome">
-              <div class="invalid-feedback">
-                O Nome é obrigatório.
-              </div>
-            </div>
-          </div>  
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Contato</label>
-              <input type="text" class="form-control" formControlName="contato" placeholder="Contato.">
-            </div>
-            <div class="form-group col-md-6">
-              <label>E-mail</label>
-              <input type="text" class="form-control" formControlName="email" placeholder="E-mail.">
-            </div>
-          </div> 
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label>Agência / Complemento</label>
-              <input type="text" class="form-control" formControlName="agencia" placeholder="Agêcia.">
-            </div>
-          </div>  
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex">
@@ -126,27 +213,27 @@
 </div>
 
 <div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-	<div class="modal-dialog modal-sm">
-  		<div class="modal-content">
-    		<div class="modal-header">
-      			<h4 class="modal-title pull-left">
-        			Deletando Cliente
-      			</h4>
-      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
-        			<span aria-hidden="true">&times;</span>
-      			</button>
-    		</div>
-    		<div class="modal-body">
-      			<p>{{bodyDeletarCliente}}</p>
-    		</div>    
-    		<div class="modal-footer btn-group d-flex">      
-      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-        			CANCELAR
-      			</button>
-      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
-          		DELETAR
-        		</button>
-    		</div>
-  		</div>
-	</div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">
+          Deletando Cliente
+        </h4>
+        <button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{bodyDeletarCliente}}</p>
+      </div>
+      <div class="modal-footer btn-group d-flex">
+        <button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+          CANCELAR
+        </button>
+        <button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          DELETAR
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -12,7 +12,7 @@ namespace SGCOS.Repository
         Task<bool> SaveChangesAsync();
         #endregion
 
-       
+       /*
         #region Cliente
         Task<Cliente[]> GetAllClienteAsync();
         Task<Cliente> GetAllClienteAsyncById(int clienteId);
@@ -23,6 +23,20 @@ namespace SGCOS.Repository
         Task<Chamado[]> GetAllChamadoAsync();
         Task<Chamado> GetAllChamadoAsyncById(int chamadoId);
         Task<Chamado> GetAllChamadoAsyncByClienteId(int clienteId);
+
+        #endregion*/
+
+        #region Equipamento
+        Task<Equipamento[]> GetAllEquipamentoAsync();
+        Task<Equipamento> GetAllEquipamentoAsyncById(int equipamentoId);
+        Task<Equipamento> GetAllEquipamentoAsyncByNrSerie(string nrSerie);
+
+        #endregion
+
+        #region Servico
+        Task<Servico[]> GetAllServicoAsync();
+        Task<Servico> GetAllServicoAsyncById(int equipamentoId);
+        Task<Servico[]> GetAllServicoAsyncByEquipamento(string equipamentoId);
 
         #endregion
     }

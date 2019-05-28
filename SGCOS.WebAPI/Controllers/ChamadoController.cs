@@ -12,7 +12,7 @@ namespace SGCOS.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ChamadoController: ControllerBase
-    {
+    {/*
         public readonly ISGCOSRepository _repo;
         public readonly IMapper _mapper;
         public ChamadoController(ISGCOSRepository repo, IMapper mapper)
@@ -134,6 +134,6 @@ namespace SGCOS.WebAPI.Controllers
             }
 
             return BadRequest();
-        }
+        }*/
     }
 }
