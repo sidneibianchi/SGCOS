@@ -56,7 +56,6 @@ export class ServicosComponent implements OnInit {
     this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
     this.getServicosPorEquipamento(this.idEquipamento.toString());
     this.validation();
-    this.comparaDatas('05/05/2019', 30);
   }
 
   novoServico(template: any) {
