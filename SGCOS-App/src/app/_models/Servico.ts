@@ -8,4 +8,5 @@ export interface Servico {
     valorServico: number;
     qtdDiasGarantia: number;
     equipamentoId: number;
+    garantia: boolean;
 }

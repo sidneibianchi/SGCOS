@@ -27,11 +27,24 @@
       <td>{{servico.id}}</td>
       <td>{{servico.dtAtendimento | DateFormatPipe}}</td>
       <td>{{servico.qtdDiasGarantia}}</td>
-        <td>
-          <div *ngIf="servico.dtAtendimento.getUTCDate != servico.dtAtendimento">
-              
-          </div>
-        </td>
+      <td>
+        <div *ngIf="servico.garantia">
+         <h3>
+           <span class="badge badge-success">
+              <i class="fa fa-thumbs-up"></i>&nbsp; 
+              Garantia
+            </span>
+          </h3>
+        </div>
+        <div *ngIf="!servico.garantia">
+          <h3>
+            <span class="badge badge-danger">
+              <i class="fa fa-thumbs-down"></i>&nbsp;
+              Garantia
+            </span>
+          </h3>
+        </div>
+      </td>
       <td>
         <div class="btn-group">
           <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarServico(servico, template)">

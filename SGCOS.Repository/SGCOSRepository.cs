@@ -124,8 +124,8 @@ namespace SGCOS.Repository
         public async Task<Equipamento[]> GetAllEquipamentoAsync()
         {
             IQueryable<Equipamento> query = _context.Equipamentos
-                               .Include(e => e.Servicos);               
-               
+                               .Include(e => e.Servicos);     
+                                
             query = query.AsNoTracking()
                         .OrderBy(e => e.Id);
 

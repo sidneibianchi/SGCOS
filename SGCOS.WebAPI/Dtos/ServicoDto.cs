@@ -11,6 +11,7 @@ namespace SGCOS.WebAPI.Dtos
         public decimal ValorServico { get; set; }
         public int QtdDiasGarantia { get; set; }
         public int EquipamentoId { get; set; }
+        public bool Garantia { get; set; }
         
     }
 }

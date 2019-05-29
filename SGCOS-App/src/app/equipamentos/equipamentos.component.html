@@ -19,7 +19,8 @@
       <th>Nr Série</th>
       <th>Marca</th>
       <th>Modelo</th>
-      <th>Opções</th> 
+      <th>Editar</th>
+      <th>Excluir</th>
       <th>Serviços</th>
     </tr>
   </thead>
@@ -30,18 +31,19 @@
       <td>{{equipamento.marca | uppercase}}</td>
       <td>{{equipamento.modelo | uppercase}}</td>
       <td>
-        <div class="btn-group">
-          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarEquipamento(equipamento, template)">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirEquipamento(equipamento, confirm)">
-            <i class="fa fa-eraser"></i>
-          </button>
-        </div>
+        <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarEquipamento(equipamento, template)">
+          <i class="fa fa-edit"></i>
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirEquipamento(equipamento, confirm)">
+          <i class="fa fa-eraser"></i>
+        </button>
       </td>
       <td>
         <a [routerLink]="['/servico', equipamento.id, 'edit']" tooltip="Cadastrar serviços" class="btn btn-sm btn-warning">
-          <i class="fa fa-edit"></i></a>
+          <i class="fa fa-eye"></i>
+        </a>
       </td>
     </tr>
   </tbody>
