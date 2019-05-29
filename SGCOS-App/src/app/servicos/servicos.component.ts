@@ -82,24 +82,6 @@ export class ServicosComponent implements OnInit {
     });
   }
 
-
-  comparaDatas(dataServico: string, qtdDias: number) {
-
-    this.dataAtual.setDate(Date.apply(dataServico) + qtdDias);
-    const dtAtual = new Date();
-
-    dtAtual.setDate(dtAtual.getDate() + qtdDias);
-
-    console.log(dtAtual.toDateString);
-
-    console.log(Date.parse(dtAtual.toString()));
-
-    if (dtAtual > this.dataAtual) {
-      console.log('maior');
-    }
-  }
-
-
   editarServico(servico: Servico, template: any) {
     this.modoSalvar = 'put';
     this.openModal(template);
