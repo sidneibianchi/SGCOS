@@ -83,7 +83,7 @@ export class ServicosComponent implements OnInit {
   }
 
 
-  comparaDatas(dataServico: string, qtdDias: number){
+  comparaDatas(dataServico: string, qtdDias: number) {
 
     this.dataAtual.setDate(Date.apply(dataServico) + qtdDias);
     const dtAtual = new Date();
@@ -94,7 +94,7 @@ export class ServicosComponent implements OnInit {
 
     console.log(Date.parse(dtAtual.toString()));
 
-    if (dtAtual > this.dataAtual){
+    if (dtAtual > this.dataAtual) {
       console.log('maior');
     }
   }

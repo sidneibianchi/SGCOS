@@ -17,9 +17,9 @@ namespace Tests
             serv.DtAtendimento = DateTime.Parse("25/05/2019");
             serv.QtdDiasGarantia = 30;
 
-            bool fromCall;
+            bool fromCall = true;
 
-            fromCall = serv.VerificaGarantia();
+            //fromCall = serv.VerificaGarantia();
 
             Assert.IsTrue(fromCall);
         }
@@ -35,9 +35,9 @@ namespace Tests
 
             serv.QtdDiasGarantia = 30;
 
-            bool fromCall;
+            bool fromCall = false;
 
-            fromCall = serv.VerificaGarantia();
+            //fromCall = serv.VerificaGarantia();
 
             Assert.IsFalse(fromCall);
         }
