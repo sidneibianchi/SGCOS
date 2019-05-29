@@ -29,7 +29,7 @@ namespace SGCOS.Repository
         #region Equipamento
         Task<Equipamento[]> GetAllEquipamentoAsync();
         Task<Equipamento> GetAllEquipamentoAsyncById(int equipamentoId);
-        Task<Equipamento> GetAllEquipamentoAsyncByNrSerie(string nrSerie);
+        Task<Equipamento[]> GetAllEquipamentoAsyncByNrSerie(string nrSerie);
 
         #endregion
 

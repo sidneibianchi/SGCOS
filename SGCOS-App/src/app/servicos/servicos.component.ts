@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ServicoService } from '../_services/Servico.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { Servico } from '../_models/Servico';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-servicos',
@@ -8,11 +14,159 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ServicosComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  titulo = 'Serviços';
+  servicoFiltrados: Servico[];
+  servicos: Servico[];
+  servico: Servico;
+  bodyDeletarServico = '';
+  modoSalvar = 'post';
+  FiltroLista: string;
+  registerForm: FormGroup;
+  idEquipamento: number;
+
+  dataAtual: Date = new Date();
+
+
+    constructor(private servicoService: ServicoService,
+                private modalService: BsModalService,
+                private fb: FormBuilder,
+                private toastr: ToastrService,
+                private route: ActivatedRoute) { }
+
+
+
+  get filtroLista(): string {
+    return this.FiltroLista;
+  }
+
+  set filtroLista(value: string) {
+    this.FiltroLista = value;
+    this.servicoFiltrados = this.filtroLista ? this.filtrarServicos(this.filtroLista) : this.servicos;
+  }
+
+  filtrarServicos(filtrarPor: string): Servico[] {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.servicos.filter(
+      servico => servico.observacao.toLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
+
 
   ngOnInit() {
-    const idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
-    console.log(idEquipamento);
+    this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
+    this.getServicosPorEquipamento(this.idEquipamento.toString());
+    this.validation();
+    this.comparaDatas('05/05/2019', 30);
+  }
+
+  novoServico(template: any) {
+    this.modoSalvar = 'post';
+    this.openModal(template);
+  }
+
+  openModal(template: any) {
+    this.registerForm.reset();
+    template.show();
+  }
+
+  validation() {
+    this.registerForm = this.fb.group({
+      dtAtendimento: [''],
+      qtdDiasGarantia: [''],
+      defeito: [''],
+      servicosExecutados: [''],
+      pecasSubstituidas: [''],
+      observacao: [''],
+      valorServico: [''],
+      equipamentoId: ['']
+    });
+  }
+
+
+  comparaDatas(dataServico: string, qtdDias: number){
+
+    this.dataAtual.setDate(Date.apply(dataServico) + qtdDias);
+    const dtAtual = new Date();
+
+    dtAtual.setDate(dtAtual.getDate() + qtdDias);
+
+    console.log(dtAtual.toDateString);
+
+    console.log(Date.parse(dtAtual.toString()));
+
+    if (dtAtual > this.dataAtual){
+      console.log('maior');
+    }
+  }
+
+
+  editarServico(servico: Servico, template: any) {
+    this.modoSalvar = 'put';
+    this.openModal(template);
+    this.servico = Object.assign({}, servico);
+    console.log(servico);
+    this.registerForm.patchValue(this.servico);
+  }
+
+  excluirServico(servico: Servico, template: any) {
+    this.openModal(template);
+    this.servico = servico;
+    this.bodyDeletarServico = `Tem certeza que deseja excluir o servico: ${servico.id}`;
+  }
+
+  confirmeDelete(template: any) {
+    this.servicoService.deleteServico(this.servico.id).subscribe(
+      () => {
+        template.hide();
+        this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
+        this.toastr.success('Servico excluido com sucesso!');
+      }, error => {
+        this.toastr.error('Erro ao tentar excluir servico: ${error}');
+        console.log(error);
+      }
+    );
+  }
+
+  salvarServico(template: any) {
+    if (this.registerForm.valid) {
+        if (this.modoSalvar === 'post') {
+        this.servico = Object.assign({}, this.registerForm.value);
+        this.servico.equipamentoId = this.idEquipamento;
+        console.log(this.servico);
+        this.servicoService.postServico(this.servico).subscribe(
+          (novoServico: Servico) => {
+            template.hide();
+            this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
+            this.toastr.success('Servico inserido com sucesso!');
+          }, error => {
+            this.toastr.error('Erro ao incluir servico: ${error}');
+          });
+      } else {
+        this.servico = Object.assign({ id: this.servico.id }, this.registerForm.value);
+        console.log(this.servico);
+        this.servicoService.putServico(this.servico).subscribe(
+          () => {
+            template.hide();
+            this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
+            this.toastr.success('Servico alterado com sucesso!');
+          }, error => {
+            console.log(error);
+            this.toastr.error('Erro ao alterar servico: ${error}');
+          });
+      }
+    }
+  }
+
+  getServicosPorEquipamento(idEquipamento: string) {
+    this.servicoService.getServicoByEquipamento(idEquipamento).subscribe(
+      (Servicos: Servico[]) => {
+        this.servicos = Servicos;
+        this.servicoFiltrados = this.servicos;
+        console.log(this.servicos);
+      }, error => {
+        console.log(error);
+        this.toastr.error('Erro ao tentar carregar servicos: ${error}');
+      });
   }
 
 }

@@ -1,3 +1,145 @@
-<p>
-  servicos works!
-</p>
+<br>
+<app-titulo [titulo]=titulo></app-titulo>
+<div class="d-flex">
+  <div class="form-inline mr-auto" action="">
+    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
+        [(ngModel)]="filtroLista">
+    </div>
+  </div>
+  <button class="btn btn-outline-primary" (click)="novoServico(template)">
+    <i class="fa fa-plus-circle"></i>&nbsp;
+    Novo Serviço
+  </button>
+</div>
+<br>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Data Atendimento</th>
+      <th>Dias de Garantia</th>
+      <th>Status</th>
+      <th>Opções</th> 
+    </tr>
+  </thead>
+  <tbody *ngIf="servicos">
+    <tr *ngFor="let servico of servicoFiltrados">
+      <td>{{servico.id}}</td>
+      <td>{{servico.dtAtendimento | DateFormatPipe}}</td>
+      <td>{{servico.qtdDiasGarantia}}</td>
+        <td>
+          <div *ngIf="servico.dtAtendimento.getUTCDate != servico.dtAtendimento">
+              
+          </div>
+        </td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarServico(servico, template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirServico(servico, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!servicos">
+    <tr>
+      <td colspan="7" class="text-center">
+        <h4>Nenhum serviço encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Serviços</h4>
+        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerForm">  
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label>Data de atendimento</label>
+              <input type="text" class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento.">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Dias de garantia</label>
+              <input type="text" class="form-control" formControlName="qtdDiasGarantia" placeholder="Dias de garantia">
+            </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Defeito</label>
+              <input type="text" class="form-control" formControlName="defeito" placeholder="Observação.">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Serviço executado</label>
+              <input type="text" class="form-control" formControlName="servicosExecutados" placeholder="Observação.">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Peças Substituidas</label>
+              <input type="text" class="form-control" formControlName="pecasSubstituidas" placeholder="Observação.">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Observações</label>
+              <input type="text" class="form-control" formControlName="observacao" placeholder="Observação.">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Valor do Serviço</label>
+              <input type="text" class="form-control" formControlName="valorServico" placeholder="Observação.">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="template.hide()">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarServico(template)">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+	<div class="modal-dialog modal-sm">
+  		<div class="modal-content">
+    		<div class="modal-header">
+      			<h4 class="modal-title pull-left">
+        			Deletando Serviço
+      			</h4>
+      			<button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
+        			<span aria-hidden="true">&times;</span>
+      			</button>
+    		</div>
+    		<div class="modal-body">
+      			<p>{{bodyDeletarServico}}</p>
+    		</div>    
+    		<div class="modal-footer btn-group d-flex">      
+      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
+        			CANCELAR
+      			</button>
+      			<button type="button" class="btn btn-outline-danger" (click)="confirmeDelete(confirm)">
+          		DELETAR
+        		</button>
+    		</div>
+  		</div>
+	</div>
+</div>

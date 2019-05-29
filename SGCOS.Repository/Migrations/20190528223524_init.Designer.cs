@@ -9,14 +9,14 @@ using SGCOS.Repository;
 namespace SGCOS.Repository.Migrations
 {
     [DbContext(typeof(SGCOSContext))]
-    [Migration("20190528174934_init")]
+    [Migration("20190528223524_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
 
             modelBuilder.Entity("SGCOS.Domain.Equipamento", b =>
                 {
@@ -66,7 +66,7 @@ namespace SGCOS.Repository.Migrations
 
             modelBuilder.Entity("SGCOS.Domain.Servico", b =>
                 {
-                    b.HasOne("SGCOS.Domain.Equipamento", "Equipamento")
+                    b.HasOne("SGCOS.Domain.Equipamento")
                         .WithMany("Servicos")
                         .HasForeignKey("EquipamentoId")
                         .OnDelete(DeleteBehavior.Cascade);

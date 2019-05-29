@@ -1,4 +1,3 @@
-import { Chamado } from './Chamado';
 import { Servico } from './Servico';
 
 export interface Equipamento {

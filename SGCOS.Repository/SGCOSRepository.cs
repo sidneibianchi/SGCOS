@@ -143,7 +143,8 @@ namespace SGCOS.Repository
 
             return await query.FirstOrDefaultAsync();
         }
-        public async Task<Equipamento> GetAllEquipamentoAsyncByNrSerie(string nrSerie)
+
+        public async Task<Equipamento[]> GetAllEquipamentoAsyncByNrSerie(string nrSerie)
         {
             IQueryable<Equipamento> query = _context.Equipamentos
                 .Include(e => e.Servicos);
@@ -152,7 +153,7 @@ namespace SGCOS.Repository
                          .OrderBy(e => e.Id)
                          .Where(e => e.NrSerie == nrSerie);
                          
-            return await query.FirstOrDefaultAsync();
+            return await query.ToArrayAsync();
         }
 
         #endregion
@@ -186,9 +187,10 @@ namespace SGCOS.Repository
                              
                 query = query.AsNoTracking()
                          .OrderBy(s => s.Id)
-                         .Where(s => s.EquipamentoId == Convert.ToInt32(equipamentoId ));
+                         .Where(s => s.EquipamentoId == Convert.ToInt32(equipamentoId));
                          
             return await query.ToArrayAsync();
+
         }
 
         #endregion

@@ -13,7 +13,7 @@ namespace SGCOS.Domain
         public decimal ValorServico { get; set; }
         public int QtdDiasGarantia { get; set; }          
         public int EquipamentoId { get; set; }
-        public Equipamento Equipamento { get; set; }
+        public Equipamento Equipamento { get; }
 
         public bool VerificaGarantia()
         {
@@ -30,6 +30,6 @@ namespace SGCOS.Domain
             }
 
             return ret;
-        } 
+        }  
     }
 }

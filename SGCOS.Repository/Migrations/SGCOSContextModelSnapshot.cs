@@ -14,7 +14,7 @@ namespace SGCOS.Repository.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
 
             modelBuilder.Entity("SGCOS.Domain.Equipamento", b =>
                 {
@@ -64,7 +64,7 @@ namespace SGCOS.Repository.Migrations
 
             modelBuilder.Entity("SGCOS.Domain.Servico", b =>
                 {
-                    b.HasOne("SGCOS.Domain.Equipamento", "Equipamento")
+                    b.HasOne("SGCOS.Domain.Equipamento")
                         .WithMany("Servicos")
                         .HasForeignKey("EquipamentoId")
                         .OnDelete(DeleteBehavior.Cascade);

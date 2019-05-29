@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,11 +12,11 @@ namespace SGCOS.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EquipamentoController : ControllerBase
+    public class ServicoController : ControllerBase
     {
         public readonly ISGCOSRepository _repo;
         public readonly IMapper _mapper;
-        public EquipamentoController(ISGCOSRepository repo, IMapper mapper)
+        public ServicoController(ISGCOSRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
@@ -27,9 +28,9 @@ namespace SGCOS.WebAPI.Controllers
         {
             try
             {
-                var equipamentos = await _repo.GetAllEquipamentoAsync();
+                var servicos = await _repo.GetAllServicoAsync();
 
-                var results = _mapper.Map<IEnumerable<EquipamentoDto>>(equipamentos);
+                var results = _mapper.Map<IEnumerable<ServicoDto>>(servicos);
 
                 return Ok(results);
             }
@@ -41,14 +42,14 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //GET Por Id
-        [HttpGet("{EquipamentoId}")]
-        public async Task<IActionResult> Get(int EquipamentoId)
+        [HttpGet("{ServicoId}")]
+        public async Task<IActionResult> Get(int ServicoId)
         {
             try
             {
-                var equipamento = await _repo.GetAllEquipamentoAsyncById(EquipamentoId);
+                var servico = await _repo.GetAllServicoAsyncById(ServicoId);
 
-                var results = _mapper.Map<EquipamentoDto>(equipamento);
+                var results = _mapper.Map<ServicoDto>(servico);
 
                 return Ok(results);
             }
@@ -59,15 +60,15 @@ namespace SGCOS.WebAPI.Controllers
             }
         }
 
-        //GET Por Nome
-        [HttpGet("getByNrSerie/{nrSerie}")]
-        public async Task<IActionResult> Get(string nrSerie)
+        //GET Por Equipamento
+        [HttpGet("getByEquipamento/{EquipamentoId}")]
+        public async Task<IActionResult> Get(string EquipamentoId)
         {
             try
-            {
-                var equipamento = await _repo.GetAllEquipamentoAsyncByNrSerie(nrSerie);
+            {   
+                var servico = await _repo.GetAllServicoAsyncByEquipamento(EquipamentoId);
 
-                var results = _mapper.Map<IEnumerable<EquipamentoDto>>(equipamento);
+                var results = _mapper.Map<IEnumerable<ServicoDto>>(servico);
 
                 return Ok(results);
             }
@@ -78,19 +79,19 @@ namespace SGCOS.WebAPI.Controllers
             }
         }
 
-        //Post Equipamento
+        //Post Servico
         [HttpPost]
-        public async Task<IActionResult> Post(EquipamentoDto model)
+        public async Task<IActionResult> Post(ServicoDto model)
         {
             try
             {
-                var equipamento = _mapper.Map<Equipamento>(model);    
+                var servico = _mapper.Map<Servico>(model);    
 
-                _repo.Add(equipamento);
+                _repo.Add(servico);
 
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/equipamento/{model.Id}", _mapper.Map<EquipamentoDto>(equipamento));
+                    return Created($"/api/servico/{model.Id}", _mapper.Map<ServicoDto>(servico));
                 }
             }
             catch (System.Exception ex)
@@ -103,21 +104,21 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //Put 
-        [HttpPut("{EquipamentoId}")]
-        public async Task<IActionResult> Put(int EquipamentoId, EquipamentoDto model)
+        [HttpPut("{ServicoId}")]
+        public async Task<IActionResult> Put(int ServicoId, ServicoDto model)
         {
             try
             {
-                var equipamento = await _repo.GetAllEquipamentoAsyncById(EquipamentoId);
-                if (equipamento == null) return NotFound();
+                var servico = await _repo.GetAllServicoAsyncById(ServicoId);
+                if (servico == null) return NotFound();
 
-                _mapper.Map(model, equipamento);
+                _mapper.Map(model, servico);
 
-                _repo.Update(equipamento);
+                _repo.Update(servico);
 
                 if (await _repo.SaveChangesAsync())
                 {
-                    return Created($"/api/equipamento/{model.Id}", _mapper.Map<EquipamentoDto>(equipamento));
+                    return Created($"/api/servico/{model.Id}", _mapper.Map<ServicoDto>(servico));
                 }
             }
             catch (System.Exception ex)
@@ -130,15 +131,15 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         //Delete 
-        [HttpDelete("{EquipamentoId}")]
-        public async Task<IActionResult> Delete(int EquipamentoId)
+        [HttpDelete("{ServicoId}")]
+        public async Task<IActionResult> Delete(int ServicoId)
         {
             try
             {
-                var equipamento = await _repo.GetAllEquipamentoAsyncById(EquipamentoId);
-                if (equipamento == null) return NotFound();
+                var servico = await _repo.GetAllServicoAsyncById(ServicoId);
+                if (servico == null) return NotFound();
 
-                _repo.Delete(equipamento);
+                _repo.Delete(servico);
 
                 if (await _repo.SaveChangesAsync())
                 {
@@ -153,7 +154,5 @@ namespace SGCOS.WebAPI.Controllers
 
             return BadRequest();
         }
-
-
     }
 }
