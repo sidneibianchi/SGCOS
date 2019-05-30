@@ -9,6 +9,6 @@ namespace SGCOS.WebAPI.Dtos
         public string Descricao { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
-        public List<ServicoDto> Servicos { get; }
+        public List<ServicoDto> Servicos { get; set; }
     }
 }
