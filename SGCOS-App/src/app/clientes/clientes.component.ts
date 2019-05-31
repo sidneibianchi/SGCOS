@@ -27,9 +27,9 @@ export class ClientesComponent implements OnInit {
   FiltroLista: string;
 
   constructor(private clienteService: ClienteService,
-    private modalService: BsModalService,
-    private fb: FormBuilder,
-    private toastr: ToastrService) { }
+              private modalService: BsModalService,
+              private fb: FormBuilder,
+              private toastr: ToastrService) { }
 
 
   get filtroLista(): string {
