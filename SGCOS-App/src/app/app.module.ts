@@ -14,8 +14,6 @@ import { ClienteService } from './_services/Cliente.service';
 import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientesComponent } from './clientes/clientes.component';
-import { ClienteEditComponent } from './clientes/cliente-edit/cliente-edit.component';
-import { ChamadosComponent } from './chamados/chamados.component';
 import { EquipamentosComponent } from './equipamentos/equipamentos.component';
 import { DateFormatPipePipe } from './_helps/DateFormatPipe.pipe';
 import { HourFormatPipePipe } from './_helps/HourFormatPipe.pipe';
@@ -30,8 +28,6 @@ import { ServicosComponent } from './servicos/servicos.component';
       DateFormatPipePipe,
       HourFormatPipePipe,
       ClientesComponent,
-      ClienteEditComponent,
-      ChamadosComponent,
       EquipamentosComponent,
       DashboardComponent,
       TituloComponent,

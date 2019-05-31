@@ -5,6 +5,7 @@ namespace SGCOS.Domain
     public class Servico
     {
         public int Id { get; set; }
+        public int NrOrdem { get; set; }
         public string Defeito { get; set; }
         public string ServicosExecutados { get; set; }
         public string PecasSubstituidas { get; set; }

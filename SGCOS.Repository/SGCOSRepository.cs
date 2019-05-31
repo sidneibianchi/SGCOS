@@ -35,7 +35,7 @@ namespace SGCOS.Repository
         
         #endregion
 
-       /*  #region Cliente
+        #region Cliente
 
         public async Task<Cliente[]> GetAllClienteAsync()
         {
@@ -77,48 +77,7 @@ namespace SGCOS.Repository
         }
 
         #endregion
-
-        #region Chamado 
-
-        public async Task<Chamado[]> GetAllChamadoAsync()
-        {
-            IQueryable<Chamado> query = _context.Chamados
-                               .Include(c => c.Cliente);               
-               
-            query = query.AsNoTracking()
-                        .OrderBy(c => c.Id);
-
-            return await query.ToArrayAsync();
-        }
-        public async Task<Chamado> GetAllChamadoAsyncById(int chamadoId)
-        {
-            IQueryable<Chamado> query = _context.Chamados
-                             .Include(c => c.Cliente);              
-               
-
-            query = query.AsNoTracking()
-                        .OrderBy(c => c.Id)
-                        .Where(c => c.Id == chamadoId);
-
-            return await query.FirstOrDefaultAsync();
-        }
-
-        public async Task<Chamado> GetAllChamadoAsyncByClienteId(int clienteId)
-        {
-            IQueryable<Chamado> query = _context.Chamados
-                             .Include(c => c.Cliente);              
-               
-
-            query = query.AsNoTracking()
-                        .OrderBy(c => c.Id)
-                        .Where(c => c.ClienteId == clienteId);
-
-            return await query.FirstOrDefaultAsync();
-        }
-        
-        #endregion
-
-*/
+ 
         #region Equipamento
 
         public async Task<Equipamento[]> GetAllEquipamentoAsync()

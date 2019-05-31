@@ -10,21 +10,16 @@ namespace SGCOS.Repository
         void Update<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
+        
         #endregion
 
-       /*
+       
         #region Cliente
         Task<Cliente[]> GetAllClienteAsync();
         Task<Cliente> GetAllClienteAsyncById(int clienteId);
         Task<Cliente[]> GetAllClienteAsyncByNome(string clienteNome);
+        
         #endregion
-
-        #region Chamado
-        Task<Chamado[]> GetAllChamadoAsync();
-        Task<Chamado> GetAllChamadoAsyncById(int chamadoId);
-        Task<Chamado> GetAllChamadoAsyncByClienteId(int clienteId);
-
-        #endregion*/
 
         #region Equipamento
         Task<Equipamento[]> GetAllEquipamentoAsync();

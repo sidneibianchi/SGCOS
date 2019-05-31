@@ -102,13 +102,13 @@ export class ClientesComponent implements OnInit {
       contato: ['', Validators.required],
       complemento: ['', Validators.required],
       endereco: this.fb.group({
-        id: [''],
-        cep: [''],
-        logradouro: [''],
-        numero: [''],
-        bairro: [''],
-        cidade: [''],
-        uf: ['']
+        id: [],
+        cep: [],
+        logradouro: [],
+        numero: [],
+        bairro: [],
+        cidade: [],
+        uf: []
       }),
       telefones: this.fb.array([])
     });
@@ -117,8 +117,8 @@ export class ClientesComponent implements OnInit {
   criaTelefone(telefone: any): FormGroup {
     return this.fb.group({
       id: [telefone.id],
-      numero: [telefone.numero, Validators.required],
-      tipo: [telefone.tipo, Validators.required]
+      numero: [telefone.numero],
+      tipo: [telefone.tipo]
     });
   }
 
@@ -141,6 +141,8 @@ export class ClientesComponent implements OnInit {
             this.getClientes();
             this.toastr.success('Cliente inserido com sucesso!');
           }, error => {
+            console.log(error);
+            console.log(this.cliente);
             this.toastr.error('Erro ao incluir cliente: ${error}');
           });
       } else {
@@ -153,6 +155,7 @@ export class ClientesComponent implements OnInit {
             this.toastr.success('Cliente alterado com sucesso!');
           }, error => {
             console.log(error);
+            console.log(this.cliente);
             this.toastr.error('Erro ao alterar cliente: ${error}');
           });
       }

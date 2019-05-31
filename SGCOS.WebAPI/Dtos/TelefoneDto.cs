@@ -4,5 +4,6 @@ namespace SGCOS.WebAPI.Dtos
     {
         public int Id { get; set; }
         public string Numero { get; set; }
+        public int Tipo { get; set; }
     }
 }

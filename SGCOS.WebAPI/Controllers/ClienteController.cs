@@ -14,7 +14,7 @@ namespace SGCOS.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ClienteController : ControllerBase
-    {/* 
+    { 
         public readonly ISGCOSRepository _repo;
         public readonly IMapper _mapper;
         public ClienteController(ISGCOSRepository repo, IMapper mapper)
@@ -22,7 +22,6 @@ namespace SGCOS.WebAPI.Controllers
             _mapper = mapper;
             _repo = repo;
         }
-
 
         // GET all
         [HttpGet]
@@ -87,8 +86,6 @@ namespace SGCOS.WebAPI.Controllers
         {
             try
             {
-                
-
                 var cliente = _mapper.Map<Cliente>(model);    
 
                 _repo.Add(cliente);
@@ -157,7 +154,6 @@ namespace SGCOS.WebAPI.Controllers
             }
 
             return BadRequest();
-        }*/
-
+        }
     } 
 }

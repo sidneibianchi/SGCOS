@@ -1,5 +1,6 @@
 export interface Servico {
     id: number;
+    nrOrdem: number;
     defeito: string;
     servicosExecutados: string;
     pecasSubstituidas: string;
