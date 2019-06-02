@@ -17,6 +17,13 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using SGCOS.Domain.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace SGCOS.API
 {
@@ -34,9 +41,48 @@ namespace SGCOS.API
             services.AddDbContext<SGCOSContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             ); 
+            
+            IdentityBuilder builder = services.AddIdentityCore<User>(options => 
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false; 
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+            });
+            
+            builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);    
+            builder.AddEntityFrameworkStores<SGCOSContext>();
+            builder.AddRoleValidator<RoleValidator<Role>>();
+            builder.AddRoleManager<RoleManager<Role>>();
+            builder.AddSignInManager<SignInManager<User>>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                                .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                                ValidateIssuer = false,
+                                ValidateAudience = false
+                        };
+                    });
+
+            services.AddMvc( options => 
+            {
+                var policy = new AuthorizationPolicyBuilder()       
+                                    .RequireAuthenticatedUser()
+                                    .Build();
+                                    options.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling =
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            
             services.AddScoped<ISGCOSRepository, SGCOSRepository>();
             services.AddAutoMapper();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
         }
 
@@ -52,6 +98,7 @@ namespace SGCOS.API
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseStaticFiles();

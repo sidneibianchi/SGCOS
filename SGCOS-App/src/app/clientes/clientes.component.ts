@@ -19,11 +19,7 @@ export class ClientesComponent implements OnInit {
   cliente: Cliente;
   bodyDeletarCliente = '';
   modoSalvar = 'post';
-  imagemLargura = 50;
-  imagemMargem = 2;
-  mostrarImagem = false;
   registerForm: FormGroup;
-
   FiltroLista: string;
 
   constructor(private clienteService: ClienteService,
@@ -38,11 +34,6 @@ export class ClientesComponent implements OnInit {
   set filtroLista(value: string) {
     this.FiltroLista = value;
     this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
-  }
-
-
-  get telefones(): FormArray {
-    return this.registerForm.get('telefones') as FormArray;
   }
 
   editarCliente(cliente: Cliente, template: any) {
@@ -101,17 +92,14 @@ export class ClientesComponent implements OnInit {
       email: ['', Validators.required],
       contato: ['', Validators.required],
       complemento: ['', Validators.required],
-      endereco: this.fb.group({
-        id: [],
-        cep: [],
-        logradouro: [],
-        numero: [],
-        bairro: [],
-        cidade: [],
-        uf: []
-      }),
+      enderecos: this.fb.array([]),
       telefones: this.fb.array([])
     });
+  }
+
+
+  get telefones(): FormArray {
+    return this.registerForm.get('telefones') as FormArray;
   }
 
   criaTelefone(telefone: any): FormGroup {
@@ -128,6 +116,30 @@ export class ClientesComponent implements OnInit {
 
   removerTelefone(id: number) {
     this.telefones.removeAt(id);
+  }
+
+  get enderecos(): FormArray {
+    return this.registerForm.get('enderecos') as FormArray;
+  }
+
+  criaEndereco(endereco: any): FormGroup {
+    return this.fb.group({
+      id: [endereco.id],
+      cep: [endereco.cep],
+      logradouro: [endereco.logradouro],
+      numero: [endereco.numero],
+      bairro: [endereco.bairro],
+      cidade: [endereco.cidade],
+      uf: [endereco.uf]
+    });
+  }
+
+  adicionarEndereco() {
+    this.enderecos.push(this.criaEndereco({ id: 0 }));
+  }
+
+  removerEndereco(id: number) {
+    this.enderecos.removeAt(id);
   }
 
   salvarAlteracao(template: any) {

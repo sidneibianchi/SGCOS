@@ -10,7 +10,7 @@ namespace SGCOS.WebAPI.Dtos
         public string CpfCnpj { get; set; }
         public string Contato { get; set; }
         public string Email { get; set; }
-        public EnderecoDto Endereco { get; private set;}
+        public List<EnderecoDto> Enderecos { get; set;}
         public List<TelefoneDto> Telefones { get; set;}
         public List<EquipamentoDto> Equipamentos { get; set;}
     }

@@ -11,7 +11,7 @@ export class Cliente {
    cpfCnpj: string;
    contato: string;
    email: string;
-   endereco: Endereco;
+   enderecos: Endereco[];
    telefones: Telefone[];
    equipamentos: Equipamento[];
 }

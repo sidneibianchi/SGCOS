@@ -40,7 +40,7 @@ namespace SGCOS.Repository
         public async Task<Cliente[]> GetAllClienteAsync()
         {
             IQueryable<Cliente> query = _context.Clientes
-                               .Include(c => c.Endereco)
+                               .Include(c => c.Enderecos)
                                .Include(c => c.Telefones);               
                
 
@@ -52,7 +52,7 @@ namespace SGCOS.Repository
         public async Task<Cliente> GetAllClienteAsyncById(int clienteId)
         {
             IQueryable<Cliente> query = _context.Clientes
-                             .Include(c => c.Endereco)
+                             .Include(c => c.Enderecos)
                                .Include(c => c.Telefones);              
                
 
@@ -65,7 +65,7 @@ namespace SGCOS.Repository
         public async Task<Cliente[]> GetAllClienteAsyncByNome(string clienteNome)
         {
             IQueryable<Cliente> query = _context.Clientes
-                .Include(c => c.Endereco)
+                .Include(c => c.Enderecos)
                 .Include(c => c.Telefones);             
             
 

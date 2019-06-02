@@ -1,6 +1,7 @@
 using AutoMapper;
 using SGCOS.WebAPI.Dtos;
 using SGCOS.Domain;
+using SGCOS.Domain.Identity;
 
 namespace SGCOS.WebAPI.Helpers
 {
@@ -10,9 +11,12 @@ namespace SGCOS.WebAPI.Helpers
         {
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<Endereco, EnderecoDto>().ReverseMap();
-            CreateMap<Equipamento, EquipamentoDto>().ReverseMap();
             CreateMap<Telefone, TelefoneDto>().ReverseMap();
+            CreateMap<Equipamento, EquipamentoDto>().ReverseMap();
             CreateMap<Servico, ServicoDto>().ReverseMap();
+
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();
             
         }
     }
