@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
     <div class="container">
-  <a class="navbar-brand" routerLink="dashboard">SGCOS</a>
+  <a class="navbar-brand" routerLink="clientes">SGCOS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div *ngIf="loggedIn()" class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
+     <!-- <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="clientes">Clientes<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="equipamentos">Equipamentos</a>
-      </li>
+      </li>-->
       </ul>
     </div>
     <ul *ngIf="loggedIn()" class="navbar-nav">

@@ -38,9 +38,9 @@ namespace SGCOS.WebAPI.Controllers
         }
 
         [HttpGet("GetUser")]
-        public async Task<IActionResult> GetUser()
+        public IActionResult GetUser()
         {
-            return Ok( new UserDto());
+            return Ok(new UserDto());
         }
 
         [HttpPost("Register")]

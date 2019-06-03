@@ -87,6 +87,7 @@ export class ClientesComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
+      id: [''],
       cpfCnpj: ['', Validators.required],
       nome: ['', Validators.required],
       email: ['', Validators.required],

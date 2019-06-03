@@ -70,6 +70,7 @@ export class ServicosComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
+      nrOrdem: [''],
       dtAtendimento: [''],
       qtdDiasGarantia: [''],
       defeito: [''],

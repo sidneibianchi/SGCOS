@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Equipamento } from '../_models/Equipamento';
 import { BsModalService } from 'ngx-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { EquipamentoService } from '../_services/Equipamento.service';
 
@@ -71,10 +71,10 @@ export class EquipamentosComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
-      nrSerie: [''],
-      descricao: [''],
-      marca: [''],
-      modelo: ['']
+      nrSerie: ['',Validators.required],
+      descricao: ['',Validators.required],
+      marca: ['',Validators.required],
+      modelo: ['',Validators.required]
     });
   }
 

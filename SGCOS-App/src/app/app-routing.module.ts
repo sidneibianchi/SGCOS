@@ -18,11 +18,13 @@ const routes: Routes = [
     ]
   },
   {path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard]},
-  {path: 'equipamentos', component: EquipamentosComponent, canActivate: [AuthGuard]},
-  {path: 'servico/:idEquipamento/edit', component: ServicosComponent, canActivate: [AuthGuard]},
+  {path: 'equipamentos/:idCliente/edit', component: EquipamentosComponent, canActivate: [AuthGuard]},
+  {path: 'servicos/:idEquipamento/edit', component: ServicosComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
+  {path: '', redirectTo: 'clientes', pathMatch: 'full'},
+  {path: '**', redirectTo: 'clientes', pathMatch: 'full'}
+  /*{path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'}*/
 ];
 
 @NgModule({

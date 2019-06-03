@@ -16,6 +16,7 @@
   <thead class="thead-light">
     <tr>
       <th>#</th>
+      <th>Nr Ordem se Serviço</th>
       <th>Data Atendimento</th>
       <th>Dias de Garantia</th>
       <th>Status</th>
@@ -25,6 +26,7 @@
   <tbody *ngIf="servicos">
     <tr *ngFor="let servico of servicoFiltrados">
       <td>{{servico.id}}</td>
+      <td>{{servico.nrOrdem}}</td>
       <td>{{servico.dtAtendimento | DateFormatPipe}}</td>
       <td>{{servico.qtdDiasGarantia}}</td>
       <td>
@@ -79,6 +81,10 @@
       <div class="modal-body">
         <form [formGroup]="registerForm">  
           <div class="form-row">
+            <div class="form-group col-md-3">
+              <label>Nr Ordem</label>
+              <input type="text" class="form-control" formControlName="nrOrdem" placeholder="Nr Ordem de serviço.">
+            </div>
             <div class="form-group col-md-3">
               <label>Data de atendimento</label>
               <input type="text" class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento.">

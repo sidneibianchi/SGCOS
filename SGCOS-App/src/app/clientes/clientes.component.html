@@ -47,7 +47,7 @@
         </div>
       </td>
       <td>
-        <a [routerLink]="['/cliente', cliente.id, 'edit']" tooltip="Edição detalhada" class="btn btn-sm btn-warning">
+        <a [routerLink]="['/equipamento', cliente.id, 'edit']" tooltip="Equipamentos" class="btn btn-sm btn-warning">
           <i class="fa fa-edit"></i></a>
       </td>
     </tr>
@@ -65,7 +65,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Manutenção Clientes</h4>
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Clientes</h4>
         <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -97,8 +97,10 @@
                     </div>
                   </div>
                 </tab>
+                
                 <tab heading="Endereco">
-                <div formGroupName="endereco" class="form-group">
+                  <div>
+                  <div formArrayName="enderecos" *ngFor="let endereco of enderecos.controls; let i=index" >
                   <h5>Endereço</h5>
                   <div class="form-row">
                     <div class="form-group col-md-2">
@@ -156,9 +158,20 @@
                             <option value="TO">Tocantins</option>
                            </select>
                       </div>
-                  </div>
+                      <div class="form-group col-md-1">
+                          <br>
+                          <button type="button" class="btn btn-outline-danger mt-2" (click)="removerEndereco(i)">Remover</button>
+                        </div>
+                        </div> 
+                    </div>
+                  
+                <button class="btn btn-outline-primary" (click)="adicionarEndereco();">
+                    Adicionar Endereço
+                  </button> 
                 </div>
                 </tab>
+
+                
                 <tab heading="telefones">
                 <div>
                 <div formArrayName="telefones" *ngFor="let telefone of telefones.controls; let i=index" >
