@@ -78,6 +78,26 @@ namespace SGCOS.WebAPI.Controllers
             }
         }
 
+        //GET Por Equipamento
+        [HttpGet("getByCliente/{ClienteId}")]
+        public async Task<IActionResult> Get(long ClienteId)
+        {
+            try
+            {   
+                var equipamento = await _repo.GetAllEquipamentoByCliente(ClienteId);
+
+                var results = _mapper.Map<IEnumerable<EquipamentoDto>>(equipamento);
+
+                return Ok(results);
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Banco de dados falhou: {ex.Message}");
+            }
+        }
+
+
         //Post Equipamento
         [HttpPost]
         public async Task<IActionResult> Post(EquipamentoDto model)

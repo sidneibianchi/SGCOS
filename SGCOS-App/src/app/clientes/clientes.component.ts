@@ -4,7 +4,8 @@ import { Cliente } from '../_models/Cliente';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Endereco } from '../_models/Endereco';
+import { formControlBinding } from '@angular/forms/src/directives/ng_model';
+
 
 @Component({
   selector: 'app-clientes',
@@ -36,12 +37,26 @@ export class ClientesComponent implements OnInit {
     this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
   }
 
-  editarCliente(cliente: Cliente, template: any) {
+  editarCliente(cli: Cliente, template: any) {
+
     this.modoSalvar = 'put';
     this.openModal(template);
-    this.cliente = Object.assign({}, cliente);
-    console.log(cliente);
-    this.registerForm.patchValue(this.cliente);
+    this.clienteService.getClienteById(cli.id)
+      .subscribe(
+        (cliente: Cliente) => {
+          this.cliente = Object.assign({}, cliente);
+          console.log(cliente);
+          this.registerForm.patchValue(this.cliente);
+
+          this.cliente.enderecos.forEach(endereco => {
+            this.enderecos.push(this.criaEndereco(endereco));
+          });
+
+          this.cliente.telefones.forEach(telefone => {
+            this.telefones.push(this.criaTelefone(telefone));
+          });
+        }
+      );
   }
 
   novoCliente(template: any) {
@@ -87,12 +102,10 @@ export class ClientesComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
-      id: [''],
       cpfCnpj: ['', Validators.required],
       nome: ['', Validators.required],
-      email: ['', Validators.required],
+      email: [''],
       contato: ['', Validators.required],
-      complemento: ['', Validators.required],
       enderecos: this.fb.array([]),
       telefones: this.fb.array([])
     });
@@ -106,7 +119,7 @@ export class ClientesComponent implements OnInit {
   criaTelefone(telefone: any): FormGroup {
     return this.fb.group({
       id: [telefone.id],
-      numero: [telefone.numero],
+      numero: [telefone.numero, Validators.required],
       tipo: [telefone.tipo]
     });
   }
@@ -184,5 +197,4 @@ export class ClientesComponent implements OnInit {
         this.toastr.error('Erro ao tentar carregar cliente: ${error}');
       });
   }
-
 }

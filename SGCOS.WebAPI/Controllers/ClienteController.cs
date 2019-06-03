@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace SGCOS.WebAPI.Controllers
 {
@@ -112,6 +113,23 @@ namespace SGCOS.WebAPI.Controllers
             {
                 var cliente = await _repo.GetAllClienteAsyncById(ClienteId);
                 if (cliente == null) return NotFound();
+
+                var idEnderecos = new List<int>();
+                var idTelefones = new List<int>();   
+
+                model.Enderecos.ForEach(item => idEnderecos.Add(item.Id));
+                model.Telefones.ForEach(item => idTelefones.Add(item.Id));
+
+                var enderecos = cliente.Enderecos.Where(
+                    endereco => !idEnderecos.Contains(endereco.Id)
+                ).ToArray();
+
+                var telefones = cliente.Telefones.Where(
+                    telefone => !idTelefones.Contains(telefone.Id)
+                ).ToArray();
+
+                if (enderecos.Length > 0) _repo.DeleteRange(enderecos);
+                if (telefones.Length > 0) _repo.DeleteRange(telefones);
 
                 _mapper.Map(model, cliente);
 

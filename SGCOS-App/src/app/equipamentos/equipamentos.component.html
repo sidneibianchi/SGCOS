@@ -41,7 +41,7 @@
         </button>
       </td>
       <td>
-        <a [routerLink]="['/servico', equipamento.id, 'edit']" tooltip="Cadastrar serviços" class="btn btn-sm btn-warning">
+        <a [routerLink]="['/servicos', equipamento.id, 'edit']" tooltip="Cadastrar serviços" class="btn btn-sm btn-warning">
           <i class="fa fa-eye"></i>
         </a>
       </td>
@@ -106,8 +106,6 @@
     </div>
   </div>
 </div>
-
-
 <div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">

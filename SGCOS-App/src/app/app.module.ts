@@ -26,6 +26,8 @@ import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TouchSequence } from 'selenium-webdriver';
+import { NgxCurrencyModule } from 'ngx-currency';
+
 
 @NgModule({
    declarations: [
@@ -55,7 +57,9 @@ import { TouchSequence } from 'selenium-webdriver';
       TabsModule.forRoot(),
       TooltipModule.forRoot(),
       BsDatepickerModule.forRoot(),
-      NgxMaskModule.forRoot()
+      NgxMaskModule.forRoot(),
+      NgxCurrencyModule
+
    ],
    providers: [
       ClienteService,

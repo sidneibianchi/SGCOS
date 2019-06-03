@@ -28,6 +28,12 @@ namespace SGCOS.Repository
         {
             _context.Remove(entity);
         }
+        public void DeleteRange<T>(T[] entityArray) where T : class
+        {
+            _context.RemoveRange(entityArray);
+        }
+
+
         public async Task<bool> SaveChangesAsync()
         {
            return (await _context.SaveChangesAsync()) > 0;
@@ -102,7 +108,6 @@ namespace SGCOS.Repository
 
             return await query.FirstOrDefaultAsync();
         }
-
         public async Task<Equipamento[]> GetAllEquipamentoAsyncByNrSerie(string nrSerie)
         {
             IQueryable<Equipamento> query = _context.Equipamentos
@@ -113,6 +118,17 @@ namespace SGCOS.Repository
                          .Where(e => e.NrSerie == nrSerie);
                          
             return await query.ToArrayAsync();
+        }
+        public async Task<Equipamento[]> GetAllEquipamentoByCliente(long clienteId)
+        {
+            IQueryable<Equipamento> query = _context.Equipamentos;
+                             
+                query = query.AsNoTracking()
+                         .OrderBy(s => s.Id)
+                         .Where(s => s.ClienteId == Convert.ToInt32(clienteId));
+                         
+            return await query.ToArrayAsync();
+
         }
 
         #endregion
@@ -127,7 +143,6 @@ namespace SGCOS.Repository
 
             return await query.ToArrayAsync();
         }
-
         public async Task<Servico> GetAllServicoAsyncById(int servicoId)
         {
            IQueryable<Servico> query = _context.Servicos;              
@@ -139,7 +154,6 @@ namespace SGCOS.Repository
 
             return await query.FirstOrDefaultAsync();
         }
-
         public async Task<Servico[]> GetAllServicoAsyncByEquipamento(string equipamentoId)
         {
             IQueryable<Servico> query = _context.Servicos;

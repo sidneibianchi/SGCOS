@@ -9,6 +9,7 @@ namespace SGCOS.Repository
         void Add<T>(T entity) where T : class;
         void Update<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
+         void DeleteRange<T>(T[] entity) where T : class;
         Task<bool> SaveChangesAsync();
         
         #endregion
@@ -25,6 +26,7 @@ namespace SGCOS.Repository
         Task<Equipamento[]> GetAllEquipamentoAsync();
         Task<Equipamento> GetAllEquipamentoAsyncById(int equipamentoId);
         Task<Equipamento[]> GetAllEquipamentoAsyncByNrSerie(string nrSerie);
+        Task<Equipamento[]> GetAllEquipamentoByCliente(long idCliente);
 
         #endregion
 

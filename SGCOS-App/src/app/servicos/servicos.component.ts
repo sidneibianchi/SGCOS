@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServicoService } from '../_services/Servico.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef, BsLocaleService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Servico } from '../_models/Servico';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { defineLocale, ptBrLocale } from 'ngx-bootstrap';
 
+defineLocale('pt-br', ptBrLocale);
 
 @Component({
   selector: 'app-servicos',
@@ -31,9 +33,10 @@ export class ServicosComponent implements OnInit {
                 private modalService: BsModalService,
                 private fb: FormBuilder,
                 private toastr: ToastrService,
-                private route: ActivatedRoute) { }
-
-
+                private route: ActivatedRoute,
+                private localeService: BsLocaleService) {
+                  this.localeService.use('pt-br');
+                 }
 
   get filtroLista(): string {
     return this.FiltroLista;
@@ -71,8 +74,8 @@ export class ServicosComponent implements OnInit {
   validation() {
     this.registerForm = this.fb.group({
       nrOrdem: [''],
-      dtAtendimento: [''],
-      qtdDiasGarantia: [''],
+      dtAtendimento: ['', Validators.required],
+      qtdDiasGarantia: ['', Validators.required],
       defeito: [''],
       servicosExecutados: [''],
       pecasSubstituidas: [''],

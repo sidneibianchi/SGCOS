@@ -23,6 +23,10 @@ export class EquipamentoService {
     return this.http.get<Equipamento>(`${this.baseURL}/${nrSerie}`);
   }
 
+  getEquipamentoByCliente(idCliente: number): Observable<Equipamento[]> {
+    return this.http.get<Equipamento[]>(`${this.baseURL}/getByCliente/${idCliente}`);
+  }
+
   postEquipamento(equipamento: Equipamento) {
     return this.http.post(this.baseURL, equipamento);
   }

@@ -4,6 +4,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { EquipamentoService } from '../_services/Equipamento.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-equipamentos',
@@ -17,7 +18,7 @@ export class EquipamentosComponent implements OnInit {
   equipamentoFiltrados: Equipamento[];
   equipamentos: Equipamento[];
   equipamento: Equipamento;
-
+  idCliente: number;
   bodyDeletarEquipamento = '';
   modoSalvar = 'post';
   registerForm: FormGroup;
@@ -25,7 +26,8 @@ export class EquipamentosComponent implements OnInit {
   constructor(private equipamentoService: EquipamentoService,
               private modalService: BsModalService,
               private fb: FormBuilder,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private route: ActivatedRoute) { }
 
   get filtroLista(): string {
     return this.FiltroLista;
@@ -54,8 +56,21 @@ export class EquipamentosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEquipamentos();
+    this.idCliente = +this.route.snapshot.paramMap.get('idCliente');
+    this.getEquipamentosPorCliente(this.idCliente);
     this.validation();
+  }
+
+  getEquipamentosPorCliente(idCliente: number) {
+    this.equipamentoService.getEquipamentoByCliente(idCliente).subscribe(
+      (Equipamentos: Equipamento[]) => {
+        this.equipamentos = Equipamentos;
+        this.equipamentoFiltrados = this.equipamentos;
+        console.log(this.equipamentos);
+      }, error => {
+        console.log(error);
+        this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
+      });
   }
 
   getEquipamentos() {
@@ -71,10 +86,11 @@ export class EquipamentosComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
-      nrSerie: ['',Validators.required],
-      descricao: ['',Validators.required],
-      marca: ['',Validators.required],
-      modelo: ['',Validators.required]
+      nrSerie: ['', Validators.required],
+      descricao: ['', Validators.required],
+      marca: ['', Validators.required],
+      modelo: ['', Validators.required],
+      clienteId: []
     });
   }
 
@@ -109,11 +125,12 @@ export class EquipamentosComponent implements OnInit {
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.equipamento = Object.assign({}, this.registerForm.value);
+        this.equipamento.clienteId = this.idCliente;
         console.log(this.equipamento);
         this.equipamentoService.postEquipamento(this.equipamento).subscribe(
           (novoEquipamento: Equipamento) => {
             template.hide();
-            this.getEquipamentos();
+            this.getEquipamentosPorCliente(this.equipamento.clienteId);
             this.toastr.success('Equipamento inserido com sucesso!');
           }, error => {
             this.toastr.error('Erro ao incluir equipamento: ${error}');
@@ -124,7 +141,7 @@ export class EquipamentosComponent implements OnInit {
         this.equipamentoService.putEquipamento(this.equipamento).subscribe(
           () => {
             template.hide();
-            this.getEquipamentos();
+            this.getEquipamentosPorCliente(this.equipamento.clienteId);
             this.toastr.success('Equipamento alterado com sucesso!');
           }, error => {
             console.log(error);

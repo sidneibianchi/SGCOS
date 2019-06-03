@@ -7,6 +7,53 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script type="text/javascript">
+  
+    //Aplica a máscara no campo
+    //Função para ser utilizada nos eventos do input para formatação dinâmica
+    function aplica_mascara_cpfcnpj(campo,tammax,teclapres) {
+      var tecla = teclapres.keyCode;
+
+      if ((tecla < 48 || tecla > 57) && (tecla < 96 || tecla > 105) && tecla != 46 && tecla != 8) {
+        return false;
+      }
+
+      var vr = campo.value;
+      vr = vr.replace( /\//g, "" );
+      vr = vr.replace( /-/g, "" );
+      vr = vr.replace( /\./g, "" );
+      var tam = vr.length;
+
+      if ( tam <= 2 ) {
+        campo.value = vr;
+      }
+      if ( (tam > 2) && (tam <= 5) ) {
+        campo.value = vr.substr( 0, tam - 2 ) + '-' + vr.substr( tam - 2, tam );
+      }
+      if ( (tam >= 6) && (tam <= 8) ) {
+        campo.value = vr.substr( 0, tam - 5 ) + '.' + vr.substr( tam - 5, 3 ) + '-' + vr.substr( tam - 2, tam );
+      }
+      if ( (tam >= 9) && (tam <= 11) ) {
+        campo.value = vr.substr( 0, tam - 8 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + '-' + vr.substr( tam - 2, tam );
+      }
+      if ( (tam == 12) ) {
+        campo.value = vr.substr( tam - 12, 3 ) + '.' + vr.substr( tam - 9, 3 ) + '/' + vr.substr( tam - 6, 4 ) + '-' + vr.substr( tam - 2, tam );
+      }
+      if ( (tam > 12) && (tam <= 14) ) {
+        campo.value = vr.substr( 0, tam - 12 ) + '.' + vr.substr( tam - 12, 3 ) + '.' + vr.substr( tam - 9, 3 ) + '/' + vr.substr( tam - 6, 4 ) + '-' + vr.substr( tam - 2, tam );
+      }
+    }
+
+    function SomenteNumero(e){
+      var tecla=(window.event)?event.keyCode:e.which;   
+      if((tecla>47 && tecla<58)) return true;
+      else{
+        if (tecla==8 || tecla==0) return true;
+      else  return false;
+    }
+}
+    
+</script>
 </head>
 <body>
   <app-root></app-root>
