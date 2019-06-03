@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule, ModalModule, TooltipModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +21,12 @@ import { TituloComponent } from './_shared/titulo/titulo.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { ServicosComponent } from './servicos/servicos.component';
 
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { TouchSequence } from 'selenium-webdriver';
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -31,7 +37,10 @@ import { ServicosComponent } from './servicos/servicos.component';
       EquipamentosComponent,
       DashboardComponent,
       TituloComponent,
-      ServicosComponent
+      ServicosComponent,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent
    ],
    imports: [
       BrowserModule,
@@ -49,7 +58,12 @@ import { ServicosComponent } from './servicos/servicos.component';
       NgxMaskModule.forRoot()
    ],
    providers: [
-      ClienteService
+      ClienteService,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: AuthInterceptor,
+         multi: true
+      }
    ],
    bootstrap: [
       AppComponent
