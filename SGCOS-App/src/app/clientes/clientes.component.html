@@ -63,12 +63,12 @@
   </tfoot>
 </table>
 
-<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-  <div class="modal-dialog modal-lg">
+<div bsModal #template="bs-modal"  data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">Clientes</h4>
-        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+        <button type="button" class="close pull-right" (click)="fechaModal(template)" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -102,85 +102,95 @@
                     </div>
                   </div>
                 </tab>
-                <tab heading="Endereco">
-                  <div>
-                    <div formArrayName="enderecos" *ngFor="let endereco of enderecos.controls; let i=index">
-                      <div [formGroupName]="i" class="form-group">
-                        <div class="form-row">
-                          <div class="form-group col-md-10">
-                            <h5>Endereço</h5>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <button type="button" class="btn btn-outline-danger mt-2"
-                              (click)="removerEndereco(i)">Remover</button>
-                          </div>
+                
+                <tab heading="Endereço">
+                      <div>
+                        <div formArrayName="enderecos" *ngFor="let endereco of enderecos.controls; let i=index">
+                          <fieldset [formGroupName]="i" class="form-group">
+                            <legend class="d-flex justify-content-between capitalize">
+                              {{ enderecos.get(i+'.logradouro').value === '' ?
+                                'Endereço' :
+                                enderecos.get(i+'.logradouro').value
+                              }}
+                              <button class="btn btn-sm btn-danger mb-1" (click)="removerEndereco(i)">remove</button>
+                            </legend>
+                            <div class="row">
+                              <div class="form-group col-md-2">
+                                <label>CEP</label>
+                                <input type="text" class="form-control"
+                                  [ngClass]="{'is-invalid': enderecos.get(i+'.cep').errors && enderecos.get(i+'.cep').touched}"
+                                  formControlName="cep" placeholder="Cep" mask="00000-000" onkeypress="return SomenteNumero(event)">
+                              </div>
+                              <div class="form-group col-md-8">
+                                <label>Logradouro</label>
+                                <input type="text" class="form-control" formControlName="logradouro"
+                                [ngClass]="{'is-invalid': enderecos.get(i+'.logradouro').errors && enderecos.get(i+'.logradouro').touched}"
+                                  placeholder="Logradouro.">
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label>Número</label>
+                                <input type="text" class="form-control" 
+                                [ngClass]="{'is-invalid': enderecos.get(i+'.numero').errors && enderecos.get(i+'.numero').touched}"
+                                formControlName="numero" placeholder="Numero.">
+                              </div>
+                            </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-5">
+                                  <label>Bairro</label>
+                                  <input type="text" class="form-control" 
+                                  [ngClass]="{'is-invalid': enderecos.get(i+'.bairro').errors && enderecos.get(i+'.bairro').touched}"
+                                  formControlName="bairro" placeholder="Bairro.">
+                                </div>
+                                <div class="form-group col-md-4">
+                                  <label>Cidade</label>
+                                  <input type="text" class="form-control" 
+                                  [ngClass]="{'is-invalid': enderecos.get(i+'.cidade').errors && enderecos.get(i+'.cidade').touched}"
+                                  formControlName="cidade" placeholder="Cidade.">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label>Estado</label>
+                                  <select class="form-control" 
+                                  [ngClass]="{'is-invalid': enderecos.get(i+'.uf').errors && enderecos.get(i+'.uf').touched}"
+                                  formControlName="uf" data-search="false">
+                                    <option value="">Selecione</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                  </select>
+                                </div>
+                            </div>
+                          </fieldset>
                         </div>
-                        <div class="form-row">
-                          <div class="form-group col-md-2">
-                            <label>CEP</label>
-                            <input type="text" class="form-control" formControlName="cep" placeholder="Cep."
-                              mask="00000-000" onkeypress="return SomenteNumero(event)">
-                          </div>
-                          <div class="form-group col-md-8">
-                            <label>Logradouro</label>
-                            <input type="text" class="form-control" formControlName="logradouro"
-                              placeholder="Logradouro.">
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label>Número</label>
-                            <input type="text" class="form-control" formControlName="numero" placeholder="Numero.">
-                          </div>
-                        </div>
-                        <div class="form-row">
-                          <div class="form-group col-md-5">
-                            <label>Bairro</label>
-                            <input type="text" class="form-control" formControlName="bairro" placeholder="Bairro.">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label>Cidade</label>
-                            <input type="text" class="form-control" formControlName="cidade" placeholder="Cidade.">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label>Estado</label>
-                            <select class="form-control" formControlName="uf" data-search="false">
-                              <option value="">Selecione</option>
-                              <option value="AC">Acre</option>
-                              <option value="AL">Alagoas</option>
-                              <option value="AP">Amapá</option>
-                              <option value="AM">Amazonas</option>
-                              <option value="BA">Bahia</option>
-                              <option value="CE">Ceará</option>
-                              <option value="DF">Distrito Federal</option>
-                              <option value="ES">Espírito Santo</option>
-                              <option value="GO">Goiás</option>
-                              <option value="MA">Maranhão</option>
-                              <option value="MT">Mato Grosso</option>
-                              <option value="MS">Mato Grosso do Sul</option>
-                              <option value="MG">Minas Gerais</option>
-                              <option value="PA">Pará</option>
-                              <option value="PB">Paraíba</option>
-                              <option value="PR">Paraná</option>
-                              <option value="PE">Pernambuco</option>
-                              <option value="PI">Piauí</option>
-                              <option value="RJ">Rio de Janeiro</option>
-                              <option value="RN">Rio Grande do Norte</option>
-                              <option value="RS">Rio Grande do Sul</option>
-                              <option value="RO">Rondônia</option>
-                              <option value="RR">Roraima</option>
-                              <option value="SC">Santa Catarina</option>
-                              <option value="SP">São Paulo</option>
-                              <option value="SE">Sergipe</option>
-                              <option value="TO">Tocantins</option>
-                            </select>
-                          </div>
-                        </div>
+                        <button (click)="adicionarEndereco()" class="btn btn-outline-primary">
+                          Adicionar Endereço
+                        </button>
                       </div>
-                    </div>
-                    <button class="btn btn-outline-primary" (click)="adicionarEndereco();">
-                      Adicionar Endereço
-                    </button>
-                  </div>
-                </tab>
+                    </tab>
+
                 <tab heading="telefones">
                   <div>
                     <div formArrayName="telefones" *ngFor="let telefone of telefones.controls; let i=index">
@@ -213,13 +223,14 @@
                     </button>
                   </div>
                 </tab>
+
               </tabset>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer d-flex">
-        <button class="btn btn-secondary" (click)="template.hide()">
+        <button class="btn btn-secondary" (click)="fechaModal(template)">
           Fechar
         </button>
         <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">

@@ -38,9 +38,6 @@ export class ClientesComponent implements OnInit {
   }
 
   editarCliente(cli: Cliente, template: any) {
-
-    this.modoSalvar = 'put';
-    this.openModal(template);
     this.clienteService.getClienteById(cli.id)
       .subscribe(
         (cliente: Cliente) => {
@@ -57,6 +54,9 @@ export class ClientesComponent implements OnInit {
           });
         }
       );
+
+    this.modoSalvar = 'put';
+    this.openModal(template);
   }
 
   novoCliente(template: any) {
@@ -111,7 +111,6 @@ export class ClientesComponent implements OnInit {
     });
   }
 
-
   get telefones(): FormArray {
     return this.registerForm.get('telefones') as FormArray;
   }
@@ -152,9 +151,15 @@ export class ClientesComponent implements OnInit {
     this.enderecos.push(this.criaEndereco({ id: 0 }));
   }
 
+  fechaModal(template: any) {
+    this.ngOnInit();
+    template.hide();
+  }
+
   removerEndereco(id: number) {
     this.enderecos.removeAt(id);
   }
+
 
   salvarAlteracao(template: any) {
     if (this.registerForm.valid) {
@@ -164,7 +169,7 @@ export class ClientesComponent implements OnInit {
         this.clienteService.postCliente(this.cliente).subscribe(
           (novoCliente: Cliente) => {
             template.hide();
-            this.getClientes();
+            this.ngOnInit();
             this.toastr.success('Cliente inserido com sucesso!');
           }, error => {
             console.log(error);
@@ -177,7 +182,7 @@ export class ClientesComponent implements OnInit {
         this.clienteService.putCliente(this.cliente).subscribe(
           () => {
             template.hide();
-            this.getClientes();
+            this.ngOnInit();
             this.toastr.success('Cliente alterado com sucesso!');
           }, error => {
             console.log(error);

@@ -128,8 +128,8 @@ namespace SGCOS.WebAPI.Controllers
                     telefone => !idTelefones.Contains(telefone.Id)
                 ).ToArray();
 
-                if (enderecos.Length > 0) _repo.DeleteRange(enderecos);
-                if (telefones.Length > 0) _repo.DeleteRange(telefones);
+                if (enderecos.Length >= 0) _repo.DeleteRange(enderecos);
+                if (telefones.Length >= 0) _repo.DeleteRange(telefones);
 
                 _mapper.Map(model, cliente);
 
