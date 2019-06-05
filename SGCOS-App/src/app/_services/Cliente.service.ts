@@ -7,7 +7,7 @@ import { Cliente } from '../_models/Cliente';
   providedIn: 'root'
 })
 export class ClienteService {
-  baseURL = 'http://localhost:5000/api/cliente';
+  baseURL = 'https://sgcos.azurewebsites.net/api/cliente';
 
   constructor(private http: HttpClient) { }
 

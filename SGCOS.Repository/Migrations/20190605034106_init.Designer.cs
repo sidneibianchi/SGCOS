@@ -10,7 +10,7 @@ using SGCOS.Repository;
 namespace SGCOS.Repository.Migrations
 {
     [DbContext(typeof(SGCOSContext))]
-    [Migration("20190605014328_init")]
+    [Migration("20190605034106_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

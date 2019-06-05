@@ -42,7 +42,7 @@ namespace SGCOS.API
                 x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             ); 
             
-           /*  IdentityBuilder builder = services.AddIdentityCore<User>(options => 
+            IdentityBuilder builder = services.AddIdentityCore<User>(options => 
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -79,10 +79,10 @@ namespace SGCOS.API
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling =
-            Newtonsoft.Json.ReferenceLoopHandling.Ignore); */
+            Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
             
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+           // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<ISGCOSRepository, SGCOSRepository>();
             services.AddAutoMapper();
             services.AddCors();
