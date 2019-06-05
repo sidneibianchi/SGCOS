@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientesComponent } from './clientes/clientes.component';
+import { ClicadeditComponent } from './clientes/clicadedit/clicadedit.component';
 import { EquipamentosComponent } from './equipamentos/equipamentos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ServicosComponent } from './servicos/servicos.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
     ]
   },
   {path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard]},
+  {path: 'clicadedit/:idCliente/edit', component: ClicadeditComponent, canActivate: [AuthGuard]},
   {path: 'equipamentos/:idCliente/edit', component: EquipamentosComponent, canActivate: [AuthGuard]},
   {path: 'servicos/:idEquipamento/edit', component: ServicosComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},

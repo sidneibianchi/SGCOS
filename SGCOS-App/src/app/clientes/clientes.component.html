@@ -6,10 +6,12 @@
         [(ngModel)]="filtroLista">
     </div>
   </div>
+  <div >
   <button class="btn btn-outline-primary" (click)="novoCliente(template)">
     <i class="fa fa-plus-circle"></i>&nbsp;
     Novo Cliente
   </button>
+</div>
 </div>
 <br>
 <table class="table table-striped">
@@ -38,7 +40,7 @@
       </td>
       <td>
         <div style="margin: auto;">
-          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente, template)">
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente,template)">
             <i class="fa fa-edit"></i>
           </button>
           <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
@@ -63,7 +65,7 @@
   </tfoot>
 </table>
 
-<div bsModal #template="bs-modal"  data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #template="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,10 +75,13 @@
         </button>
       </div>
       <div class="modal-body">
+        
         <form [formGroup]="registerForm">
           <div class="row">
             <div class="col-md-12">
+             
               <tabset>
+             
                 <tab heading="Cliente">
                   <div class="form-row">
                     <div class="form-group col-md-3">
@@ -189,7 +194,7 @@
                           Adicionar Endereço
                         </button>
                       </div>
-                    </tab>
+                </tab>
 
                 <tab heading="telefones">
                   <div>
@@ -225,9 +230,11 @@
                 </tab>
 
               </tabset>
+
             </div>
           </div>
         </form>
+        
       </div>
       <div class="modal-footer d-flex">
         <button class="btn btn-secondary" (click)="fechaModal(template)">

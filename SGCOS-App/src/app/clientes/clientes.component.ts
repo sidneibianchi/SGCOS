@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,12 +27,14 @@ export class ClientesComponent implements OnInit {
   constructor(private clienteService: ClienteService,
               private modalService: BsModalService,
               private fb: FormBuilder,
+              public router: Router,
               private toastr: ToastrService) { }
 
 
   get filtroLista(): string {
     return this.FiltroLista;
   }
+
   set filtroLista(value: string) {
     this.FiltroLista = value;
     this.clienteFiltrados = this.filtroLista ? this.filtrarClientes(this.filtroLista) : this.clientes;
@@ -54,9 +57,12 @@ export class ClientesComponent implements OnInit {
           });
         }
       );
-
     this.modoSalvar = 'put';
     this.openModal(template);
+  }
+
+  editarClienteNovo(cli: Cliente) {
+    this.router.navigate(['/clicadedit', cli.id, 'edit']);
   }
 
   novoCliente(template: any) {
@@ -104,7 +110,7 @@ export class ClientesComponent implements OnInit {
     this.registerForm = this.fb.group({
       cpfCnpj: ['', Validators.required],
       nome: ['', Validators.required],
-      email: [''],
+      email: ['', Validators.required],
       contato: ['', Validators.required],
       enderecos: this.fb.array([]),
       telefones: this.fb.array([])
@@ -119,8 +125,12 @@ export class ClientesComponent implements OnInit {
     return this.fb.group({
       id: [telefone.id],
       numero: [telefone.numero, Validators.required],
-      tipo: [telefone.tipo]
+      tipo: [telefone.tipo, Validators.required],
     });
+  }
+
+  roleName() {
+    return sessionStorage.getItem('role');
   }
 
   adicionarTelefone() {
@@ -138,12 +148,12 @@ export class ClientesComponent implements OnInit {
   criaEndereco(endereco: any): FormGroup {
     return this.fb.group({
       id: [endereco.id],
-      cep: [endereco.cep],
-      logradouro: [endereco.logradouro],
-      numero: [endereco.numero],
-      bairro: [endereco.bairro],
-      cidade: [endereco.cidade],
-      uf: [endereco.uf]
+      cep: [endereco.cep, Validators.required],
+      logradouro: [endereco.logradouro, Validators.required],
+      numero: [endereco.numero, Validators.required],
+      bairro: [endereco.bairro, Validators.required],
+      cidade: [endereco.cidade, Validators.required],
+      uf: [endereco.uf, Validators.required],
     });
   }
 
