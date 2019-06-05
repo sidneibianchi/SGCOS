@@ -1,5 +1,5 @@
 using SGCOS.Domain;
-using  Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SGCOS.Domain.Identity;
 using Microsoft.AspNetCore.Identity;

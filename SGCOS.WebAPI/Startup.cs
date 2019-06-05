@@ -39,7 +39,7 @@ namespace SGCOS.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SGCOSContext>(
-                x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+                x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             ); 
             
            /*  IdentityBuilder builder = services.AddIdentityCore<User>(options => 
