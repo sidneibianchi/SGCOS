@@ -27,7 +27,6 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TouchSequence } from 'selenium-webdriver';
 import { NgxCurrencyModule } from 'ngx-currency';
-import { ClicadeditComponent } from './clientes/clicadedit/clicadedit.component';
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { ClicadeditComponent } from './clientes/clicadedit/clicadedit.component'
       DateFormatPipePipe,
       HourFormatPipePipe,
       ClientesComponent,
-      ClicadeditComponent,
       EquipamentosComponent,
       DashboardComponent,
       TituloComponent,
