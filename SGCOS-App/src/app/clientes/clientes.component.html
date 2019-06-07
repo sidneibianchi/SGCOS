@@ -87,11 +87,11 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                   <div class="form-row">
                     <div class="form-group col-md-3">
                       <label>CNPJ</label>
-                      <input type="text" class="form-control" formControlName="cpfCnpj" id="cpfCnpj"
+                      <input type="text" #cpf  class="form-control" formControlName="cpfCnpj" 
                         placeholder="CPF/CNPJ." maxlength="18" name="cpfCnpj" id="cpfCnpj"
                         onkeydown="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
                         onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
-                        onblur="" (blur)="VerificaSeExisteCliente(this);">
+                        (blur)="VerificaSeExisteCliente(cpf.value, template);">
                     </div>
                     <div class="form-group col-md-9">
                       <label>Nome</label>
@@ -230,9 +230,7 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                     </button>
                   </div>
                 </tab>
-
               </tabset>
-
             </div>
           </div>
         </form>
