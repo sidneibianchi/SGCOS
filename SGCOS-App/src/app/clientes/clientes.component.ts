@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
@@ -25,6 +26,7 @@ export class ClientesComponent implements OnInit {
   registerForm: FormGroup;
   FiltroLista: string;
 
+
   constructor(private clienteService: ClienteService,
               private modalService: BsModalService,
               private fb: FormBuilder,
@@ -42,13 +44,13 @@ export class ClientesComponent implements OnInit {
   }
 
   editarCliente(cli: Cliente, template: any) {
+
+
     this.clienteService.getClienteById(cli.id)
       .subscribe(
         (cliente: Cliente) => {
           this.cliente = Object.assign({}, cliente);
           this.cliente.cpfCnpj = this.FormataCpfCnpj(this.cliente.cpfCnpj);
-
-          console.log(cliente);
           this.registerForm.patchValue(this.cliente);
 
           this.cliente.enderecos.forEach(endereco => {
