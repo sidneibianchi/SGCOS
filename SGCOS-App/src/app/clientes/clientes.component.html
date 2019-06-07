@@ -65,7 +65,8 @@
   </tfoot>
 </table>
 
-<div bsModal #template="bs-modal"  [config]= "{ignoreBackdropClick: true, keyboard: false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+<div bsModal #template="bs-modal"  [config]= "{ignoreBackdropClick: true, keyboard: false}" 
+class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -89,7 +90,8 @@
                       <input type="text" class="form-control" formControlName="cpfCnpj" id="cpfCnpj"
                         placeholder="CPF/CNPJ." maxlength="18" name="cpfCnpj" id="cpfCnpj"
                         onkeydown="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
-                        onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)" >
+                        onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
+                        onblur="" (blur)="VerificaSeExisteCliente(this);">
                     </div>
                     <div class="form-group col-md-9">
                       <label>Nome</label>

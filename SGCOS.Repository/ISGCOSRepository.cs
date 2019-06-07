@@ -19,6 +19,7 @@ namespace SGCOS.Repository
         Task<Cliente[]> GetAllClienteAsync();
         Task<Cliente> GetAllClienteAsyncById(int clienteId);
         Task<Cliente[]> GetAllClienteAsyncByNome(string clienteNome);
+        Task<Cliente> GetAllClienteAsyncByCPFCNPJ(string clientecpfcnpj, bool buscar = true);
         
         #endregion
 

@@ -23,6 +23,10 @@ export class ClienteService {
     return this.http.get<Cliente>(`${this.baseURL}/${nome}`);
   }
 
+  getClienteByIdCpfCnpj(cpfCnpj: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseURL}/${cpfCnpj}`);
+  }
+
   postCliente(cliente: Cliente) {
     return this.http.post(this.baseURL, cliente);
   }

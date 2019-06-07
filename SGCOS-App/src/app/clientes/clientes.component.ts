@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { ToastrService } from 'ngx-toastr';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { Router } from '@angular/router';
+import { template } from '@angular/core/src/render3';
 
 
 @Component({
@@ -105,6 +106,19 @@ export class ClientesComponent implements OnInit {
       cliente => cliente.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
   }
+
+  VerificaSeExisteCliente(cpfcnpj: string) {
+    this.clienteService.getClienteByIdCpfCnpj(cpfcnpj).subscribe(
+      (Cliente: Cliente) => {
+        this.cliente = Cliente;
+        this.editarCliente(this.cliente, template);
+        this.toastr.info('Cliente já cadastrado na base de dados.');
+      }, error => {
+        this.toastr.error('Erro ao tentar carregar cliente: ${error}');
+      });
+
+  }
+
 
   validation() {
     this.registerForm = this.fb.group({

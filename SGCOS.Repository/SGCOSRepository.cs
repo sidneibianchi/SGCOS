@@ -81,6 +81,19 @@ namespace SGCOS.Repository
 
             return await query.ToArrayAsync();
         }
+        
+        public async Task<Cliente> GetAllClienteAsyncByCPFCNPJ(string clientecpfcnpj, bool buscar = true)
+        {
+            IQueryable<Cliente> query = _context.Clientes
+                            .Include(c => c.Enderecos)
+                            .Include(c => c.Telefones);              
+               
+
+            query = query.AsNoTracking()
+                         .Where(c => c.CpfCnpj == clientecpfcnpj);
+
+            return await query.FirstOrDefaultAsync();
+        }
 
         #endregion
  
