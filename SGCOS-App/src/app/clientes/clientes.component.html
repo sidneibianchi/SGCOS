@@ -91,7 +91,8 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                         placeholder="CPF/CNPJ." maxlength="18" name="cpfCnpj" id="cpfCnpj"
                         onkeydown="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
                         onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
-                        (blur)="VerificaSeExisteCliente(cpf.value, template);">
+                        (blur)="VerificaSeExisteCliente(cpf.value, template);"
+                        onkeypress="return SomenteNumero(event)">
                     </div>
                     <div class="form-group col-md-9">
                       <label>Nome</label>

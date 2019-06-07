@@ -44,8 +44,7 @@ export class ClientesComponent implements OnInit {
   }
 
   editarCliente(cli: Cliente, template: any) {
-
-
+    this.ngOnInit();
     this.clienteService.getClienteById(cli.id)
       .subscribe(
         (cliente: Cliente) => {
@@ -64,11 +63,13 @@ export class ClientesComponent implements OnInit {
       );
     this.modoSalvar = 'put';
     this.openModal(template);
+    this.InputCpf.nativeElement.disabled = true;
   }
 
   novoCliente(template: any) {
     this.modoSalvar = 'post';
     this.openModal(template);
+    this.InputCpf.nativeElement.disabled = false;
   }
 
   excluirCliente(cliente: Cliente, template: any) {
@@ -96,6 +97,9 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.userName()) {
+      this.logout();
+    }
     this.getClientes();
     this.validation();
   }
@@ -124,8 +128,9 @@ export class ClientesComponent implements OnInit {
           cliente => cliente.cpfCnpj === cpfcnpj);
 
     if (ret.length > 0 ) {
-        this.toastr.info('Cliente já existente na base de dados.');
-        this.editarCliente(ret[0], template);
+        this.toastr.warning('Cliente com documento: ' + this.FormataCpfCnpj(cpfcnpj) + ' já possui um cadastrado no sistema.');
+        this.novoCliente(template);
+        this.InputCpf.nativeElement.focus();
       }
 
   }
@@ -240,6 +245,7 @@ export class ClientesComponent implements OnInit {
   }
 
   getClientes() {
+
     this.clienteService.getAllCliente().subscribe(
       (Clientes: Cliente[]) => {
         this.clientes = Clientes;
@@ -376,4 +382,13 @@ export class ClientesComponent implements OnInit {
     return true;
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    this.toastr.show('Você saiu do sistema.');
+    this.router.navigate(['/user/login']);
+  }
+
+  userName() {
+    return sessionStorage.getItem('username');
+  }
 }
