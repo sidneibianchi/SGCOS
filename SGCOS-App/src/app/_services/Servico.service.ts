@@ -15,8 +15,8 @@ export class ServicoService {
     return this.http.get<Servico[]>(this.baseURL);
   }
 
-  getServicoById(id: number): Observable<Servico[]> {
-    return this.http.get<Servico[]>(`${this.baseURL}/${id}`);
+  getServicoById(id: number): Observable<Servico> {
+    return this.http.get<Servico>(`${this.baseURL}/${id}`);
   }
 
   getServicoByEquipamento(idEquipamento: string): Observable<Servico[]> {

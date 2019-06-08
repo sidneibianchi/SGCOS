@@ -33,7 +33,7 @@ namespace SGCOS.Repository
 
         #region Servico
         Task<Servico[]> GetAllServicoAsync();
-        Task<Servico> GetAllServicoAsyncById(int equipamentoId);
+        Task<Servico> GetAllServicoAsyncById(int servicoId);
         Task<Servico[]> GetAllServicoAsyncByEquipamento(string equipamentoId);
 
         #endregion

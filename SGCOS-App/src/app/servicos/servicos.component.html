@@ -73,7 +73,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 id="dialog-sizes-name1" class="modal-title pull-left">Serviços</h4>
-        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+        <button type="button" class="close pull-right" (click)="fechaModal(template)" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -87,7 +87,7 @@
             <div class="form-group col-md-3">
               <label>Data de atendimento</label>
               <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat : 'DD/MM/YYYY' }"
-              value="{{servico.dtAtendimento | DateFormatPipe}}" 
+              value="{{dtAtendimento | DateFormatPipe}}" [(ngModel)]="dtAtendimento"
               class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento.">
             </div>
             <div class="form-group col-md-3">
@@ -130,7 +130,7 @@
         </form>
       </div>
       <div class="modal-footer d-flex">
-        <button class="btn btn-secondary" (click)="template.hide()">
+        <button class="btn btn-secondary" (click)="fechaModal(template)">
           Fechar
         </button>
         <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarServico(template)">

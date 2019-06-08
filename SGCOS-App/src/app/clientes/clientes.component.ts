@@ -63,13 +63,13 @@ export class ClientesComponent implements OnInit {
       );
     this.modoSalvar = 'put';
     this.openModal(template);
-    this.InputCpf.nativeElement.disabled = true;
+    /*  this.InputCpf.nativeElement.disabled = true; */
   }
 
   novoCliente(template: any) {
     this.modoSalvar = 'post';
     this.openModal(template);
-    this.InputCpf.nativeElement.disabled = false;
+    /* this.InputCpf.nativeElement.disabled = false; */
   }
 
   excluirCliente(cliente: Cliente, template: any) {
@@ -100,6 +100,7 @@ export class ClientesComponent implements OnInit {
     if (!this.userName()) {
       this.logout();
     }
+    this.LimpaCliente();
     this.getClientes();
     this.validation();
   }
@@ -112,8 +113,17 @@ export class ClientesComponent implements OnInit {
   }
 
   VerificaSeExisteCliente(cpfcnpj: string, template: any) {
+
+    if (cpfcnpj === this.cliente.cpfCnpj) {
+      return;
+   }
+
     const exp = /\.|\-|\//g;
     cpfcnpj = cpfcnpj.replace(exp, '');
+
+    console.log(this.cliente.cpfCnpj);
+    console.log(cpfcnpj);
+
     if (cpfcnpj.length > 0 && cpfcnpj.length <= 11) {
       if (!this.Validacpf(cpfcnpj)) {
         this.limpaDadosCpfCnpj();
@@ -243,6 +253,11 @@ export class ClientesComponent implements OnInit {
       }
     }
   }
+
+  LimpaCliente() {
+    this.cliente = new Cliente();
+  }
+
 
   getClientes() {
 

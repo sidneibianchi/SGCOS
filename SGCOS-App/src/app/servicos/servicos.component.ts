@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Servico } from '../_models/Servico';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap';
+import { toDate } from '@angular/common/src/i18n/format_date';
+import { DateFormatPipePipe } from '../_helps/DateFormatPipe.pipe';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -25,6 +27,7 @@ export class ServicosComponent implements OnInit {
   FiltroLista: string;
   registerForm: FormGroup;
   idEquipamento: number;
+  dtAtendimento: string;
 
   dataAtual: Date = new Date();
 
@@ -69,6 +72,11 @@ export class ServicosComponent implements OnInit {
   openModal(template: any) {
     this.registerForm.reset();
     template.show();
+  }
+
+  fechaModal(template: any) {
+    this.ngOnInit();
+    template.hide();
   }
 
   validation() {
@@ -121,6 +129,7 @@ export class ServicosComponent implements OnInit {
         this.servicoService.postServico(this.servico).subscribe(
           (novoServico: Servico) => {
             template.hide();
+            this.ngOnInit();
             this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
             this.toastr.success('Servico inserido com sucesso!');
           }, error => {
@@ -132,6 +141,7 @@ export class ServicosComponent implements OnInit {
         this.servicoService.putServico(this.servico).subscribe(
           () => {
             template.hide();
+            this.ngOnInit();
             this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
             this.toastr.success('Servico alterado com sucesso!');
           }, error => {
