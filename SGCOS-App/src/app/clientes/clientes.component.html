@@ -86,27 +86,54 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                 <tab heading="Cliente">
                   <div class="form-row">
                     <div class="form-group col-md-3">
-                      <label>CNPJ</label>
-                      <input type="text" #cpf  class="form-control" formControlName="cpfCnpj" 
+                      <label>CPF/ CNPJ</label>
+                      <input type="text" #cpf  class="form-control" formControlName="cpfCnpj"
+                        [ngClass]="{'is-invalid': registerForm.get('cpfCnpj').errors && registerForm.get('cpfCnpj').touched}"
                         placeholder="CPF/CNPJ." maxlength="18" name="cpfCnpj" id="cpfCnpj"
                         onkeydown="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
                         onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
                         (blur)="VerificaSeExisteCliente(cpf.value, template);"
                         onkeypress="return SomenteNumero(event)">
+                        <div *ngIf="registerForm.get('cpfCnpj').hasError('required')
+                              && registerForm.get('cpfCnpj').touched" class="invalid-feedback">
+                              O CPF/ CNPJ é obrigatório.
+                        </div>
                     </div>
                     <div class="form-group col-md-9">
                       <label>Nome</label>
-                      <input type="text" class="form-control" formControlName="nome" placeholder="Nome">
+                      <input type="text" class="form-control" formControlName="nome" 
+                      [ngClass]="{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}"
+                      placeholder="Nome" maxlength="150">
+                      <div *ngIf="registerForm.get('nome').hasError('required')
+                              && registerForm.get('nome').touched" class="invalid-feedback">
+                              Nome é obrigatório.
+                      </div>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label>Contato</label>
-                      <input type="text" class="form-control" formControlName="contato" placeholder="Contato.">
+                      <input type="text" class="form-control" formControlName="contato" 
+                      [ngClass]="{'is-invalid': registerForm.get('contato').errors && registerForm.get('contato').touched}"
+                      placeholder="Contato." maxlength="150">
+                      <div *ngIf="registerForm.get('contato').hasError('required')
+                              && registerForm.get('contato').touched" class="invalid-feedback">
+                              Contato é obrigatório.
+                      </div>
                     </div>
                     <div class="form-group col-md-6">
                       <label>E-mail</label>
-                      <input type="text" class="form-control" formControlName="email" placeholder="E-mail.">
+                      <input type="text" class="form-control" formControlName="email" 
+                      [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
+                      placeholder="E-mail." maxlength="150">
+                      <div *ngIf="registerForm.get('email').hasError('required')
+                              && registerForm.get('email').touched" class="invalid-feedback">
+                              E-mail é obrigatório.
+                      </div>
+                      <div *ngIf="registerForm.get('email').hasError('email')
+                        && registerForm.get('email').touched" class="invalid-feedback">
+                         Informe um e-mail válido.
+                      </div>
                     </div>
                   </div>
                 </tab>
@@ -127,19 +154,21 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                                 <label>CEP</label>
                                 <input type="text" class="form-control"
                                   [ngClass]="{'is-invalid': enderecos.get(i+'.cep').errors && enderecos.get(i+'.cep').touched}"
-                                  formControlName="cep" placeholder="Cep" mask="00000-000" onkeypress="return SomenteNumero(event)">
+                                  formControlName="cep" placeholder="Cep" mask="00000-000" onkeypress="return SomenteNumero(event)" maxlength="9">
                               </div>
                               <div class="form-group col-md-8">
                                 <label>Logradouro</label>
                                 <input type="text" class="form-control" formControlName="logradouro"
                                 [ngClass]="{'is-invalid': enderecos.get(i+'.logradouro').errors && enderecos.get(i+'.logradouro').touched}"
-                                  placeholder="Logradouro.">
+                                  placeholder="Logradouro." maxlength="150">
+                                 
                               </div>
                               <div class="form-group col-md-2">
                                 <label>Número</label>
                                 <input type="text" class="form-control" 
                                 [ngClass]="{'is-invalid': enderecos.get(i+'.numero').errors && enderecos.get(i+'.numero').touched}"
-                                formControlName="numero" placeholder="Numero.">
+                                formControlName="numero" placeholder="Numero." maxlength="10">
+                               
                               </div>
                             </div>
                               <div class="form-row">
@@ -147,13 +176,15 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                                   <label>Bairro</label>
                                   <input type="text" class="form-control" 
                                   [ngClass]="{'is-invalid': enderecos.get(i+'.bairro').errors && enderecos.get(i+'.bairro').touched}"
-                                  formControlName="bairro" placeholder="Bairro.">
+                                  formControlName="bairro" placeholder="Bairro." maxlength="150">
+                                  
                                 </div>
                                 <div class="form-group col-md-4">
                                   <label>Cidade</label>
                                   <input type="text" class="form-control" 
                                   [ngClass]="{'is-invalid': enderecos.get(i+'.cidade').errors && enderecos.get(i+'.cidade').touched}"
-                                  formControlName="cidade" placeholder="Cidade.">
+                                  formControlName="cidade" placeholder="Cidade." maxlength="150">
+                                  
                                 </div>
                                 <div class="form-group col-md-3">
                                   <label>Estado</label>
@@ -189,6 +220,7 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                                     <option value="SE">Sergipe</option>
                                     <option value="TO">Tocantins</option>
                                   </select>
+                                  
                                 </div>
                             </div>
                           </fieldset>
@@ -207,16 +239,21 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                         <div class="form-row">
                           <div class="form-group col-md-3">
                             <label>Numero</label>
-                            <input type="text" class="form-control" formControlName="numero" placeholder="Número."
-                              maxlength="15" mask="(00) 000000000" id="telefone" onkeypress="return SomenteNumero(event)">
+                            <input type="text" class="form-control" formControlName="numero" 
+                            [ngClass]="{'is-invalid': telefones.get(i+'.numero').errors && telefones.get(i+'.numero').touched}"
+                            placeholder="Número." maxlength="15" mask="(00) 000000000" id="telefone" onkeypress="return SomenteNumero(event)">
+                            
                           </div>
                           <div class="form-group col-md-3">
                             <label>Tipo</label>
-                            <select class="form-control" formControlName="tipo">
+                            <select class="form-control" 
+                            [ngClass]="{'is-invalid': telefones.get(i+'.tipo').errors && telefones.get(i+'.tipo').touched}"
+                            formControlName="tipo">
                               <option value="">Selecione</option>
                               <option value="1">Celular</option>
                               <option value="2">Comercial</option>
                             </select>
+                            
                           </div>
                           <div class="form-group col-md-1">
                             <br>
