@@ -99,6 +99,26 @@ var HourFormatPipePipe = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./src/app/_models/Cliente.ts":
+/*!************************************!*\
+  !*** ./src/app/_models/Cliente.ts ***!
+  \************************************/
+/*! exports provided: Cliente */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Cliente", function() { return Cliente; });
+var Cliente = /** @class */ (function () {
+    function Cliente() {
+    }
+    return Cliente;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/_services/Cliente.service.ts":
 /*!**********************************************!*\
   !*** ./src/app/_services/Cliente.service.ts ***!
@@ -128,6 +148,9 @@ var ClienteService = /** @class */ (function () {
     };
     ClienteService.prototype.getClienteByNome = function (nome) {
         return this.http.get(this.baseURL + "/" + nome);
+    };
+    ClienteService.prototype.getClienteByIdCpfCnpj = function (cpfCnpj) {
+        return this.http.get(this.baseURL + "/" + cpfCnpj);
     };
     ClienteService.prototype.postCliente = function (cliente) {
         return this.http.post(this.baseURL, cliente);
@@ -293,6 +316,7 @@ var AuthService = /** @class */ (function () {
                 localStorage.setItem('token', user.token);
                 _this.decodedToken = _this.jwtHelper.decodeToken(user.token);
                 sessionStorage.setItem('username', _this.decodedToken.unique_name);
+                sessionStorage.setItem('role', _this.decodedToken.role);
             }
         }));
     };
@@ -301,6 +325,7 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.loggedIn = function () {
         var token = localStorage.getItem('token');
+        var role = localStorage.getItem('role');
         return !this.jwtHelper.isTokenExpired(token);
     };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -724,7 +749,7 @@ module.exports = "i {\r\n    font-size: 25px;\r\n}\r\n\r\n.iconesSociais a {\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <button class=\"btn btn-outline-primary\" (click)=\"novoCliente(template)\">\r\n    <i class=\"fa fa-plus-circle\"></i>&nbsp;\r\n    Novo Cliente\r\n  </button>\r\n</div>\r\n<br>\r\n<table class=\"table table-striped\">\r\n  <thead class=\"thead-light\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nome</th>\r\n      <th>Contato</th>\r\n      <th>Telefone</th>\r\n      <th>Editar | Excluir</th>\r\n      <th>Equipamentos</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"clientes\">\r\n    <tr *ngFor=\"let cliente of clienteFiltrados\">\r\n      <td>{{cliente.id}}</td>\r\n      <td>{{cliente.nome | uppercase}}</td>\r\n      <td>{{cliente.contato | uppercase}}</td>\r\n      <td>\r\n        <div *ngIf=\"!cliente.telefones.length\">\r\n          Não Informado\r\n        </div>\r\n        <div *ngIf=\"cliente.telefones.length\">\r\n          {{cliente.telefones[0].numero}}\r\n        </div>\r\n      </td>\r\n      <td>\r\n        <div style=\"margin: auto;\">\r\n          <button class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarCliente(cliente, template)\">\r\n            <i class=\"fa fa-edit\"></i>\r\n          </button>\r\n          <button style=\"margin-left: 15px;\" class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\"\r\n            (click)=\"excluirCliente(cliente, confirm)\">\r\n            <i class=\"fa fa-eraser\"></i>\r\n          </button>\r\n        </div>\r\n      </td>\r\n      <td>\r\n        <a style=\"align-items: center; margin-left:20px;\" [routerLink]=\"['/equipamentos', cliente.id, 'edit']\"\r\n          tooltip=\"Equipamentos\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-edit\"></i></a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!clientes\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum cliente encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n\r\n<div bsModal #template=\"bs-modal\"  data-backdrop=\"static\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-xl\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Clientes</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fechaModal(template)\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n              <tabset>\r\n                <tab heading=\"Cliente\">\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>CNPJ</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"cpfCnpj\" id=\"cpfCnpj\"\r\n                        placeholder=\"CPF/CNPJ.\" maxlength=\"18\" name=\"cpfCnpj\" id=\"cpfCnpj\"\r\n                        onkeydown=\"javascript:return aplica_mascara_cpfcnpj(this,18,event)\"\r\n                        onkeyup=\"javascript:return aplica_mascara_cpfcnpj(this,18,event)\" >\r\n                    </div>\r\n                    <div class=\"form-group col-md-9\">\r\n                      <label>Nome</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"nome\" placeholder=\"Nome\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Contato</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"contato\" placeholder=\"Contato.\">\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>E-mail</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"email\" placeholder=\"E-mail.\">\r\n                    </div>\r\n                  </div>\r\n                </tab>\r\n                \r\n                <tab heading=\"Endereço\">\r\n                      <div>\r\n                        <div formArrayName=\"enderecos\" *ngFor=\"let endereco of enderecos.controls; let i=index\">\r\n                          <fieldset [formGroupName]=\"i\" class=\"form-group\">\r\n                            <legend class=\"d-flex justify-content-between capitalize\">\r\n                              {{ enderecos.get(i+'.logradouro').value === '' ?\r\n                                'Endereço' :\r\n                                enderecos.get(i+'.logradouro').value\r\n                              }}\r\n                              <button class=\"btn btn-sm btn-danger mb-1\" (click)=\"removerEndereco(i)\">remove</button>\r\n                            </legend>\r\n                            <div class=\"row\">\r\n                              <div class=\"form-group col-md-2\">\r\n                                <label>CEP</label>\r\n                                <input type=\"text\" class=\"form-control\"\r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.cep').errors && enderecos.get(i+'.cep').touched}\"\r\n                                  formControlName=\"cep\" placeholder=\"Cep\" mask=\"00000-000\" onkeypress=\"return SomenteNumero(event)\">\r\n                              </div>\r\n                              <div class=\"form-group col-md-8\">\r\n                                <label>Logradouro</label>\r\n                                <input type=\"text\" class=\"form-control\" formControlName=\"logradouro\"\r\n                                [ngClass]=\"{'is-invalid': enderecos.get(i+'.logradouro').errors && enderecos.get(i+'.logradouro').touched}\"\r\n                                  placeholder=\"Logradouro.\">\r\n                              </div>\r\n                              <div class=\"form-group col-md-2\">\r\n                                <label>Número</label>\r\n                                <input type=\"text\" class=\"form-control\" \r\n                                [ngClass]=\"{'is-invalid': enderecos.get(i+'.numero').errors && enderecos.get(i+'.numero').touched}\"\r\n                                formControlName=\"numero\" placeholder=\"Numero.\">\r\n                              </div>\r\n                            </div>\r\n                              <div class=\"form-row\">\r\n                                <div class=\"form-group col-md-5\">\r\n                                  <label>Bairro</label>\r\n                                  <input type=\"text\" class=\"form-control\" \r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.bairro').errors && enderecos.get(i+'.bairro').touched}\"\r\n                                  formControlName=\"bairro\" placeholder=\"Bairro.\">\r\n                                </div>\r\n                                <div class=\"form-group col-md-4\">\r\n                                  <label>Cidade</label>\r\n                                  <input type=\"text\" class=\"form-control\" \r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.cidade').errors && enderecos.get(i+'.cidade').touched}\"\r\n                                  formControlName=\"cidade\" placeholder=\"Cidade.\">\r\n                                </div>\r\n                                <div class=\"form-group col-md-3\">\r\n                                  <label>Estado</label>\r\n                                  <select class=\"form-control\" \r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.uf').errors && enderecos.get(i+'.uf').touched}\"\r\n                                  formControlName=\"uf\" data-search=\"false\">\r\n                                    <option value=\"\">Selecione</option>\r\n                                    <option value=\"AC\">Acre</option>\r\n                                    <option value=\"AL\">Alagoas</option>\r\n                                    <option value=\"AP\">Amapá</option>\r\n                                    <option value=\"AM\">Amazonas</option>\r\n                                    <option value=\"BA\">Bahia</option>\r\n                                    <option value=\"CE\">Ceará</option>\r\n                                    <option value=\"DF\">Distrito Federal</option>\r\n                                    <option value=\"ES\">Espírito Santo</option>\r\n                                    <option value=\"GO\">Goiás</option>\r\n                                    <option value=\"MA\">Maranhão</option>\r\n                                    <option value=\"MT\">Mato Grosso</option>\r\n                                    <option value=\"MS\">Mato Grosso do Sul</option>\r\n                                    <option value=\"MG\">Minas Gerais</option>\r\n                                    <option value=\"PA\">Pará</option>\r\n                                    <option value=\"PB\">Paraíba</option>\r\n                                    <option value=\"PR\">Paraná</option>\r\n                                    <option value=\"PE\">Pernambuco</option>\r\n                                    <option value=\"PI\">Piauí</option>\r\n                                    <option value=\"RJ\">Rio de Janeiro</option>\r\n                                    <option value=\"RN\">Rio Grande do Norte</option>\r\n                                    <option value=\"RS\">Rio Grande do Sul</option>\r\n                                    <option value=\"RO\">Rondônia</option>\r\n                                    <option value=\"RR\">Roraima</option>\r\n                                    <option value=\"SC\">Santa Catarina</option>\r\n                                    <option value=\"SP\">São Paulo</option>\r\n                                    <option value=\"SE\">Sergipe</option>\r\n                                    <option value=\"TO\">Tocantins</option>\r\n                                  </select>\r\n                                </div>\r\n                            </div>\r\n                          </fieldset>\r\n                        </div>\r\n                        <button (click)=\"adicionarEndereco()\" class=\"btn btn-outline-primary\">\r\n                          Adicionar Endereço\r\n                        </button>\r\n                      </div>\r\n                    </tab>\r\n\r\n                <tab heading=\"telefones\">\r\n                  <div>\r\n                    <div formArrayName=\"telefones\" *ngFor=\"let telefone of telefones.controls; let i=index\">\r\n                      <div [formGroupName]=\"i\" class=\"form-group\">\r\n                        <h5>Telefones</h5>\r\n                        <div class=\"form-row\">\r\n                          <div class=\"form-group col-md-3\">\r\n                            <label>Numero</label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"numero\" placeholder=\"Número.\"\r\n                              maxlength=\"15\" mask=\"(00) 000000000\" id=\"telefone\" onkeypress=\"return SomenteNumero(event)\">\r\n                          </div>\r\n                          <div class=\"form-group col-md-3\">\r\n                            <label>Tipo</label>\r\n                            <select class=\"form-control\" formControlName=\"tipo\">\r\n                              <option value=\"\">Selecione</option>\r\n                              <option value=\"1\">Celular</option>\r\n                              <option value=\"2\">Comercial</option>\r\n                            </select>\r\n                          </div>\r\n                          <div class=\"form-group col-md-1\">\r\n                            <br>\r\n                            <button type=\"button\" class=\"btn btn-outline-danger mt-2\"\r\n                              (click)=\"removerTelefone(i)\">Remover</button>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <button class=\"btn btn-outline-primary\" (click)=\"adicionarTelefone();\">\r\n                      Adicionar Telefone\r\n                    </button>\r\n                  </div>\r\n                </tab>\r\n\r\n              </tabset>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"fechaModal(template)\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarAlteracao(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Cliente\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarCliente}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <div >\r\n  <button class=\"btn btn-outline-primary\" (click)=\"novoCliente(template)\">\r\n    <i class=\"fa fa-plus-circle\"></i>&nbsp;\r\n    Novo Cliente\r\n  </button>\r\n</div>\r\n</div>\r\n<br>\r\n<table class=\"table table-striped\">\r\n  <thead class=\"thead-light\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nome</th>\r\n      <th>Contato</th>\r\n      <th>Telefone</th>\r\n      <th>Editar | Excluir</th>\r\n      <th>Equipamentos</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"clientes\">\r\n    <tr *ngFor=\"let cliente of clienteFiltrados\">\r\n      <td>{{cliente.id}}</td>\r\n      <td>{{cliente.nome | uppercase}}</td>\r\n      <td>{{cliente.contato | uppercase}}</td>\r\n      <td>\r\n        <div *ngIf=\"!cliente.telefones.length\">\r\n          Não Informado\r\n        </div>\r\n        <div *ngIf=\"cliente.telefones.length\">\r\n          {{cliente.telefones[0].numero}}\r\n        </div>\r\n      </td>\r\n      <td>\r\n        <div style=\"margin: auto;\">\r\n          <button class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarCliente(cliente,template)\">\r\n            <i class=\"fa fa-edit\"></i>\r\n          </button>\r\n          <button style=\"margin-left: 15px;\" class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\"\r\n            (click)=\"excluirCliente(cliente, confirm)\">\r\n            <i class=\"fa fa-eraser\"></i>\r\n          </button>\r\n        </div>\r\n      </td>\r\n      <td>\r\n        <a style=\"align-items: center; margin-left:20px;\" [routerLink]=\"['/equipamentos', cliente.id, 'edit']\"\r\n          tooltip=\"Equipamentos\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-edit\"></i></a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!clientes\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum cliente encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" \r\nclass=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Clientes</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fechaModal(template)\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        \r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n             \r\n              <tabset>\r\n             \r\n                <tab heading=\"Cliente\">\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>CPF/ CNPJ</label>\r\n                      <input type=\"text\" #cpf  class=\"form-control\" formControlName=\"cpfCnpj\"\r\n                        [ngClass]=\"{'is-invalid': registerForm.get('cpfCnpj').errors && registerForm.get('cpfCnpj').touched}\"\r\n                        placeholder=\"CPF/CNPJ.\" maxlength=\"18\" name=\"cpfCnpj\" id=\"cpfCnpj\"\r\n                        onkeydown=\"javascript:return aplica_mascara_cpfcnpj(this,18,event)\"\r\n                        onkeyup=\"javascript:return aplica_mascara_cpfcnpj(this,18,event)\"\r\n                        (blur)=\"VerificaSeExisteCliente(cpf.value, template);\"\r\n                        onkeypress=\"return SomenteNumero(event)\">\r\n                        <div *ngIf=\"registerForm.get('cpfCnpj').hasError('required')\r\n                              && registerForm.get('cpfCnpj').touched\" class=\"invalid-feedback\">\r\n                              O CPF/ CNPJ é obrigatório.\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-9\">\r\n                      <label>Nome</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"nome\" \r\n                      [ngClass]=\"{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}\"\r\n                      placeholder=\"Nome\" maxlength=\"150\">\r\n                      <div *ngIf=\"registerForm.get('nome').hasError('required')\r\n                              && registerForm.get('nome').touched\" class=\"invalid-feedback\">\r\n                              Nome é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Contato</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"contato\" \r\n                      [ngClass]=\"{'is-invalid': registerForm.get('contato').errors && registerForm.get('contato').touched}\"\r\n                      placeholder=\"Contato.\" maxlength=\"150\">\r\n                      <div *ngIf=\"registerForm.get('contato').hasError('required')\r\n                              && registerForm.get('contato').touched\" class=\"invalid-feedback\">\r\n                              Contato é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>E-mail</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"email\" \r\n                      [ngClass]=\"{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}\"\r\n                      placeholder=\"E-mail.\" maxlength=\"150\">\r\n                      <div *ngIf=\"registerForm.get('email').hasError('required')\r\n                              && registerForm.get('email').touched\" class=\"invalid-feedback\">\r\n                              E-mail é obrigatório.\r\n                      </div>\r\n                      <div *ngIf=\"registerForm.get('email').hasError('email')\r\n                        && registerForm.get('email').touched\" class=\"invalid-feedback\">\r\n                         Informe um e-mail válido.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </tab>\r\n                \r\n                <tab heading=\"Endereço\">\r\n                      <div>\r\n                        <div formArrayName=\"enderecos\" *ngFor=\"let endereco of enderecos.controls; let i=index\">\r\n                          <fieldset [formGroupName]=\"i\" class=\"form-group\">\r\n                            <legend class=\"d-flex justify-content-between capitalize\">\r\n                              {{ enderecos.get(i+'.logradouro').value === '' ?\r\n                                'Endereço' :\r\n                                enderecos.get(i+'.logradouro').value\r\n                              }}\r\n                              <button class=\"btn btn-sm btn-danger mb-1\" (click)=\"removerEndereco(i)\">remove</button>\r\n                            </legend>\r\n                            <div class=\"row\">\r\n                              <div class=\"form-group col-md-2\">\r\n                                <label>CEP</label>\r\n                                <input type=\"text\" class=\"form-control\"\r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.cep').errors && enderecos.get(i+'.cep').touched}\"\r\n                                  formControlName=\"cep\" placeholder=\"Cep\" mask=\"00000-000\" onkeypress=\"return SomenteNumero(event)\" maxlength=\"9\">\r\n                              </div>\r\n                              <div class=\"form-group col-md-8\">\r\n                                <label>Logradouro</label>\r\n                                <input type=\"text\" class=\"form-control\" formControlName=\"logradouro\"\r\n                                [ngClass]=\"{'is-invalid': enderecos.get(i+'.logradouro').errors && enderecos.get(i+'.logradouro').touched}\"\r\n                                  placeholder=\"Logradouro.\" maxlength=\"150\">\r\n                                 \r\n                              </div>\r\n                              <div class=\"form-group col-md-2\">\r\n                                <label>Número</label>\r\n                                <input type=\"text\" class=\"form-control\" \r\n                                [ngClass]=\"{'is-invalid': enderecos.get(i+'.numero').errors && enderecos.get(i+'.numero').touched}\"\r\n                                formControlName=\"numero\" placeholder=\"Numero.\" maxlength=\"10\">\r\n                               \r\n                              </div>\r\n                            </div>\r\n                              <div class=\"form-row\">\r\n                                <div class=\"form-group col-md-5\">\r\n                                  <label>Bairro</label>\r\n                                  <input type=\"text\" class=\"form-control\" \r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.bairro').errors && enderecos.get(i+'.bairro').touched}\"\r\n                                  formControlName=\"bairro\" placeholder=\"Bairro.\" maxlength=\"150\">\r\n                                  \r\n                                </div>\r\n                                <div class=\"form-group col-md-4\">\r\n                                  <label>Cidade</label>\r\n                                  <input type=\"text\" class=\"form-control\" \r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.cidade').errors && enderecos.get(i+'.cidade').touched}\"\r\n                                  formControlName=\"cidade\" placeholder=\"Cidade.\" maxlength=\"150\">\r\n                                  \r\n                                </div>\r\n                                <div class=\"form-group col-md-3\">\r\n                                  <label>Estado</label>\r\n                                  <select class=\"form-control\" \r\n                                  [ngClass]=\"{'is-invalid': enderecos.get(i+'.uf').errors && enderecos.get(i+'.uf').touched}\"\r\n                                  formControlName=\"uf\" data-search=\"false\">\r\n                                    <option value=\"\">Selecione</option>\r\n                                    <option value=\"AC\">Acre</option>\r\n                                    <option value=\"AL\">Alagoas</option>\r\n                                    <option value=\"AP\">Amapá</option>\r\n                                    <option value=\"AM\">Amazonas</option>\r\n                                    <option value=\"BA\">Bahia</option>\r\n                                    <option value=\"CE\">Ceará</option>\r\n                                    <option value=\"DF\">Distrito Federal</option>\r\n                                    <option value=\"ES\">Espírito Santo</option>\r\n                                    <option value=\"GO\">Goiás</option>\r\n                                    <option value=\"MA\">Maranhão</option>\r\n                                    <option value=\"MT\">Mato Grosso</option>\r\n                                    <option value=\"MS\">Mato Grosso do Sul</option>\r\n                                    <option value=\"MG\">Minas Gerais</option>\r\n                                    <option value=\"PA\">Pará</option>\r\n                                    <option value=\"PB\">Paraíba</option>\r\n                                    <option value=\"PR\">Paraná</option>\r\n                                    <option value=\"PE\">Pernambuco</option>\r\n                                    <option value=\"PI\">Piauí</option>\r\n                                    <option value=\"RJ\">Rio de Janeiro</option>\r\n                                    <option value=\"RN\">Rio Grande do Norte</option>\r\n                                    <option value=\"RS\">Rio Grande do Sul</option>\r\n                                    <option value=\"RO\">Rondônia</option>\r\n                                    <option value=\"RR\">Roraima</option>\r\n                                    <option value=\"SC\">Santa Catarina</option>\r\n                                    <option value=\"SP\">São Paulo</option>\r\n                                    <option value=\"SE\">Sergipe</option>\r\n                                    <option value=\"TO\">Tocantins</option>\r\n                                  </select>\r\n                                  \r\n                                </div>\r\n                            </div>\r\n                          </fieldset>\r\n                        </div>\r\n                        <button (click)=\"adicionarEndereco()\" class=\"btn btn-outline-primary\">\r\n                          Adicionar Endereço\r\n                        </button>\r\n                      </div>\r\n                </tab>\r\n\r\n                <tab heading=\"telefones\">\r\n                  <div>\r\n                    <div formArrayName=\"telefones\" *ngFor=\"let telefone of telefones.controls; let i=index\">\r\n                      <div [formGroupName]=\"i\" class=\"form-group\">\r\n                        <h5>Telefones</h5>\r\n                        <div class=\"form-row\">\r\n                          <div class=\"form-group col-md-3\">\r\n                            <label>Numero</label>\r\n                            <input type=\"text\" class=\"form-control\" formControlName=\"numero\" \r\n                            [ngClass]=\"{'is-invalid': telefones.get(i+'.numero').errors && telefones.get(i+'.numero').touched}\"\r\n                            placeholder=\"Número.\" maxlength=\"15\" mask=\"(00) 000000000\" id=\"telefone\" onkeypress=\"return SomenteNumero(event)\">\r\n                            \r\n                          </div>\r\n                          <div class=\"form-group col-md-3\">\r\n                            <label>Tipo</label>\r\n                            <select class=\"form-control\" \r\n                            [ngClass]=\"{'is-invalid': telefones.get(i+'.tipo').errors && telefones.get(i+'.tipo').touched}\"\r\n                            formControlName=\"tipo\">\r\n                              <option value=\"\">Selecione</option>\r\n                              <option value=\"1\">Celular</option>\r\n                              <option value=\"2\">Comercial</option>\r\n                            </select>\r\n                            \r\n                          </div>\r\n                          <div class=\"form-group col-md-1\">\r\n                            <br>\r\n                            <button type=\"button\" class=\"btn btn-outline-danger mt-2\"\r\n                              (click)=\"removerTelefone(i)\">Remover</button>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                    <button class=\"btn btn-outline-primary\" (click)=\"adicionarTelefone();\">\r\n                      Adicionar Telefone\r\n                    </button>\r\n                  </div>\r\n                </tab>\r\n              </tabset>\r\n            </div>\r\n          </div>\r\n        </form>\r\n        \r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"fechaModal(template)\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarAlteracao(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Cliente\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarCliente}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -741,9 +766,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_Cliente_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/Cliente.service */ "./src/app/_services/Cliente.service.ts");
-/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _models_Cliente__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_models/Cliente */ "./src/app/_models/Cliente.ts");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
 
 
 
@@ -751,10 +780,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ClientesComponent = /** @class */ (function () {
-    function ClientesComponent(clienteService, modalService, fb, toastr) {
+    function ClientesComponent(clienteService, modalService, fb, router, toastr) {
         this.clienteService = clienteService;
         this.modalService = modalService;
         this.fb = fb;
+        this.router = router;
         this.toastr = toastr;
         this.titulo = 'Clientes';
         this.bodyDeletarCliente = '';
@@ -773,10 +803,11 @@ var ClientesComponent = /** @class */ (function () {
     });
     ClientesComponent.prototype.editarCliente = function (cli, template) {
         var _this = this;
+        this.ngOnInit();
         this.clienteService.getClienteById(cli.id)
             .subscribe(function (cliente) {
             _this.cliente = Object.assign({}, cliente);
-            console.log(cliente);
+            _this.cliente.cpfCnpj = _this.FormataCpfCnpj(_this.cliente.cpfCnpj);
             _this.registerForm.patchValue(_this.cliente);
             _this.cliente.enderecos.forEach(function (endereco) {
                 _this.enderecos.push(_this.criaEndereco(endereco));
@@ -787,10 +818,12 @@ var ClientesComponent = /** @class */ (function () {
         });
         this.modoSalvar = 'put';
         this.openModal(template);
+        /*  this.InputCpf.nativeElement.disabled = true; */
     };
     ClientesComponent.prototype.novoCliente = function (template) {
         this.modoSalvar = 'post';
         this.openModal(template);
+        /* this.InputCpf.nativeElement.disabled = false; */
     };
     ClientesComponent.prototype.excluirCliente = function (cliente, template) {
         this.openModal(template);
@@ -813,6 +846,10 @@ var ClientesComponent = /** @class */ (function () {
         template.show();
     };
     ClientesComponent.prototype.ngOnInit = function () {
+        if (!this.userName()) {
+            this.logout();
+        }
+        this.LimpaCliente();
         this.getClientes();
         this.validation();
     };
@@ -820,12 +857,45 @@ var ClientesComponent = /** @class */ (function () {
         filtrarPor = filtrarPor.toLocaleLowerCase();
         return this.clientes.filter(function (cliente) { return cliente.nome.toLocaleLowerCase().indexOf(filtrarPor) !== -1; });
     };
+    ClientesComponent.prototype.VerificaSeExisteCliente = function (cpfcnpj, template) {
+        if (cpfcnpj === this.cliente.cpfCnpj) {
+            return;
+        }
+        var exp = /\.|\-|\//g;
+        cpfcnpj = cpfcnpj.replace(exp, '');
+        console.log(this.cliente.cpfCnpj);
+        console.log(cpfcnpj);
+        if (cpfcnpj.length > 0 && cpfcnpj.length <= 11) {
+            if (!this.Validacpf(cpfcnpj)) {
+                this.limpaDadosCpfCnpj();
+            }
+        }
+        if (cpfcnpj.length > 11) {
+            if (!this.Validacnpj(cpfcnpj)) {
+                this.limpaDadosCpfCnpj();
+            }
+        }
+        var ret = this.clientes.filter(function (cliente) { return cliente.cpfCnpj === cpfcnpj; });
+        if (ret.length > 0) {
+            this.toastr.warning('Cliente com documento: ' + this.FormataCpfCnpj(cpfcnpj) + ' já possui um cadastrado no sistema.');
+            this.novoCliente(template);
+            this.InputCpf.nativeElement.focus();
+        }
+    };
+    ClientesComponent.prototype.limpaDadosCpfCnpj = function () {
+        this.InputCpf.nativeElement.value = '';
+        this.InputCpf.nativeElement.focus();
+        this.toastr.error('Informe um CPF ou CNPJ válido.');
+        this.cliente.cpfCnpj = '';
+        console.log(this.cliente);
+        this.registerForm.patchValue(this.cliente);
+    };
     ClientesComponent.prototype.validation = function () {
         this.registerForm = this.fb.group({
-            cpfCnpj: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
-            nome: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
-            email: [''],
-            contato: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            cpfCnpj: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            nome: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            contato: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
             enderecos: this.fb.array([]),
             telefones: this.fb.array([])
         });
@@ -840,9 +910,12 @@ var ClientesComponent = /** @class */ (function () {
     ClientesComponent.prototype.criaTelefone = function (telefone) {
         return this.fb.group({
             id: [telefone.id],
-            numero: [telefone.numero, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
-            tipo: [telefone.tipo]
+            numero: [telefone.numero, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            tipo: [telefone.tipo, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
         });
+    };
+    ClientesComponent.prototype.roleName = function () {
+        return sessionStorage.getItem('role');
     };
     ClientesComponent.prototype.adicionarTelefone = function () {
         this.telefones.push(this.criaTelefone({ id: 0 }));
@@ -860,12 +933,12 @@ var ClientesComponent = /** @class */ (function () {
     ClientesComponent.prototype.criaEndereco = function (endereco) {
         return this.fb.group({
             id: [endereco.id],
-            cep: [endereco.cep],
-            logradouro: [endereco.logradouro],
-            numero: [endereco.numero],
-            bairro: [endereco.bairro],
-            cidade: [endereco.cidade],
-            uf: [endereco.uf]
+            cep: [endereco.cep, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            logradouro: [endereco.logradouro, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            numero: [endereco.numero, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            bairro: [endereco.bairro, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            cidade: [endereco.cidade, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
+            uf: [endereco.uf, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
         });
     };
     ClientesComponent.prototype.adicionarEndereco = function () {
@@ -883,6 +956,8 @@ var ClientesComponent = /** @class */ (function () {
         if (this.registerForm.valid) {
             if (this.modoSalvar === 'post') {
                 this.cliente = Object.assign({}, this.registerForm.value);
+                var exp = /\.|\-|\//g;
+                this.cliente.cpfCnpj = this.cliente.cpfCnpj.replace(exp, '');
                 console.log(this.cliente);
                 this.clienteService.postCliente(this.cliente).subscribe(function (novoCliente) {
                     template.hide();
@@ -896,6 +971,8 @@ var ClientesComponent = /** @class */ (function () {
             }
             else {
                 this.cliente = Object.assign({ id: this.cliente.id }, this.registerForm.value);
+                var exp = /\.|\-|\//g;
+                this.cliente.cpfCnpj = this.cliente.cpfCnpj.replace(exp, '');
                 console.log(this.cliente);
                 this.clienteService.putCliente(this.cliente).subscribe(function () {
                     template.hide();
@@ -909,6 +986,9 @@ var ClientesComponent = /** @class */ (function () {
             }
         }
     };
+    ClientesComponent.prototype.LimpaCliente = function () {
+        this.cliente = new _models_Cliente__WEBPACK_IMPORTED_MODULE_3__["Cliente"]();
+    };
     ClientesComponent.prototype.getClientes = function () {
         var _this = this;
         this.clienteService.getAllCliente().subscribe(function (Clientes) {
@@ -918,6 +998,143 @@ var ClientesComponent = /** @class */ (function () {
             _this.toastr.error('Erro ao tentar carregar cliente: ${error}');
         });
     };
+    ClientesComponent.prototype.FormataCpfCnpj = function (cpfcnpj) {
+        var exp = /\.|\-|\//g;
+        cpfcnpj = cpfcnpj.replace(exp, '');
+        if (cpfcnpj.length <= 11) {
+            cpfcnpj = cpfcnpj.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
+        else {
+            cpfcnpj = cpfcnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+        }
+        console.log(cpfcnpj);
+        return cpfcnpj;
+    };
+    ClientesComponent.prototype.Validacpf = function (cpf) {
+        if (cpf === null) {
+            return false;
+        }
+        if (cpf.length !== 11) {
+            return false;
+        }
+        if ((cpf === '00000000000') || (cpf === '11111111111') ||
+            (cpf === '22222222222') || (cpf === '33333333333') ||
+            (cpf === '44444444444') || (cpf === '55555555555') ||
+            (cpf === '66666666666') || (cpf === '77777777777') ||
+            (cpf === '88888888888') || (cpf === '99999999999')) {
+            return false;
+        }
+        var numero = 0;
+        var caracter = '';
+        var numeros = '0123456789';
+        var j = 10;
+        var somatorio = 0;
+        var resto = 0;
+        var digito1 = 0;
+        var digito2 = 0;
+        var cpfAux = '';
+        cpfAux = cpf.substring(0, 9);
+        for (var i = 0; i < 9; i++) {
+            caracter = cpfAux.charAt(i);
+            if (numeros.search(caracter) === -1) {
+                return false;
+            }
+            numero = Number(caracter);
+            somatorio = somatorio + (numero * j);
+            j--;
+        }
+        resto = somatorio % 11;
+        digito1 = 11 - resto;
+        if (digito1 > 9) {
+            digito1 = 0;
+        }
+        j = 11;
+        somatorio = 0;
+        cpfAux = cpfAux + digito1;
+        for (var i = 0; i < 10; i++) {
+            caracter = cpfAux.charAt(i);
+            numero = Number(caracter);
+            somatorio = somatorio + (numero * j);
+            j--;
+        }
+        resto = somatorio % 11;
+        digito2 = 11 - resto;
+        if (digito2 > 9) {
+            digito2 = 0;
+        }
+        cpfAux = cpfAux + digito2;
+        if (cpf !== cpfAux) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    ClientesComponent.prototype.Validacnpj = function (cnpj) {
+        if (cnpj === null) {
+            return false;
+        }
+        if (cnpj.length !== 14) {
+            return false;
+        }
+        if ((cnpj === '00000000000000') || (cnpj === '11111111111111') ||
+            (cnpj === '22222222222222') || (cnpj === '33333333333333') ||
+            (cnpj === '44444444444444') || (cnpj === '55555555555555') ||
+            (cnpj === '66666666666666') || (cnpj === '77777777777777') ||
+            (cnpj === '88888888888888') || (cnpj === '99999999999999')) {
+            return false;
+        }
+        var tamanho;
+        var numeros;
+        var digitos;
+        var soma;
+        var pos;
+        var resultado;
+        var i;
+        // Valida DVs
+        tamanho = cnpj.length - 2;
+        numeros = cnpj.substring(0, tamanho);
+        digitos = cnpj.substring(tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2) {
+                pos = 9;
+            }
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado !== Number(digitos.charAt(0))) {
+            return false;
+        }
+        tamanho = tamanho + 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2) {
+                pos = 9;
+            }
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado !== Number(digitos.charAt(1))) {
+            return false;
+        }
+        return true;
+    };
+    ClientesComponent.prototype.logout = function () {
+        localStorage.removeItem('token');
+        this.toastr.show('Você saiu do sistema.');
+        this.router.navigate(['/user/login']);
+    };
+    ClientesComponent.prototype.userName = function () {
+        return sessionStorage.getItem('username');
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('cpf'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], ClientesComponent.prototype, "InputCpf", void 0);
     ClientesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-clientes',
@@ -925,9 +1142,10 @@ var ClientesComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./clientes.component.css */ "./src/app/clientes/clientes.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_Cliente_service__WEBPACK_IMPORTED_MODULE_2__["ClienteService"],
-            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_3__["BsModalService"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
-            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"]])
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalService"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"]])
     ], ClientesComponent);
     return ClientesComponent;
 }());
@@ -1010,7 +1228,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <button class=\"btn btn-outline-primary\" (click)=\"novoEquipamento(template)\">\r\n    <i class=\"fa fa-plus-circle\"></i>&nbsp;\r\n    Novo Equipamento\r\n  </button>\r\n</div>\r\n<br>\r\n<table class=\"table table-striped\">\r\n  <thead class=\"thead-light\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nr Série</th>\r\n      <th>Marca</th>\r\n      <th>Modelo</th>\r\n      <th>Editar</th>\r\n      <th>Excluir</th>\r\n      <th>Serviços</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"equipamentos\">\r\n    <tr *ngFor=\"let equipamento of equipamentoFiltrados\">\r\n      <td>{{equipamento.id}}</td>\r\n      <td>{{equipamento.nrSerie | uppercase}}</td>\r\n      <td>{{equipamento.marca | uppercase}}</td>\r\n      <td>{{equipamento.modelo | uppercase}}</td>\r\n      <td>\r\n        <button class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarEquipamento(equipamento, template)\">\r\n          <i class=\"fa fa-edit\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <button class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirEquipamento(equipamento, confirm)\">\r\n          <i class=\"fa fa-eraser\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <a [routerLink]=\"['/servicos', equipamento.id, 'edit']\" tooltip=\"Cadastrar serviços\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-eye\"></i>\r\n        </a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!equipamentos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum equipamento encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n\r\n<div bsModal #template=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-xl\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Equipamentos</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n              <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>Número de Série</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                    </div>\r\n                  </div>\r\n                    <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Marca</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"marca\" placeholder=\"Marca\">\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Modelo</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-12\">\r\n                      <label>Descrição</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"descricao\" placeholder=\"Descrição.\">\r\n                    </div>\r\n                  </div>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarEquipamento(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Equipamento\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarEquipamento}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <button class=\"btn btn-outline-primary\" (click)=\"novoEquipamento(template)\">\r\n    <i class=\"fa fa-plus-circle\"></i>&nbsp;\r\n    Novo Equipamento\r\n  </button>\r\n</div>\r\n<br>\r\n<table class=\"table table-striped\">\r\n  <thead class=\"thead-light\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nr Série</th>\r\n      <th>Marca</th>\r\n      <th>Modelo</th>\r\n      <th>Editar</th>\r\n      <th>Excluir</th>\r\n      <th>Serviços</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"equipamentos\">\r\n    <tr *ngFor=\"let equipamento of equipamentoFiltrados\">\r\n      <td>{{equipamento.id}}</td>\r\n      <td>{{equipamento.nrSerie | uppercase}}</td>\r\n      <td>{{equipamento.marca | uppercase}}</td>\r\n      <td>{{equipamento.modelo | uppercase}}</td>\r\n      <td>\r\n        <button class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarEquipamento(equipamento, template)\">\r\n          <i class=\"fa fa-edit\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <button class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirEquipamento(equipamento, confirm)\">\r\n          <i class=\"fa fa-eraser\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <a [routerLink]=\"['/servicos', equipamento.id, 'edit']\" tooltip=\"Cadastrar serviços\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-eye\"></i>\r\n        </a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!equipamentos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum equipamento encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" \r\n     class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Equipamentos</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n              <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>Número de Série</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                    </div>\r\n                  </div>\r\n                    <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Marca</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"marca\" placeholder=\"Marca\">\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Modelo</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-12\">\r\n                      <label>Descrição</label>\r\n                      <input type=\"text\" class=\"form-control\" formControlName=\"descricao\" placeholder=\"Descrição.\">\r\n                    </div>\r\n                  </div>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarEquipamento(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Equipamento\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarEquipamento}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1196,7 +1414,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark  bg-dark\">\r\n    <div class=\"container\">\r\n  <a class=\"navbar-brand\" routerLink=\"clientes\">SGCOS</a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div *ngIf=\"loggedIn()\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"clientes\">Clientes<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <!--<li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"equipamentos\">Equipamentos</a>\r\n      </li>-->\r\n      </ul>\r\n    </div>\r\n    <ul *ngIf=\"loggedIn()\" class=\"navbar-nav\">\r\n      <li class=\"nav-item dropdown\" dropdown>\r\n        <a dropdownToggle class=\"nav-link dropdown-toggle\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\"\r\n          aria-haspopup=\"true\" aria-expanded=\"false\" style=\"cursor: pointer; text-transform: capitalize;\">\r\n          {{userName()}}\r\n        </a>\r\n        <div *dropdownMenu class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n          <div role=\"separator\" class=\"divider\"></div>\r\n          <a class=\"dropdown-item\" (click)=\"logout()\" style=\"cursor: pointer\">\r\n            Sair\r\n          </a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n      <button *ngIf=\"!loggedIn()\" class=\"btn btn-success\" (click)=\"entrar()\">Entrar</button>\r\n  </div>  \r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark  bg-dark\">\r\n    <div class=\"container\">\r\n  <a class=\"navbar-brand\" routerLink=\"clientes\">SGCOS</a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div *ngIf=\"loggedIn()\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"clientes\">Clientes<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li  *ngIf=\"roleName() == 'Administrador'\" class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" [routerLink]=\"['/clicadedit', 0, 'edit']\">{{roleName()}}</a>\r\n      </li>\r\n      </ul>\r\n    </div>\r\n    <ul *ngIf=\"loggedIn()\" class=\"navbar-nav\">\r\n      <li class=\"nav-item dropdown\" dropdown>\r\n        <a dropdownToggle class=\"nav-link dropdown-toggle\" id=\"navbarDropdownMenuLink\" data-toggle=\"dropdown\"\r\n          aria-haspopup=\"true\" aria-expanded=\"false\" style=\"cursor: pointer; text-transform: capitalize;\">\r\n          {{userName()}}\r\n        </a>\r\n        <div *dropdownMenu class=\"dropdown-menu\" aria-labelledby=\"navbarDropdownMenuLink\">\r\n          <div role=\"separator\" class=\"divider\"></div>\r\n          <a class=\"dropdown-item\" (click)=\"logout()\" style=\"cursor: pointer\">\r\n            Sair\r\n          </a>\r\n        </div>\r\n      </li>\r\n    </ul>\r\n      <button *ngIf=\"!loggedIn()\" class=\"btn btn-success\" (click)=\"entrar()\">Entrar</button>\r\n  </div>  \r\n</nav>\r\n"
 
 /***/ }),
 
@@ -1227,6 +1445,9 @@ var NavComponent = /** @class */ (function () {
         this.toastr = toastr;
     }
     NavComponent.prototype.ngOnInit = function () {
+        if (!this.userName()) {
+            this.logout();
+        }
     };
     NavComponent.prototype.loggedIn = function () {
         return this.authService.loggedIn();
@@ -1241,6 +1462,9 @@ var NavComponent = /** @class */ (function () {
     };
     NavComponent.prototype.userName = function () {
         return sessionStorage.getItem('username');
+    };
+    NavComponent.prototype.roleName = function () {
+        return sessionStorage.getItem('role');
     };
     NavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1277,7 +1501,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <button class=\"btn btn-outline-primary\" (click)=\"novoServico(template)\">\r\n    <i class=\"fa fa-plus-circle\"></i>&nbsp;\r\n    Novo Serviço\r\n  </button>\r\n</div>\r\n<br>\r\n<table class=\"table table-striped\">\r\n  <thead class=\"thead-light\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nr Ordem se Serviço</th>\r\n      <th>Data Atendimento</th>\r\n      <th>Dias de Garantia</th>\r\n      <th>Status</th>\r\n      <th>Opções</th> \r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"servicos\">\r\n    <tr *ngFor=\"let servico of servicoFiltrados\">\r\n      <td>{{servico.id}}</td>\r\n      <td>{{servico.nrOrdem}}</td>\r\n      <td>{{servico.dtAtendimento | DateFormatPipe}}</td>\r\n      <td>{{servico.qtdDiasGarantia}}</td>\r\n      <td>\r\n        <div *ngIf=\"servico.garantia\">\r\n         <h3>\r\n           <span class=\"badge badge-success\">\r\n              <i class=\"fa fa-thumbs-up\"></i>&nbsp; \r\n              Garantia\r\n            </span>\r\n          </h3>\r\n        </div>\r\n        <div *ngIf=\"!servico.garantia\">\r\n          <h3>\r\n            <span class=\"badge badge-danger\">\r\n              <i class=\"fa fa-thumbs-down\"></i>&nbsp;\r\n              Garantia\r\n            </span>\r\n          </h3>\r\n        </div>\r\n      </td>\r\n      <td>\r\n        <div class=\"btn-group\">\r\n          <button class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarServico(servico, template)\">\r\n            <i class=\"fa fa-edit\"></i>\r\n          </button>\r\n          <button class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirServico(servico, confirm)\">\r\n            <i class=\"fa fa-eraser\"></i>\r\n          </button>\r\n        </div>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!servicos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum serviço encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n\r\n<div bsModal #template=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\"\r\n     role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-xl\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Serviços</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">  \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-3\">\r\n              <label>Nr Ordem</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"nrOrdem\" placeholder=\"Nr Ordem de serviço.\" onkeypress=\"return SomenteNumero(event)\">\r\n            </div>\r\n            <div class=\"form-group col-md-3\">\r\n              <label>Data de atendimento</label>\r\n              <input type=\"text\" bsDatepicker [bsConfig]=\"{ dateInputFormat : 'DD/MM/YYYY' }\"\r\n              value=\"{{servico.dtAtendimento | DateFormatPipe}}\" \r\n              class=\"form-control\" formControlName=\"dtAtendimento\" placeholder=\"Data Atendimento.\">\r\n            </div>\r\n            <div class=\"form-group col-md-3\">\r\n              <label>Dias de garantia</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"qtdDiasGarantia\" placeholder=\"Dias de garantia\" onkeypress=\"return SomenteNumero(event)\">\r\n            </div>\r\n          </div>  \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Defeito</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"defeito\" placeholder=\"Defeito.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Serviço executado</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"servicosExecutados\" placeholder=\"Serviço executado.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Peças Substituidas</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"pecasSubstituidas\" placeholder=\"Peças Substituidas.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Observações</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"observacao\" placeholder=\"Observações.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-4\">\r\n              <label>Valor do Serviço</label>\r\n              <input type=\"text\" currencyMask\r\n              [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }\"\r\n              class=\"form-control\" formControlName=\"valorServico\" placeholder=\"R$ 0,00\" onkeypress=\"return SomenteNumero(event)\">  \r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarServico(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n\t<div class=\"modal-dialog modal-sm\">\r\n  \t\t<div class=\"modal-content\">\r\n    \t\t<div class=\"modal-header\">\r\n      \t\t\t<h4 class=\"modal-title pull-left\">\r\n        \t\t\tDeletando Serviço\r\n      \t\t\t</h4>\r\n      \t\t\t<button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n        \t\t\t<span aria-hidden=\"true\">&times;</span>\r\n      \t\t\t</button>\r\n    \t\t</div>\r\n    \t\t<div class=\"modal-body\">\r\n      \t\t\t<p>{{bodyDeletarServico}}</p>\r\n    \t\t</div>    \r\n    \t\t<div class=\"modal-footer btn-group d-flex\">      \r\n      \t\t\t<button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n        \t\t\tCANCELAR\r\n      \t\t\t</button>\r\n      \t\t\t<button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          \t\tDELETAR\r\n        \t\t</button>\r\n    \t\t</div>\r\n  \t\t</div>\r\n\t</div>\r\n</div>"
+module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <button class=\"btn btn-outline-primary\" (click)=\"novoServico(template)\">\r\n    <i class=\"fa fa-plus-circle\"></i>&nbsp;\r\n    Novo Serviço\r\n  </button>\r\n</div>\r\n<br>\r\n<table class=\"table table-striped\">\r\n  <thead class=\"thead-light\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nr Ordem se Serviço</th>\r\n      <th>Data Atendimento</th>\r\n      <th>Dias de Garantia</th>\r\n      <th>Status</th>\r\n      <th>Opções</th> \r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"servicos\">\r\n    <tr *ngFor=\"let servico of servicoFiltrados\">\r\n      <td>{{servico.id}}</td>\r\n      <td>{{servico.nrOrdem}}</td>\r\n      <td>{{servico.dtAtendimento | DateFormatPipe}}</td>\r\n      <td>{{servico.qtdDiasGarantia}}</td>\r\n      <td>\r\n        <div *ngIf=\"servico.garantia\">\r\n         <h3>\r\n           <span class=\"badge badge-success\">\r\n              <i class=\"fa fa-thumbs-up\"></i>&nbsp; \r\n              Garantia\r\n            </span>\r\n          </h3>\r\n        </div>\r\n        <div *ngIf=\"!servico.garantia\">\r\n          <h3>\r\n            <span class=\"badge badge-danger\">\r\n              <i class=\"fa fa-thumbs-down\"></i>&nbsp;\r\n              Garantia\r\n            </span>\r\n          </h3>\r\n        </div>\r\n      </td>\r\n      <td>\r\n        <div class=\"btn-group\">\r\n          <button class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarServico(servico, template)\">\r\n            <i class=\"fa fa-edit\"></i>\r\n          </button>\r\n          <button class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirServico(servico, confirm)\">\r\n            <i class=\"fa fa-eraser\"></i>\r\n          </button>\r\n        </div>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!servicos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum serviço encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Serviços</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"fechaModal(template)\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">  \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-3\">\r\n              <label>Nr Ordem</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"nrOrdem\" placeholder=\"Nr Ordem de serviço.\" onkeypress=\"return SomenteNumero(event)\">\r\n            </div>\r\n            <div class=\"form-group col-md-3\">\r\n              <label>Data de atendimento</label>\r\n              <input type=\"text\" bsDatepicker [bsConfig]=\"{ dateInputFormat : 'DD/MM/YYYY' }\"\r\n              value=\"{{dtAtendimento | DateFormatPipe}}\" [(ngModel)]=\"dtAtendimento\"\r\n              class=\"form-control\" formControlName=\"dtAtendimento\" placeholder=\"Data Atendimento.\">\r\n            </div>\r\n            <div class=\"form-group col-md-3\">\r\n              <label>Dias de garantia</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"qtdDiasGarantia\" placeholder=\"Dias de garantia\" onkeypress=\"return SomenteNumero(event)\">\r\n            </div>\r\n          </div>  \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Defeito</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"defeito\" placeholder=\"Defeito.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Serviço executado</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"servicosExecutados\" placeholder=\"Serviço executado.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Peças Substituidas</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"pecasSubstituidas\" placeholder=\"Peças Substituidas.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Observações</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"observacao\" placeholder=\"Observações.\">\r\n            </div>\r\n          </div> \r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-4\">\r\n              <label>Valor do Serviço</label>\r\n              <input type=\"text\" currencyMask\r\n              [options]=\"{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }\"\r\n              class=\"form-control\" formControlName=\"valorServico\" placeholder=\"R$ 0,00\" onkeypress=\"return SomenteNumero(event)\">  \r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"fechaModal(template)\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarServico(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n\t<div class=\"modal-dialog modal-sm\">\r\n  \t\t<div class=\"modal-content\">\r\n    \t\t<div class=\"modal-header\">\r\n      \t\t\t<h4 class=\"modal-title pull-left\">\r\n        \t\t\tDeletando Serviço\r\n      \t\t\t</h4>\r\n      \t\t\t<button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n        \t\t\t<span aria-hidden=\"true\">&times;</span>\r\n      \t\t\t</button>\r\n    \t\t</div>\r\n    \t\t<div class=\"modal-body\">\r\n      \t\t\t<p>{{bodyDeletarServico}}</p>\r\n    \t\t</div>    \r\n    \t\t<div class=\"modal-footer btn-group d-flex\">      \r\n      \t\t\t<button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n        \t\t\tCANCELAR\r\n      \t\t\t</button>\r\n      \t\t\t<button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          \t\tDELETAR\r\n        \t\t</button>\r\n    \t\t</div>\r\n  \t\t</div>\r\n\t</div>\r\n</div>"
 
 /***/ }),
 
@@ -1349,6 +1573,10 @@ var ServicosComponent = /** @class */ (function () {
         this.registerForm.reset();
         template.show();
     };
+    ServicosComponent.prototype.fechaModal = function (template) {
+        this.ngOnInit();
+        template.hide();
+    };
     ServicosComponent.prototype.validation = function () {
         this.registerForm = this.fb.group({
             nrOrdem: [''],
@@ -1394,6 +1622,7 @@ var ServicosComponent = /** @class */ (function () {
                 console.log(this.servico);
                 this.servicoService.postServico(this.servico).subscribe(function (novoServico) {
                     template.hide();
+                    _this.ngOnInit();
                     _this.getServicosPorEquipamento(_this.servico.equipamentoId.toString());
                     _this.toastr.success('Servico inserido com sucesso!');
                 }, function (error) {
@@ -1405,6 +1634,7 @@ var ServicosComponent = /** @class */ (function () {
                 console.log(this.servico);
                 this.servicoService.putServico(this.servico).subscribe(function () {
                     template.hide();
+                    _this.ngOnInit();
                     _this.getServicosPorEquipamento(_this.servico.equipamentoId.toString());
                     _this.toastr.success('Servico alterado com sucesso!');
                 }, function (error) {
