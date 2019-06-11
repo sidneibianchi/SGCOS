@@ -73,7 +73,7 @@ export class EquipamentosComponent implements OnInit {
       });
   }
 
-  getEquipamentos() {
+  /* getEquipamentos() {
     this.equipamentoService.getAllEquipamento().subscribe(
       (Equipamentos: Equipamento[]) => {
         this.equipamentos = Equipamentos;
@@ -82,7 +82,7 @@ export class EquipamentosComponent implements OnInit {
         console.log(error);
         this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
       });
-  }
+  } */
 
   validation() {
     this.registerForm = this.fb.group({
@@ -109,10 +109,11 @@ export class EquipamentosComponent implements OnInit {
   }
 
   confirmeDelete(template: any) {
+    const clienteId =  this.equipamento.clienteId;
     this.equipamentoService.deleteEquipamento(this.equipamento.id).subscribe(
       () => {
         template.hide();
-        this.getEquipamentos();
+        this.getEquipamentosPorCliente(clienteId);
         this.toastr.success('Equipamento excluido com sucesso!');
       }, error => {
         this.toastr.error('Erro ao tentar excluir equipamento: ${error}');

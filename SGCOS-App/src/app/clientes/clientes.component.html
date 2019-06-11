@@ -35,7 +35,8 @@
           Não Informado
         </div>
         <div *ngIf="cliente.telefones.length">
-          {{cliente.telefones[0].numero}}
+          {{cliente.telefones[0].numero.length === 10 ? (cliente.telefones[0].numero | mask:"(00) 0000-0000")
+          : (cliente.telefones[0].numero | mask:"(00) 0 0000-0000") }}  
         </div>
       </td>
       <td>
@@ -81,7 +82,7 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
           <div class="row">
             <div class="col-md-12">
              
-              <tabset>
+              <tabset #tabCli>
              
                 <tab heading="Cliente">
                   <div class="form-row">
@@ -94,10 +95,10 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                         onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
                         (blur)="VerificaSeExisteCliente(cpf.value, template);"
                         onkeypress="return SomenteNumero(event)">
-                        <div *ngIf="registerForm.get('cpfCnpj').hasError('required')
+                        <!-- <div *ngIf="registerForm.get('cpfCnpj').hasError('required')
                               && registerForm.get('cpfCnpj').touched" class="invalid-feedback">
                               O CPF/ CNPJ é obrigatório.
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-group col-md-9">
                       <label>Nome</label>
@@ -126,10 +127,10 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                       <input type="text" class="form-control" formControlName="email" 
                       [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
                       placeholder="E-mail." maxlength="150">
-                      <div *ngIf="registerForm.get('email').hasError('required')
+                      <!-- <div *ngIf="registerForm.get('email').hasError('required')
                               && registerForm.get('email').touched" class="invalid-feedback">
                               E-mail é obrigatório.
-                      </div>
+                      </div> -->
                       <div *ngIf="registerForm.get('email').hasError('email')
                         && registerForm.get('email').touched" class="invalid-feedback">
                          Informe um e-mail válido.
@@ -148,27 +149,37 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                                 enderecos.get(i+'.logradouro').value
                               }}
                               <button class="btn btn-sm btn-danger mb-1" (click)="removerEndereco(i)">remove</button>
-                            </legend>
+                            </legend> 
                             <div class="row">
                               <div class="form-group col-md-2">
                                 <label>CEP</label>
                                 <input type="text" class="form-control"
                                   [ngClass]="{'is-invalid': enderecos.get(i+'.cep').errors && enderecos.get(i+'.cep').touched}"
                                   formControlName="cep" placeholder="Cep" mask="00000-000" onkeypress="return SomenteNumero(event)" maxlength="9">
+                                  <div *ngIf="enderecos.get(i+'.cep').hasError('required')
+                                  && enderecos.get(i+'.cep').touched" class="invalid-feedback">
+                                  Cep é obrigatório.
+                                  </div>
                               </div>
                               <div class="form-group col-md-8">
                                 <label>Logradouro</label>
                                 <input type="text" class="form-control" formControlName="logradouro"
                                 [ngClass]="{'is-invalid': enderecos.get(i+'.logradouro').errors && enderecos.get(i+'.logradouro').touched}"
                                   placeholder="Logradouro." maxlength="150">
-                                 
+                                  <div *ngIf="enderecos.get(i+'.logradouro').hasError('required')
+                                  && enderecos.get(i+'.logradouro').touched" class="invalid-feedback">
+                                  Logradouro é obrigatório.
+                                  </div>
                               </div>
                               <div class="form-group col-md-2">
                                 <label>Número</label>
                                 <input type="text" class="form-control" 
                                 [ngClass]="{'is-invalid': enderecos.get(i+'.numero').errors && enderecos.get(i+'.numero').touched}"
                                 formControlName="numero" placeholder="Numero." maxlength="10">
-                               
+                                <div *ngIf="enderecos.get(i+'.numero').hasError('required')
+                                  && enderecos.get(i+'.numero').touched" class="invalid-feedback">
+                                  Número é obrigatório.
+                                  </div>
                               </div>
                             </div>
                               <div class="form-row">
@@ -177,14 +188,20 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                                   <input type="text" class="form-control" 
                                   [ngClass]="{'is-invalid': enderecos.get(i+'.bairro').errors && enderecos.get(i+'.bairro').touched}"
                                   formControlName="bairro" placeholder="Bairro." maxlength="150">
-                                  
+                                  <div *ngIf="enderecos.get(i+'.bairro').hasError('required')
+                                  && enderecos.get(i+'.bairro').touched" class="invalid-feedback">
+                                  Bairro é obrigatório.
+                                  </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                   <label>Cidade</label>
                                   <input type="text" class="form-control" 
                                   [ngClass]="{'is-invalid': enderecos.get(i+'.cidade').errors && enderecos.get(i+'.cidade').touched}"
                                   formControlName="cidade" placeholder="Cidade." maxlength="150">
-                                  
+                                  <div *ngIf="enderecos.get(i+'.cidade').hasError('required')
+                                  && enderecos.get(i+'.cidade').touched" class="invalid-feedback">
+                                  Cidade é obrigatório.
+                                  </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                   <label>Estado</label>
@@ -220,7 +237,10 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                                     <option value="SE">Sergipe</option>
                                     <option value="TO">Tocantins</option>
                                   </select>
-                                  
+                                  <div *ngIf="enderecos.get(i+'.uf').hasError('required')
+                                  && enderecos.get(i+'.uf').touched" class="invalid-feedback">
+                                  Estado é obrigatório.
+                                  </div>
                                 </div>
                             </div>
                           </fieldset>
@@ -231,19 +251,12 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                       </div>
                 </tab>
 
-                <tab heading="telefones">
+                <tab heading="Telefones">
                   <div>
                     <div formArrayName="telefones" *ngFor="let telefone of telefones.controls; let i=index">
                       <div [formGroupName]="i" class="form-group">
                         <h5>Telefones</h5>
                         <div class="form-row">
-                          <div class="form-group col-md-3">
-                            <label>Numero</label>
-                            <input type="text" class="form-control" formControlName="numero" 
-                            [ngClass]="{'is-invalid': telefones.get(i+'.numero').errors && telefones.get(i+'.numero').touched}"
-                            placeholder="Número." maxlength="15" mask="(00) 000000000" id="telefone" onkeypress="return SomenteNumero(event)">
-                            
-                          </div>
                           <div class="form-group col-md-3">
                             <label>Tipo</label>
                             <select class="form-control" 
@@ -251,10 +264,33 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                             formControlName="tipo">
                               <option value="">Selecione</option>
                               <option value="1">Celular</option>
-                              <option value="2">Comercial</option>
+                              <option value="2">Fixo</option>
                             </select>
-                            
+                            <div *ngIf="telefones.get(i+'.tipo').hasError('required')
+                            && telefones.get(i+'.tipo').touched" class="invalid-feedback">
+                            Tipo é obrigatório.
+                            </div>
                           </div>
+                          <div class="form-group col-md-3">
+                            <label>Número</label>
+                            <div *ngIf="telefones.get(i+'.tipo').value == 1">
+                            <input type="text" class="form-control" formControlName="numero" 
+                            [ngClass]="{'is-invalid': telefones.get(i+'.numero').errors && telefones.get(i+'.numero').touched}"
+                            placeholder="Número." maxlength="15"  mask="(00)00000-0000"
+                            onkeypress="return SomenteNumero(event)">
+                            </div>
+                            <div *ngIf="telefones.get(i+'.tipo').value == 2">
+                              <input type="text" class="form-control" formControlName="numero" 
+                              [ngClass]="{'is-invalid': telefones.get(i+'.numero').errors && telefones.get(i+'.numero').touched}"
+                              placeholder="Número." maxlength="15"  mask="(00)0000-0000"
+                              onkeypress="return SomenteNumero(event)">
+                            </div>
+                            <div *ngIf="telefones.get(i+'.numero').hasError('required')
+                            && telefones.get(i+'.numero').touched" class="invalid-feedback">
+                            Número é obrigatório.
+                            </div>
+                          </div>
+                          
                           <div class="form-group col-md-1">
                             <br>
                             <button type="button" class="btn btn-outline-danger mt-2"

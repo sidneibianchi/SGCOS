@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild, ElementRef } from '@angular/core';
 import { ClienteService } from '../_services/Cliente.service';
 import { Cliente } from '../_models/Cliente';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService, TabsetComponent } from 'ngx-bootstrap';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class ClientesComponent implements OnInit {
 
  @ViewChild('cpf') InputCpf: ElementRef;
+ @ViewChild('tabCli') tabCli: TabsetComponent;
 
   titulo = 'Clientes';
   clienteFiltrados: Cliente[];
@@ -63,7 +64,8 @@ export class ClientesComponent implements OnInit {
       );
     this.modoSalvar = 'put';
     this.openModal(template);
-    /*  this.InputCpf.nativeElement.disabled = true; */
+    this.tabCli.tabs[0].active = true;
+    /* this.InputCpf.nativeElement.disabled = true; */
   }
 
   novoCliente(template: any) {
@@ -94,6 +96,7 @@ export class ClientesComponent implements OnInit {
   openModal(template: any) {
     this.registerForm.reset();
     template.show();
+    this.tabCli.tabs[0].active = true;
   }
 
   ngOnInit() {
@@ -156,9 +159,9 @@ export class ClientesComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
-      cpfCnpj: ['', Validators.required],
+      cpfCnpj: [''],
       nome: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.email],
       contato: ['', Validators.required],
       enderecos: this.fb.array([]),
       telefones: this.fb.array([])
