@@ -87,7 +87,7 @@ export class ClientesComponent implements OnInit {
         this.getClientes();
         this.toastr.success('Cliente excluido com sucesso!');
       }, error => {
-        this.toastr.error('Erro ao tentar excluir cliente: ${ error}');
+        this.toastr.error(`Erro ao tentar excluir cliente: ${error}`);
         console.log(error);
       }
     );
@@ -161,7 +161,7 @@ export class ClientesComponent implements OnInit {
     this.registerForm = this.fb.group({
       cpfCnpj: [''],
       nome: ['', Validators.required],
-      email: ['', Validators.email],
+      email: [''],
       contato: ['', Validators.required],
       enderecos: this.fb.array([]),
       telefones: this.fb.array([])
@@ -199,7 +199,7 @@ export class ClientesComponent implements OnInit {
   criaEndereco(endereco: any): FormGroup {
     return this.fb.group({
       id: [endereco.id],
-      cep: [endereco.cep, Validators.required],
+      cep: [endereco.cep],
       logradouro: [endereco.logradouro, Validators.required],
       numero: [endereco.numero, Validators.required],
       bairro: [endereco.bairro, Validators.required],
@@ -236,7 +236,7 @@ export class ClientesComponent implements OnInit {
           }, error => {
             console.log(error);
             console.log(this.cliente);
-            this.toastr.error('Erro ao incluir cliente: ${error}');
+            this.toastr.error(`Erro ao incluir cliente: ${error}`);
           });
       } else {
         this.cliente = Object.assign({ id: this.cliente.id }, this.registerForm.value);
@@ -251,7 +251,7 @@ export class ClientesComponent implements OnInit {
           }, error => {
             console.log(error);
             console.log(this.cliente);
-            this.toastr.error('Erro ao alterar cliente: ${error}');
+            this.toastr.error(`Erro ao alterar cliente: ${error}`);
           });
       }
     }
@@ -263,13 +263,12 @@ export class ClientesComponent implements OnInit {
 
 
   getClientes() {
-
     this.clienteService.getAllCliente().subscribe(
       (Clientes: Cliente[]) => {
         this.clientes = Clientes;
         this.clienteFiltrados = this.clientes;
       }, error => {
-        this.toastr.error('Erro ao tentar carregar cliente: ${error}');
+        this.toastr.error(`Erro ao tentar carregar cliente: ${error}`);
       });
   }
 

@@ -73,21 +73,10 @@ export class EquipamentosComponent implements OnInit {
       });
   }
 
-  /* getEquipamentos() {
-    this.equipamentoService.getAllEquipamento().subscribe(
-      (Equipamentos: Equipamento[]) => {
-        this.equipamentos = Equipamentos;
-        this.equipamentoFiltrados = this.equipamentos;
-      }, error => {
-        console.log(error);
-        this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
-      });
-  } */
-
   validation() {
     this.registerForm = this.fb.group({
       nrSerie: ['', Validators.required],
-      descricao: ['', Validators.required],
+      descricao: [''],
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
       clienteId: []

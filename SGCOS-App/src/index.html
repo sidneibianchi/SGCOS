@@ -73,6 +73,54 @@ function mascara(campo,f){
     campo.value = v;
 }
 
+/* Valida se a data passada como parâmetro está dentro do período informado */
+function isDataValida(data){
+    
+    var arrayData = data.value.split('/');
+    var campoDia = parseInt(arrayData[0]); 
+    var campoMes = parseInt(arrayData[1]); 
+    var campAno = parseInt(arrayData[2]);
+    
+    if(campoDia > 31 || campoMes > 12 || campAno > 9999)
+    {
+      data.value = dataAtualFormatada();
+      return false;
+    }
+
+
+    var dataUsuario = new Date();
+    dataUsuario.setDate(campoDia);
+    dataUsuario.setMonth(campoMes -1);
+    dataUsuario.setFullYear(campAno);
+
+    var dataLimitemin = new Date();
+    dataLimitemin.setDate(dataLimitemin.getDate() - (4 * 365));
+
+    var dataLimitemax = new Date();
+    dataLimitemax.setDate(dataLimitemax.getDate());
+    
+
+    if(dataUsuario.getTime() <= dataLimitemin.getTime()){
+      data.value = dataAtualFormatada();
+      return false;
+    }
+
+    if(dataUsuario.getTime() >= dataLimitemax.getTime()){
+      data.value = dataAtualFormatada();
+      return false;
+    }
+}
+
+
+function dataAtualFormatada(){
+    var data = new Date(),
+        dia  = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0'+dia : dia,
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    return diaF+"/"+mesF+"/"+anoF;
+}
 </script>
 </head>
 <body>

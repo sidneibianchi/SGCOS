@@ -81,15 +81,28 @@
         <form [formGroup]="registerForm">  
           <div class="form-row">
             <div class="form-group col-md-3">
-              <label>Nr Ordem</label>
-              <input type="text" class="form-control" formControlName="nrOrdem" placeholder="Nr Ordem de serviço." onkeypress="return SomenteNumero(event)">
+              <label>Nr ordem</label>
+              <input type="text" class="form-control" 
+              [ngClass]="{'is-invalid': registerForm.get('nrOrdem').errors && registerForm.get('nrOrdem').touched}"
+              formControlName="nrOrdem" placeholder="Nr Ordem de serviço." onkeypress="return SomenteNumero(event)">
+              <div *ngIf="registerForm.get('nrOrdem').hasError('required')
+                   && registerForm.get('nrOrdem').touched" class="invalid-feedback">
+                   Nr. ordem é obrigatório.
+              </div>
             </div>
             <div class="form-group col-md-3">
               <label>Data de atendimento</label>
-              <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat : 'DD/MM/YYYY' }"
-              value="{{dtAtendimento | DateFormatPipe}}" [(ngModel)]="dtAtendimento"
-              class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento.">
-            </div>
+              <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat : 'DD/MM/YYYY'}"
+               [(ngModel)]="dtAtendimento"  maxlength="8"
+              [ngClass]="{'is-invalid': registerForm.get('dtAtendimento').errors && registerForm.get('dtAtendimento').touched}"
+              class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento."
+              onkeypress="return SomenteNumero(event)" [minDate]="minDate" [maxDate]="maxDate" 
+              onblur="return isDataValida(this)" >
+              <div *ngIf="registerForm.get('dtAtendimento').hasError('required')
+                   && registerForm.get('dtAtendimento').touched" class="invalid-feedback">
+                   Data de atendimento é obrigatório.
+              </div>
+            </div> 
             <div class="form-group col-md-3">
               <label>Dias de garantia</label>
               <input type="text" class="form-control" formControlName="qtdDiasGarantia" placeholder="Dias de garantia" onkeypress="return SomenteNumero(event)">
@@ -109,7 +122,7 @@
           </div> 
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label>Peças Substituidas</label>
+              <label>Peças substituidas</label>
               <input type="text" class="form-control" formControlName="pecasSubstituidas" placeholder="Peças Substituidas.">
             </div>
           </div> 
@@ -121,7 +134,7 @@
           </div> 
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label>Valor do Serviço</label>
+              <label>Valor do serviço</label>
               <input type="text" currencyMask
               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
               class="form-control" formControlName="valorServico" placeholder="R$ 0,00" onkeypress="return SomenteNumero(event)">  

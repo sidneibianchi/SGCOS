@@ -125,16 +125,15 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                     <div class="form-group col-md-6">
                       <label>E-mail</label>
                       <input type="text" class="form-control" formControlName="email" 
-                      [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
                       placeholder="E-mail." maxlength="150">
                       <!-- <div *ngIf="registerForm.get('email').hasError('required')
                               && registerForm.get('email').touched" class="invalid-feedback">
                               E-mail é obrigatório.
                       </div> -->
-                      <div *ngIf="registerForm.get('email').hasError('email')
+                     <!--  <div *ngIf="registerForm.get('email').hasError('email')
                         && registerForm.get('email').touched" class="invalid-feedback">
                          Informe um e-mail válido.
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </tab>
@@ -154,12 +153,11 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                               <div class="form-group col-md-2">
                                 <label>CEP</label>
                                 <input type="text" class="form-control"
-                                  [ngClass]="{'is-invalid': enderecos.get(i+'.cep').errors && enderecos.get(i+'.cep').touched}"
                                   formControlName="cep" placeholder="Cep" mask="00000-000" onkeypress="return SomenteNumero(event)" maxlength="9">
-                                  <div *ngIf="enderecos.get(i+'.cep').hasError('required')
+                                  <!-- <div *ngIf="enderecos.get(i+'.cep').hasError('required')
                                   && enderecos.get(i+'.cep').touched" class="invalid-feedback">
                                   Cep é obrigatório.
-                                  </div>
+                                  </div> -->
                               </div>
                               <div class="form-group col-md-8">
                                 <label>Logradouro</label>

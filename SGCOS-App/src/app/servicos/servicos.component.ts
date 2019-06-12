@@ -6,8 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Servico } from '../_models/Servico';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap';
-import { toDate } from '@angular/common/src/i18n/format_date';
-import { DateFormatPipePipe } from '../_helps/DateFormatPipe.pipe';
+
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -28,8 +27,10 @@ export class ServicosComponent implements OnInit {
   registerForm: FormGroup;
   idEquipamento: number;
   dtAtendimento: string;
+  minDate: Date;
+  maxDate: Date;
 
-  dataAtual: Date = new Date();
+  dataAtual =  (this.maxDate);
 
 
     constructor(private servicoService: ServicoService,
@@ -62,6 +63,10 @@ export class ServicosComponent implements OnInit {
     this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
     this.getServicosPorEquipamento(this.idEquipamento.toString());
     this.validation();
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - (5 * 365) );
+    this.maxDate.setDate(this.maxDate.getDate());
   }
 
   novoServico(template: any) {
@@ -104,7 +109,7 @@ export class ServicosComponent implements OnInit {
   excluirServico(servico: Servico, template: any) {
     this.openModal(template);
     this.servico = servico;
-    this.bodyDeletarServico = `Tem certeza que deseja excluir o servico: ${servico.id}`;
+    this.bodyDeletarServico = `Tem certeza que deseja excluir o serviço: ${servico.id}`;
   }
 
   confirmeDelete(template: any) {
@@ -112,9 +117,9 @@ export class ServicosComponent implements OnInit {
       () => {
         template.hide();
         this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
-        this.toastr.success('Servico excluido com sucesso!');
+        this.toastr.success('Serviço excluido com sucesso!');
       }, error => {
-        this.toastr.error('Erro ao tentar excluir servico: ${error}');
+        this.toastr.error(`Erro ao tentar excluir serviço: ${error}`);
         console.log(error);
       }
     );
@@ -131,9 +136,9 @@ export class ServicosComponent implements OnInit {
             template.hide();
             this.ngOnInit();
             this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
-            this.toastr.success('Servico inserido com sucesso!');
+            this.toastr.success('Serviço inserido com sucesso!');
           }, error => {
-            this.toastr.error('Erro ao incluir servico: ${error}');
+            this.toastr.error(`Erro ao incluir serviço: ${error}`);
           });
       } else {
         this.servico = Object.assign({ id: this.servico.id }, this.registerForm.value);
@@ -143,10 +148,10 @@ export class ServicosComponent implements OnInit {
             template.hide();
             this.ngOnInit();
             this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
-            this.toastr.success('Servico alterado com sucesso!');
+            this.toastr.success('Serviço alterado com sucesso!');
           }, error => {
             console.log(error);
-            this.toastr.error('Erro ao alterar servico: ${error}');
+            this.toastr.error(`Erro ao alterar serviço: ${error}`);
           });
       }
     }
