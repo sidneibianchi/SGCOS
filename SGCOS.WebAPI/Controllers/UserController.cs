@@ -75,7 +75,50 @@ namespace SGCOS.WebAPI.Controllers
             }
         }
 
+        //Put 
+        [HttpPut("{UserId}")]
+        public async Task<IActionResult> Put(int UserId, UserDto model)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(UserId.ToString());
+                if (user == null) return NotFound();
 
+                _mapper.Map(model, user);
+
+                await _userManager.UpdateAsync(user); 
+
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Banco de dados falhou: {ex.Message}");
+            }
+
+            return BadRequest();
+        }
+
+        //Delete 
+        [HttpDelete("{UserId}")]
+        public async Task<IActionResult> Delete(int UserId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(UserId.ToString());
+                if (user == null) return NotFound();
+
+                await _userManager.DeleteAsync(user);
+
+                 return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Banco de dados falhou: {ex.Message}");
+            }
+
+            return BadRequest();
+        }
 
         [HttpPost("Register")]
         [AllowAnonymous]

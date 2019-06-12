@@ -27,6 +27,7 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { TouchSequence } from 'selenium-webdriver';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { UsuariosComponent } from './user/usuarios/usuarios.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
       ServicosComponent,
       UserComponent,
       LoginComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      UsuariosComponent
    ],
    imports: [
       BrowserModule,

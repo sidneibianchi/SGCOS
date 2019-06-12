@@ -20,7 +20,7 @@
         </a>
         <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li  *ngIf="roleName() == 'Administrador'" class="nav-item" routerLinkActive="active">
-                <a class="dropdown-item" [routerLink]="['/user']">{{roleName()}}</a>
+                <a class="dropdown-item" [routerLink]="['user/usuarios']">{{roleName()}}</a>
             </li>
           <div role="separator" class="divider"></div>
            

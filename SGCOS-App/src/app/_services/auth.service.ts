@@ -48,4 +48,13 @@ export class AuthService {
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.baseURL}/${id}`);
   }
+
+  putUser(user: User) {
+    return this.http.put(`${this.baseURL}usuarios/${user.id}`, user);
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseURL}usuarios/${id}`);
+  }
+
 }
