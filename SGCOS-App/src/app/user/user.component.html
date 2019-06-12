@@ -1,5 +1,61 @@
-<div class="container">
+<!-- <div class="container">
   <div class="col-md-8 offset-md-2">
     <router-outlet></router-outlet>
   </div>
+</div> -->
+
+<br>
+<app-titulo [titulo]=titulo></app-titulo>
+<div class="d-flex">
+  <div class="form-inline mr-auto" action="">
+    <!-- <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
+        [(ngModel)]="filtroLista">
+    </div> -->
+  </div>
+  <div >
+  <!-- <button class="btn btn-outline-primary" (click)="novoUsuario(template)">
+    <i class="fa fa-plus-circle"></i>&nbsp;
+    Novo Cliente
+  </button> -->
 </div>
+</div>
+<br>
+<table class="table table-striped">
+  <thead class="thead-light">
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Login</th>
+      <th>Editar | Excluir</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="users">
+    <tr *ngFor="let user of usersFiltrados">
+      <td>{{user.id}}</td>
+      <td>{{user.fullName | uppercase}}</td>
+      <td>{{user.email | lowercase}}</td>
+      <td>{{user.userName | uppercase}}</td>
+      <td>  
+      </td>
+      <td>
+        <div style="margin: auto;">
+          <!-- <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarUser(user,template)">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
+            (click)="excluirUser(user, confirm)">
+            <i class="fa fa-eraser"></i>
+          </button> -->
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!users">
+    <tr>
+      <td colspan="7" class="text-center">
+        <h4>Nenhum usuário encontrado</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>

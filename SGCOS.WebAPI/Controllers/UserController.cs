@@ -27,21 +27,55 @@ namespace SGCOS.WebAPI.Controllers
         private readonly IMapper _mapper;
 
         public UserController(IConfiguration config,
-                                UserManager<User> userManager,
-                                SignInManager<User> signInManager,
-                                IMapper mapper)
+                              UserManager<User> userManager,
+                              SignInManager<User> signInManager,
+                              IMapper mapper)
         {
             _config = config;
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+
         }
 
-        [HttpGet("GetUser")]
-        public IActionResult GetUser()
+        [HttpGet]
+        public IActionResult Get()
         {
-            return Ok(new UserDto());
+            try
+            {
+                var users = _userManager.Users;
+
+                var results = _mapper.Map<UserDto[]>(users);
+
+                return Ok(results);
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Banco de dados falhou : {ex.Message}");
+            }
         }
+        
+        //GET Por Id
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> Get(int Id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(Id.ToString());
+
+                var results = _mapper.Map<UserDto>(user);
+
+                return Ok(results);
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, 
+                $"Banco de dados falhou: {ex.Message}");
+            }
+        }
+
+
 
         [HttpPost("Register")]
         [AllowAnonymous]
@@ -132,5 +166,7 @@ namespace SGCOS.WebAPI.Controllers
 
             return tokenHandler.WriteToken(token);
         }
+
+
     }
 }

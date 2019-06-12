@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
+import { User } from '../_models/User';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,4 +41,11 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
+  getAllUser(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseURL);
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.baseURL}/${id}`);
+  }
 }
