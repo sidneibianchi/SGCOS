@@ -50,11 +50,11 @@ export class AuthService {
   }
 
   putUser(user: User) {
-    return this.http.put(`${this.baseURL}usuarios/${user.id}`, user);
+    return this.http.put(`${this.baseURL}/${user.id}`, user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete(`${this.baseURL}usuarios/${id}`);
+    return this.http.delete(`${this.baseURL}/${id}`);
   }
 
 }

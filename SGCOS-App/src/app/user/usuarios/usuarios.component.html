@@ -7,10 +7,10 @@
     </div> -->
   </div>
   <div >
-  <!-- <button class="btn btn-outline-primary" (click)="novoUsuario(template)">
+  <button class="btn btn-outline-primary" (click)="router.navigate(['/user/registration'])">
     <i class="fa fa-plus-circle"></i>&nbsp;
-    Novo Cliente
-  </button> -->
+    Novo Usuário
+  </button> 
 </div>
 </div>
 <br>
@@ -32,9 +32,9 @@
       <td>{{user.userName | uppercase}}</td>
       <td>
         <div style="margin: auto;">
-          <!-- <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarUser(user,template)">
+          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="router.navigate(['/user/registration'])">
             <i class="fa fa-edit"></i>
-          </button>-->
+          </button>
           <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
             (click)="excluirUser(user, confirm)">
             <i class="fa fa-eraser"></i>
