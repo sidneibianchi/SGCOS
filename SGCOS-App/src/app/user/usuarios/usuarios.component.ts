@@ -15,7 +15,7 @@ export class UsuariosComponent implements OnInit {
   titulo = 'Usuarios';
   usersFiltrados: User[];
   users: User[];
-  user:  User;
+  user: User;
   registerForm: FormGroup;
   bodyDeletarUsuario = '';
 
@@ -40,7 +40,7 @@ export class UsuariosComponent implements OnInit {
 
   userName() {
     return sessionStorage.getItem('username');
-  } 
+  }
 
   validation() {
     this.registerForm = this.fb.group({

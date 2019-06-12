@@ -100,7 +100,7 @@ namespace SGCOS.WebAPI.Controllers
 
         //Delete 
         [HttpDelete("{UserId}")]
-        public async Task<IActionResult> Delete(int UserId)
+        public async Task<IActionResult> Delete (int UserId)
         {
             try
             {
@@ -116,8 +116,6 @@ namespace SGCOS.WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, 
                 $"Banco de dados falhou: {ex.Message}");
             }
-
-            return BadRequest();
         }
 
         [HttpPost("Register")]
