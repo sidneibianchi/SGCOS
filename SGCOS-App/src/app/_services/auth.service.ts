@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
+import { User } from '../_models/User';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +39,22 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  getAllUser(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseURL);
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.baseURL}/${id}`);
+  }
+
+  putUser(user: User) {
+    return this.http.put(`${this.baseURL}/${user.id}`, user);
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(`${this.baseURL}/${id}`);
   }
 
 }

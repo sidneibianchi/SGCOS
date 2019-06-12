@@ -31,8 +31,8 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       userName: ['', Validators.required],
       passwords: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(4)]],
-        confirmPassword: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      confirmPassword: ['', Validators.required]
       }, { validator: this.compararSenhas })
     });
   }
