@@ -10,6 +10,12 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="clientes">Clientes<span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="equipamentos">Equipamentos<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="servicos">Serviços<span class="sr-only">(current)</span></a>
+      </li>
       </ul>
     </div>
     <ul *ngIf="loggedIn()" class="navbar-nav">
@@ -20,7 +26,7 @@
         </a>
         <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li  *ngIf="roleName() == 'Administrador'" class="nav-item" routerLinkActive="active">
-                <a class="dropdown-item" [routerLink]="['user/usuarios']">{{roleName()}}</a>
+                <a class="dropdown-item" [routerLink]="['user/usuarios']">Usuarios</a>
             </li>
           <div role="separator" class="divider"></div>
            

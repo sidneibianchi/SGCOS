@@ -21,7 +21,8 @@
       <th>Nome</th>
       <th>Contato</th>
       <th>Telefone</th>
-      <th>Editar | Excluir</th>
+      <th>Editar</th>
+      <th>Excluir</th>
       <th>Equipamentos</th>
     </tr>
   </thead>
@@ -40,16 +41,16 @@
         </div>
       </td>
       <td>
-        <div style="margin: auto;">
           <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente,template)">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
+              <i class="fa fa-edit"></i>
+            </button>
+        </td>
+        <td>
+            <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
             (click)="excluirCliente(cliente, confirm)">
             <i class="fa fa-eraser"></i>
           </button>
-        </div>
-      </td>
+        </td>
       <td>
         <a style="align-items: center; margin-left:20px;" [routerLink]="['/equipamentos', cliente.id, 'edit']"
           tooltip="Equipamentos" class="btn btn-sm btn-warning">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServicoService } from '../_services/Servico.service';
-import { BsModalService, BsModalRef, BsLocaleService } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef, BsLocaleService, DateFormatter } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Servico } from '../_models/Servico';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
@@ -16,21 +16,6 @@ defineLocale('pt-br', ptBrLocale);
   styleUrls: ['./servicos.component.css']
 })
 export class ServicosComponent implements OnInit {
-
-  titulo = 'Serviços';
-  servicoFiltrados: Servico[];
-  servicos: Servico[];
-  servico: Servico;
-  bodyDeletarServico = '';
-  modoSalvar = 'post';
-  FiltroLista: string;
-  registerForm: FormGroup;
-  idEquipamento: number;
-  dtAtendimento: string;
-  minDate: Date;
-  maxDate: Date;
-
-  dataAtual =  (this.maxDate);
 
 
     constructor(private servicoService: ServicoService,
@@ -51,17 +36,36 @@ export class ServicosComponent implements OnInit {
     this.servicoFiltrados = this.filtroLista ? this.filtrarServicos(this.filtroLista) : this.servicos;
   }
 
+  titulo = 'Serviços';
+  servicoFiltrados: Servico[];
+  servicos: Servico[];
+  servico: Servico;
+  bodyDeletarServico = '';
+  modoSalvar = 'post';
+  FiltroLista: string;
+  registerForm: FormGroup;
+  idEquipamento: number;
+  dtAtendimento: string;
+  minDate: Date;
+  maxDate: Date;
+
+  dataAtual =  (this.maxDate);
+
   filtrarServicos(filtrarPor: string): Servico[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.servicos.filter(
-      servico => servico.observacao.toLowerCase().indexOf(filtrarPor) !== -1
+      servico => servico.nrOrdem.toString().indexOf(filtrarPor) !== -1
     );
   }
 
 
   ngOnInit() {
     this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
-    this.getServicosPorEquipamento(this.idEquipamento.toString());
+    if (this.idEquipamento !== 0) {
+      this.getServicosPorEquipamento(this.idEquipamento.toString());
+    } else {
+      this.getAllServicos();
+    }
     this.validation();
     this.minDate = new Date();
     this.maxDate = new Date();
@@ -86,14 +90,14 @@ export class ServicosComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
-      nrOrdem: [''],
+      nrOrdem: ['', Validators.required],
       dtAtendimento: ['', Validators.required],
       qtdDiasGarantia: ['', Validators.required],
-      defeito: [''],
-      servicosExecutados: [''],
+      defeito: ['', Validators.required],
+      servicosExecutados: ['', Validators.required],
       pecasSubstituidas: [''],
       observacao: [''],
-      valorServico: [''],
+      valorServico: ['', Validators.required],
       equipamentoId: ['']
     });
   }
@@ -165,7 +169,20 @@ export class ServicosComponent implements OnInit {
         console.log(this.servicos);
       }, error => {
         console.log(error);
-        this.toastr.error('Erro ao tentar carregar servicos: ${error}');
+        this.toastr.error(`Erro ao tentar carregar servicos: ${error}`);
+      });
+  }
+
+
+  getAllServicos() {
+    this.servicoService.getAllServico().subscribe(
+      (Servicos: Servico[]) => {
+        this.servicos = Servicos;
+        this.servicoFiltrados = this.servicos;
+        console.log(this.servicos);
+      }, error => {
+        console.log(error);
+        this.toastr.error(`Erro ao tentar carregar serviços: ${error}`);
       });
   }
 

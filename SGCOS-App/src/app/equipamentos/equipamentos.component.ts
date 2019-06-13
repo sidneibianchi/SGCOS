@@ -4,7 +4,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { EquipamentoService } from '../_services/Equipamento.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-equipamentos',
@@ -22,12 +22,15 @@ export class EquipamentosComponent implements OnInit {
   bodyDeletarEquipamento = '';
   modoSalvar = 'post';
   registerForm: FormGroup;
+  returnedArray: Equipamento[];
 
   constructor(private equipamentoService: EquipamentoService,
               private modalService: BsModalService,
               private fb: FormBuilder,
+              public router: Router,
               private toastr: ToastrService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+               }
 
   get filtroLista(): string {
     return this.FiltroLista;
@@ -57,12 +60,33 @@ export class EquipamentosComponent implements OnInit {
 
   ngOnInit() {
     this.idCliente = +this.route.snapshot.paramMap.get('idCliente');
-    this.getEquipamentosPorCliente(this.idCliente);
+    if (this.idCliente !== 0 ) {
+      this.getEquipamentosPorCliente(this.idCliente);
+    } else {
+      this.getAllEquipamentos();
+    }
     this.validation();
+
+  }
+
+  roleName() {
+    return sessionStorage.getItem('role');
   }
 
   getEquipamentosPorCliente(idCliente: number) {
     this.equipamentoService.getEquipamentoByCliente(idCliente).subscribe(
+      (Equipamentos: Equipamento[]) => {
+        this.equipamentos = Equipamentos;
+        this.equipamentoFiltrados = this.equipamentos;
+        console.log(this.equipamentos);
+      }, error => {
+        console.log(error);
+        this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
+      });
+  }
+
+  getAllEquipamentos() {
+    this.equipamentoService.getAllEquipamento().subscribe(
       (Equipamentos: Equipamento[]) => {
         this.equipamentos = Equipamentos;
         this.equipamentoFiltrados = this.equipamentos;
@@ -140,4 +164,5 @@ export class EquipamentosComponent implements OnInit {
       }
     }
   }
+
 }

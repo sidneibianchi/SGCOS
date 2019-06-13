@@ -7,7 +7,7 @@
     </div> -->
   </div>
   <div >
-  <button class="btn btn-outline-primary" (click)="router.navigate(['/user/registration'])">
+  <button class="btn btn-outline-primary" (click)="novoUsuario(template)">
     <i class="fa fa-plus-circle"></i>&nbsp;
     Novo Usuário
   </button> 
@@ -76,3 +76,96 @@
     </div>
   </div>
 </div>
+
+<div bsModal #template="bs-modal"  [config]= "{ignoreBackdropClick: true, keyboard: false}" 
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Usuários</h4>
+        <button type="button" class="close pull-right" (click)="fechaModal(template)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="registerForm">
+              <div class="form-group required">
+                <label for="">Nome Completo:</label>
+                <input type="text" class="form-control" formControlName="fullName" [ngClass]="{'is-invalid': registerForm.get('fullName').errors &&
+                                          registerForm.get('fullName').touched }" placeholder="Insira o Nome Completo" />
+                <div *ngIf="registerForm.get('fullName').hasError('required') &&
+                            registerForm.get('fullName').touched" class="invalid-feedback">
+                  Nome Completo é obrigatório.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="">Email:</label>
+                <input class="form-control" type="text" formControlName="email" [ngClass]="{ 'is-invalid': registerForm.get('email').errors && 
+                                             registerForm.get('email').touched}" placeholder="Insira o Nome Completo" />
+                <div *ngIf="registerForm.get('email').hasError('required') &&
+                            registerForm.get('email').touched" class="invalid-feedback">
+                  email é obrigatório.
+                </div>
+                <div *ngIf="registerForm.get('email').hasError('email')
+                && registerForm.get('email').touched" class="invalid-feedback">
+                  Deve ser um e-mail válido.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="">Usuario:</label>
+                <input class="form-control" type="text" formControlName="userName" [ngClass]="{'is-invalid': registerForm.get('userName').errors &&
+                                            registerForm.get('userName').touched}" placeholder="Insira o nome de Usuário" />
+                <div *ngIf="registerForm.get('userName').hasError('required') &&
+                            registerForm.get('userName').touched" class="invalid-feedback">
+                  Usuário é obrigatório.
+                </div>
+              </div>
+              <div formGroupName="passwords">
+                <div class="form-group">
+                  <label for="">Senha:</label>
+                  <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': registerForm.get('passwords.password').errors &&
+                                               registerForm.get('passwords.password').touched}"
+                    placeholder="Digite uma Senha" />
+                  <div *ngIf="registerForm.get('passwords.password').hasError('minlength') &&
+                    registerForm.get('passwords.password').touched" class="invalid-feedback">
+                    Deve conter no mínimo 4 caracters
+                  </div>
+                  <div *ngIf="registerForm.get('passwords.password').hasError('required') &&
+                              registerForm.get('passwords.password').touched" class="invalid-feedback">
+                    Senha é obrigatório.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Confirmar Senha:</label>
+                  <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': registerForm.get('passwords.confirmPassword').errors 
+                                 && registerForm.get('passwords.confirmPassword').touched 
+                                 ||registerForm.get('passwords.confirmPassword').hasError('mismatch') 
+                                 && registerForm.get('passwords.confirmPassword').touched }" placeholder="Confirme a Senha" />
+                  <div *ngIf="registerForm.get('passwords.confirmPassword').hasError('required') &&
+                              registerForm.get('passwords.confirmPassword').touched" class="invalid-feedback">
+                    Confirme a Senha
+                  </div>
+                  <div *ngIf="registerForm.get('passwords.confirmPassword').hasError('mismatch') 
+                              && registerForm.get('passwords.confirmPassword').touched" class="invalid-feedback">
+                    Confirmação não confere
+                  </div>
+                </div>
+              </div>
+              
+            </form>
+      </div>
+      <div class="modal-footer d-flex">
+        <button class="btn btn-secondary" (click)="fechaModal(template)">
+          Fechar
+        </button>
+        <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="cadastrarUsuario()">
+          Salvar
+        </button>
+        <!-- <button class="btn btn-lg btn-success btn-block ml-auto" [disabled]="!registerForm.valid"
+                (click)="cadastrarUsuario()">Cadastrar</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -14,6 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
   user: User;
+  titulo = 'Cadastro de usuários';
 
   constructor(private authService: AuthService
             , public router: Router

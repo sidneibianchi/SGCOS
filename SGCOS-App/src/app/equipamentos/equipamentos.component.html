@@ -6,7 +6,7 @@
         [(ngModel)]="filtroLista">
     </div>
   </div>
-  <button class="btn btn-outline-primary" (click)="novoEquipamento(template)">
+  <button class="btn btn-outline-primary btn-sm" (click)="novoEquipamento(template)" *ngIf="idCliente !== 0"> 
     <i class="fa fa-plus-circle"></i>&nbsp;
     Novo Equipamento
   </button>
@@ -25,7 +25,8 @@
     </tr>
   </thead>
   <tbody *ngIf="equipamentos">
-    <tr *ngFor="let equipamento of equipamentoFiltrados">
+    
+    <tr *ngFor="let equipamento of equipamentoFiltrados">  
       <td>{{equipamento.id}}</td>
       <td>{{equipamento.nrSerie | uppercase}}</td>
       <td>{{equipamento.marca | uppercase}}</td>
@@ -46,7 +47,9 @@
         </a>
       </td>
     </tr>
+
   </tbody>
+
   <tfoot *ngIf="!equipamentos">
     <tr>
       <td colspan="7" class="text-center">

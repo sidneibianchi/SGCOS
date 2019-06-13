@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BsDropdownModule, ModalModule, TooltipModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ModalModule, TooltipModule, TabsModule, BsDatepickerModule, PopoverModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +28,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { TouchSequence } from 'selenium-webdriver';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { UsuariosComponent } from './user/usuarios/usuarios.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { UsuariosComponent } from './user/usuarios/usuarios.component';
       TooltipModule.forRoot(),
       BsDatepickerModule.forRoot(),
       NgxMaskModule.forRoot(),
-      NgxCurrencyModule
+      NgxCurrencyModule,
+      PopoverModule.forRoot(),
+      PaginationModule.forRoot()
 
    ],
    providers: [

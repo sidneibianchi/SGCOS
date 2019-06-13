@@ -3,10 +3,10 @@
 <div class="d-flex">
   <div class="form-inline mr-auto" action="">
     <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
-        [(ngModel)]="filtroLista">
+        [(ngModel)]="filtroLista" maxlength="10" onkeypress="return SomenteNumero(event)">
     </div>
   </div>
-  <button class="btn btn-outline-primary" (click)="novoServico(template)">
+  <button class="btn btn-outline-primary" (click)="novoServico(template)" *ngIf="idEquipamento !== 0">
     <i class="fa fa-plus-circle"></i>&nbsp;
     Novo Serviço
   </button>
@@ -20,7 +20,7 @@
       <th>Data Atendimento</th>
       <th>Dias de Garantia</th>
       <th>Status</th>
-      <th>Opções</th> 
+      <th>Detalhes</th> 
     </tr>
   </thead>
   <tbody *ngIf="servicos">
@@ -47,18 +47,40 @@
           </h3>
         </div>
       </td>
-      <td>
-        <div class="btn-group">
-          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarServico(servico, template)">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirServico(servico, confirm)">
+      <td style="align-items: center;">
+        <div>
+             <button type="button" class="btn btn-sm btn-secondary"
+              [popover]="popTemplate"  [outsideClick]="true"
+              popoverTitle="Detalhes"
+              placement="left">
+              <i class="fa fa-bars"></i>
+               Detalhes
+            </button>
+          <!-- <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirServico(servico, confirm)">
             <i class="fa fa-eraser"></i>
-          </button>
+          </button> -->
         </div>
+        <div class="popover">
+            <ng-template #popTemplate >
+              <h6>Defeito</h6>
+              <label>{{servico.defeito}}</label>
+              <h6>Serviço executado</h6>
+              <label>{{servico.servicosExecutados}}</label>
+              <h6>Peças substituidas</h6>
+              <label>{{servico.pecasSubstituidas}}</label>
+              <h6>Observações</h6>
+              <label>{{servico.observacao}}</label>
+              <h6>Valor do serviço</h6>
+              <label>{{servico.valorServico | currency:'R$'}}</label>  
+            </ng-template>
+          </div>
       </td>
     </tr>
+
   </tbody>
+
+ 
+
   <tfoot *ngIf="!servicos">
     <tr>
       <td colspan="7" class="text-center">
@@ -93,7 +115,7 @@
             <div class="form-group col-md-3">
               <label>Data de atendimento</label>
               <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat : 'DD/MM/YYYY'}"
-               [(ngModel)]="dtAtendimento"  maxlength="8"
+              [(ngModel)]="dtAtendimento"  maxlength="8"
               [ngClass]="{'is-invalid': registerForm.get('dtAtendimento').errors && registerForm.get('dtAtendimento').touched}"
               class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento."
               onkeypress="return SomenteNumero(event)" [minDate]="minDate" [maxDate]="maxDate" 
@@ -105,39 +127,64 @@
             </div> 
             <div class="form-group col-md-3">
               <label>Dias de garantia</label>
-              <input type="text" class="form-control" formControlName="qtdDiasGarantia" placeholder="Dias de garantia" onkeypress="return SomenteNumero(event)">
+              <input type="text" class="form-control" 
+              [ngClass]="{'is-invalid': registerForm.get('qtdDiasGarantia').errors && registerForm.get('qtdDiasGarantia').touched}"
+              formControlName="qtdDiasGarantia" placeholder="Dias de garantia" onkeypress="return SomenteNumero(event)">
+              <div *ngIf="registerForm.get('qtdDiasGarantia').hasError('required')
+                   && registerForm.get('qtdDiasGarantia').touched" class="invalid-feedback">
+                   Dias de garantia é obrigatório.
+              </div>
             </div>
           </div>  
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Defeito</label>
-              <input type="text" class="form-control" formControlName="defeito" placeholder="Defeito.">
+              <input type="text" class="form-control" 
+              [ngClass]="{'is-invalid': registerForm.get('defeito').errors && registerForm.get('defeito').touched}"
+              formControlName="defeito" placeholder="Defeito.">
+              <div *ngIf="registerForm.get('defeito').hasError('required')
+                   && registerForm.get('defeito').touched" class="invalid-feedback">
+                   Defeito é obrigatório.
+              </div>
             </div>
           </div> 
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Serviço executado</label>
-              <input type="text" class="form-control" formControlName="servicosExecutados" placeholder="Serviço executado.">
+              <input type="text" class="form-control" 
+              [ngClass]="{'is-invalid': registerForm.get('servicosExecutados').errors && registerForm.get('servicosExecutados').touched}"
+              formControlName="servicosExecutados" placeholder="Serviço executado.">
+              <div *ngIf="registerForm.get('servicosExecutados').hasError('required')
+                   && registerForm.get('servicosExecutados').touched" class="invalid-feedback">
+                   Serviço executado é obrigatório.
+              </div>
             </div>
           </div> 
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Peças substituidas</label>
-              <input type="text" class="form-control" formControlName="pecasSubstituidas" placeholder="Peças Substituidas.">
+              <input type="text" class="form-control" 
+              formControlName="pecasSubstituidas" placeholder="Peças Substituidas.">
             </div>
           </div> 
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Observações</label>
-              <input type="text" class="form-control" formControlName="observacao" placeholder="Observações.">
+              <input type="text" class="form-control" 
+              formControlName="observacao" placeholder="Observações.">
             </div>
           </div> 
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Valor do serviço</label>
               <input type="text" currencyMask
+              [ngClass]="{'is-invalid': registerForm.get('valorServico').errors && registerForm.get('valorServico').touched}"
               [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
-              class="form-control" formControlName="valorServico" placeholder="R$ 0,00" onkeypress="return SomenteNumero(event)">  
+              class="form-control" formControlName="valorServico" placeholder="R$ 0,00" onkeypress="return SomenteNumero(event)"> 
+              <div *ngIf="registerForm.get('valorServico').hasError('required')
+                   && registerForm.get('valorServico').touched" class="invalid-feedback">
+                   Valor do serviço é obrigatório.
+              </div> 
             </div>
           </div>
         </form>
