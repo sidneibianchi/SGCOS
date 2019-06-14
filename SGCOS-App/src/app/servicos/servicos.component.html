@@ -2,20 +2,23 @@
 <app-titulo [titulo]=titulo></app-titulo>
 <div class="d-flex">
   <div class="form-inline mr-auto" action="">
-    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
+    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar por Nr ordem"
         [(ngModel)]="filtroLista" maxlength="10" onkeypress="return SomenteNumero(event)">
     </div>
   </div>
-  <button class="btn btn-outline-primary" (click)="novoServico(template)" *ngIf="idEquipamento !== 0">
-    <i class="fa fa-plus-circle"></i>&nbsp;
+  <div>
+  <button class="btn btn-sm btn-outline-primary" (click)="novoServico(template)" *ngIf="idEquipamento !== 0">
+    <i class="fa fa-plus-circle" style="font-size: 12px;"></i>&nbsp;
     Novo Serviço
   </button>
+  </div>
 </div>
 <br>
-<table class="table table-striped">
-  <thead class="thead-light">
+<div class="table-responsive">
+<table class="table table-striped table-sm" style="font-size: 12px;">
+  <thead class="thead-dark">
     <tr>
-      <th>#</th>
+     <!--  <th>#</th> -->
       <th>Nr Ordem se Serviço</th>
       <th>Data Atendimento</th>
       <th>Dias de Garantia</th>
@@ -25,35 +28,35 @@
   </thead>
   <tbody *ngIf="servicos">
     <tr *ngFor="let servico of servicoFiltrados">
-      <td>{{servico.id}}</td>
+      <!-- <td>{{servico.id}}</td> -->
       <td>{{servico.nrOrdem}}</td>
       <td>{{servico.dtAtendimento | DateFormatPipe}}</td>
       <td>{{servico.qtdDiasGarantia}}</td>
       <td>
         <div *ngIf="servico.garantia">
-         <h3>
-           <span class="badge badge-success">
-              <i class="fa fa-thumbs-up"></i>&nbsp; 
+         <h5>
+           <span class="badge badge-success" style="padding: 7px;">
+              <i class="fa fa-thumbs-up" style="font-size: 12px;"></i>&nbsp; 
               Garantia
             </span>
-          </h3>
+          </h5>
         </div>
         <div *ngIf="!servico.garantia">
-          <h3>
-            <span class="badge badge-danger">
-              <i class="fa fa-thumbs-down"></i>&nbsp;
+          <h5>
+            <span class="badge badge-danger" style="padding: 7px;">
+              <i class="fa fa-thumbs-down" style="font-size: 12px;"></i>&nbsp;
               Garantia
             </span>
-          </h3>
+          </h5>
         </div>
       </td>
-      <td style="align-items: center;">
+      <td>
         <div>
              <button type="button" class="btn btn-sm btn-secondary"
               [popover]="popTemplate"  [outsideClick]="true"
-              popoverTitle="Detalhes"
-              placement="left">
-              <i class="fa fa-bars"></i>
+              popoverTitle="Detalhes" 
+              placement="left" style="font-size: 12px;">
+              <i class="fa fa-bars" style="font-size: 12px;"></i>
                Detalhes
             </button>
           <!-- <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="excluirServico(servico, confirm)">
@@ -76,11 +79,7 @@
           </div>
       </td>
     </tr>
-
   </tbody>
-
- 
-
   <tfoot *ngIf="!servicos">
     <tr>
       <td colspan="7" class="text-center">
@@ -89,6 +88,7 @@
     </tr>
   </tfoot>
 </table>
+</div>
 
 <div bsModal #template="bs-modal"  [config]= "{ignoreBackdropClick: true, keyboard: false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
   <div class="modal-dialog modal-lg">

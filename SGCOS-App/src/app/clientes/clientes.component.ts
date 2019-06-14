@@ -161,7 +161,7 @@ export class ClientesComponent implements OnInit {
     this.registerForm = this.fb.group({
       cpfCnpj: [''],
       nome: ['', Validators.required],
-      email: [''],
+      email: ['', Validators.email],
       contato: ['', Validators.required],
       enderecos: this.fb.array([]),
       telefones: this.fb.array([])

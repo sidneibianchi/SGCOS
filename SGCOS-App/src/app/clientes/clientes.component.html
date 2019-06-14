@@ -2,22 +2,23 @@
 <app-titulo [titulo]=titulo></app-titulo>
 <div class="d-flex">
   <div class="form-inline mr-auto" action="">
-    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar"
+    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar por nome"
         [(ngModel)]="filtroLista">
     </div>
   </div>
-  <div >
-  <button class="btn btn-outline-primary" (click)="novoCliente(template)">
-    <i class="fa fa-plus-circle"></i>&nbsp;
+  <div>
+  <button class="btn btn-sm btn-outline-primary" (click)="novoCliente(template)">
+    <i class="fa fa-plus-circle" style="font-size: 12px;"></i>&nbsp;
     Novo Cliente
   </button>
 </div>
 </div>
 <br>
-<table class="table table-striped">
-  <thead class="thead-light">
+<div class="table-responsive">
+<table class="table table-striped table-sm" style="font-size: 12px;">
+  <thead class="thead-dark">
     <tr>
-      <th>#</th>
+     <!--  <th>#</th> -->
       <th>Nome</th>
       <th>Contato</th>
       <th>Telefone</th>
@@ -28,7 +29,7 @@
   </thead>
   <tbody *ngIf="clientes">
     <tr *ngFor="let cliente of clienteFiltrados">
-      <td>{{cliente.id}}</td>
+     <!--  <td>{{cliente.id}}</td> -->
       <td>{{cliente.nome | uppercase}}</td>
       <td>{{cliente.contato | uppercase}}</td>
       <td>
@@ -41,20 +42,20 @@
         </div>
       </td>
       <td>
-          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente,template)">
-              <i class="fa fa-edit"></i>
-            </button>
-        </td>
-        <td>
-            <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
-            (click)="excluirCliente(cliente, confirm)">
-            <i class="fa fa-eraser"></i>
-          </button>
-        </td>
+        <button style="margin-left: 1px;" class="btn btn-sm btn-success" tooltip="Editar" (click)="editarCliente(cliente,template)">
+            <i class="fa fa-edit fa-fw" style="font-size: 12px;"></i>
+        </button>
+      </td>
       <td>
-        <a style="align-items: center; margin-left:20px;" [routerLink]="['/equipamentos', cliente.id, 'edit']"
+        <button style="margin-left: 3px;" class="btn btn-sm btn-danger" tooltip="Excluir"
+          (click)="excluirCliente(cliente, confirm)">
+          <i class="fa fa-eraser fa-fw" style="font-size: 12px;"></i>
+        </button>
+      </td>
+      <td>
+        <a style="margin-left:25px;" [routerLink]="['/equipamentos', cliente.id, 'edit']"
           tooltip="Equipamentos" class="btn btn-sm btn-warning">
-          <i class="fa fa-edit"></i></a>
+          <i class="fa fa-eye" style="font-size: 12px;"></i></a>
       </td>
     </tr>
   </tbody>
@@ -66,6 +67,8 @@
     </tr>
   </tfoot>
 </table>
+
+</div>
 
 <div bsModal #template="bs-modal"  [config]= "{ignoreBackdropClick: true, keyboard: false}" 
 class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
@@ -126,17 +129,18 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                     <div class="form-group col-md-6">
                       <label>E-mail</label>
                       <input type="text" class="form-control" formControlName="email" 
+                      [ngClass]="{'is-invalid': registerForm.get('email').errors && registerForm.get('email').touched}"
                       placeholder="E-mail." maxlength="150">
                       <!-- <div *ngIf="registerForm.get('email').hasError('required')
                               && registerForm.get('email').touched" class="invalid-feedback">
                               E-mail é obrigatório.
                       </div> -->
-                     <!--  <div *ngIf="registerForm.get('email').hasError('email')
+                      <div *ngIf="registerForm.get('email').hasError('email')
                         && registerForm.get('email').touched" class="invalid-feedback">
                          Informe um e-mail válido.
-                      </div> -->
+                      </div>
                     </div>
-                  </div>
+                  </div> 
                 </tab>
                 
                 <tab heading="Endereço">
