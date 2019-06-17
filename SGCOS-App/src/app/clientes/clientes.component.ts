@@ -51,7 +51,9 @@ export class ClientesComponent implements OnInit {
       .subscribe(
         (cliente: Cliente) => {
           this.cliente = Object.assign({}, cliente);
+          if (this.cliente.cpfCnpj !== null) {
           this.cliente.cpfCnpj = this.FormataCpfCnpj(this.cliente.cpfCnpj);
+          }
           this.registerForm.patchValue(this.cliente);
 
           this.cliente.enderecos.forEach(endereco => {
@@ -228,7 +230,7 @@ export class ClientesComponent implements OnInit {
       if (this.modoSalvar === 'post') {
         this.cliente = Object.assign({}, this.registerForm.value);
         const exp = /\.|\-|\//g;
-        if (this.cliente.cpfCnpj !== null) {
+        if (this.cliente.cpfCnpj !== '') {
         this.cliente.cpfCnpj =  this.cliente.cpfCnpj.replace(exp, '');
         }
         console.log(this.cliente);
