@@ -51,19 +51,19 @@ namespace SGCOS.Repository
                
 
             query = query.AsNoTracking()
-                        .OrderBy(c => c.Id);
+                        .OrderBy(c => c.Nome);
 
             return await query.ToArrayAsync();
         }
         public async Task<Cliente> GetAllClienteAsyncById(int clienteId)
         {
             IQueryable<Cliente> query = _context.Clientes
-                             .Include(c => c.Enderecos)
+                               .Include(c => c.Enderecos)
                                .Include(c => c.Telefones);              
                
 
             query = query.AsNoTracking()
-                        .OrderBy(c => c.Id)
+                        .OrderBy(c => c.Nome)
                         .Where(c => c.Id == clienteId);
 
             return await query.FirstOrDefaultAsync();
@@ -90,6 +90,7 @@ namespace SGCOS.Repository
                
 
             query = query.AsNoTracking()
+                         .OrderBy(c => c.Nome)
                          .Where(c => c.CpfCnpj == clientecpfcnpj);
 
             return await query.FirstOrDefaultAsync();
@@ -105,7 +106,7 @@ namespace SGCOS.Repository
                                .Include(e => e.Servicos);     
                                 
             query = query.AsNoTracking()
-                        .OrderBy(e => e.Id);
+                        .OrderBy(e => e.NrSerie);
 
             return await query.ToArrayAsync();
         }
@@ -116,7 +117,7 @@ namespace SGCOS.Repository
                
 
             query = query.AsNoTracking()
-                        .OrderBy(e => e.Id)
+                        .OrderBy(e => e.NrSerie)
                         .Where(e => e.Id == equipamentoId);
 
             return await query.FirstOrDefaultAsync();
@@ -127,7 +128,7 @@ namespace SGCOS.Repository
                 .Include(e => e.Servicos);
                              
                 query = query.AsNoTracking()
-                         .OrderBy(e => e.Id)
+                         .OrderBy(e => e.NrSerie)
                          .Where(e => e.NrSerie == nrSerie);
                          
             return await query.ToArrayAsync();
@@ -137,7 +138,7 @@ namespace SGCOS.Repository
             IQueryable<Equipamento> query = _context.Equipamentos;
                              
                 query = query.AsNoTracking()
-                         .OrderBy(s => s.Id)
+                         .OrderBy(s => s.NrSerie)
                          .Where(s => s.ClienteId == Convert.ToInt32(clienteId));
                          
             return await query.ToArrayAsync();
@@ -152,7 +153,7 @@ namespace SGCOS.Repository
             IQueryable<Servico> query = _context.Servicos;               
                
             query = query.AsNoTracking()
-                        .OrderBy(s => s.Id);
+                        .OrderBy(s => s.NrOrdem);
 
             return await query.ToArrayAsync();
         }
@@ -162,7 +163,7 @@ namespace SGCOS.Repository
                
 
             query = query.AsNoTracking()
-                        .OrderBy(e => e.Id)
+                        .OrderBy(e => e.NrOrdem)
                         .Where(e => e.Id == servicoId);
 
             return await query.FirstOrDefaultAsync();
@@ -172,7 +173,7 @@ namespace SGCOS.Repository
             IQueryable<Servico> query = _context.Servicos;
                              
                 query = query.AsNoTracking()
-                         .OrderBy(s => s.Id)
+                         .OrderBy(s => s.NrOrdem)
                          .Where(s => s.EquipamentoId == Convert.ToInt32(equipamentoId));
                          
             return await query.ToArrayAsync();

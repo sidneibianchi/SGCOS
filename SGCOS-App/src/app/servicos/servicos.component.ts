@@ -42,6 +42,7 @@ export class ServicosComponent implements OnInit {
   titulo = 'Serviços';
   servicoFiltrados: Servico[];
   servicos: Servico[];
+  servicosComp: Servico[];
   servico: Servico;
   bodyDeletarServico = '';
   modoSalvar = 'post';
@@ -79,6 +80,7 @@ export class ServicosComponent implements OnInit {
   novoServico(template: any) {
     this.modoSalvar = 'post';
     this.openModal(template);
+    this.getServicosComparacao();
   }
 
   openModal(template: any) {
@@ -189,6 +191,17 @@ export class ServicosComponent implements OnInit {
       });
   }
 
+  getServicosComparacao() {
+    this.servicoService.getAllServico().subscribe(
+      (Servicos: Servico[]) => {
+        this.servicosComp = Servicos;
+        console.log(this.servicosComp);
+      }, error => {
+        console.log(error);
+        this.toastr.error(`Erro ao tentar carregar serviços: ${error}`);
+      });
+  }
+
 
   VerificaNrOrdem(nrordem: string, template: any) {
 
@@ -200,8 +213,10 @@ export class ServicosComponent implements OnInit {
 
     console.log(nrordem);
 
-    const ret =  this.servicos.filter(
+    const ret =  this.servicosComp.filter(
          servico => servico.nrOrdem.toString() === nrordem);
+
+    console.log(nrordem);
 
     if (ret.length > 0 ) {
         this.toastr.warning('Ordem de serviço já possui um cadastrado no sistema.');
