@@ -126,7 +126,8 @@ export class EquipamentosComponent implements OnInit {
     this.equipamentoService.deleteEquipamento(this.equipamento.id).subscribe(
       () => {
         template.hide();
-        this.getEquipamentosPorCliente(clienteId);
+        this.ngOnInit();
+        /* this.getEquipamentosPorCliente(clienteId); */
         this.toastr.success('Equipamento excluido com sucesso!');
       }, error => {
         this.toastr.error('Erro ao tentar excluir equipamento: ${error}');

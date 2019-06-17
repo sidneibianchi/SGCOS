@@ -125,6 +125,7 @@ export class ServicosComponent implements OnInit {
     this.servicoService.deleteServico(this.servico.id).subscribe(
       () => {
         template.hide();
+       /*  this.ngOnInit(); */
         this.getServicosPorEquipamento(this.servico.equipamentoId.toString());
         this.toastr.success('Serviço excluido com sucesso!');
       }, error => {
