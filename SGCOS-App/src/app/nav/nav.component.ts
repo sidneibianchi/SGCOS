@@ -30,7 +30,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    this.toastr.show('Você saiu do sistema.');
+    /* this.toastr.show('Você saiu do sistema.'); */
     this.router.navigate(['/user/login']);
   }
 

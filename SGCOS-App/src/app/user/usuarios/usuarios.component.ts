@@ -59,6 +59,7 @@ export class UsuariosComponent implements OnInit {
       (Users: User[]) => {
         this.users = Users;
         this.usersFiltrados = this.users;
+        console.log(this.users);
       }, error => {
         console.log(error);
         this.toastr.error(`Erro ao tentar carregar usuarios: ${error}`);

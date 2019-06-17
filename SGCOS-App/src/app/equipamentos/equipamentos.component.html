@@ -2,7 +2,7 @@
 <app-titulo [titulo]=titulo></app-titulo>
 <div class="d-flex">
   <div class="form-inline mr-auto" action="">
-    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar po Nr série"
+    <div class="form-group mb-2"><input type="text" class="form-control mr-2" placeholder="Filtrar por Nr de série"
         [(ngModel)]="filtroLista">
     </div>
   </div>
@@ -19,7 +19,7 @@
     <thead class="thead-dark">
     <tr>
      <!--  <th>#</th> -->
-      <th>Nr Série</th>
+      <th>Nr de Série</th>
       <th>Marca</th>
       <th>Modelo</th>
       <th>Editar</th>
@@ -89,7 +89,7 @@
                     <div class="form-row">
                     <div class="form-group col-md-6">
                       <label>Marca</label>
-                      <input type="text" class="form-control" maxlength="150"
+                      <input type="text" class="form-control" maxlength="50"
                       [ngClass]="{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}"
                       formControlName="marca" placeholder="Marca">
                       <div *ngIf="registerForm.get('marca').hasError('required')
@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label>Modelo</label>
-                      <input type="text" class="form-control" maxlength="150"
+                      <input type="text" class="form-control" maxlength="50"
                       [ngClass]="{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}"
                       formControlName="modelo" placeholder="Modelo.">
                       <div *ngIf="registerForm.get('modelo').hasError('required')
@@ -111,8 +111,8 @@
                   <div class="form-row">
                     <div class="form-group col-md-12">
                       <label>Descrição</label>
-                      <input type="text" class="form-control" maxlength="250"
-                      formControlName="descricao" placeholder="Descrição.">
+                      <textarea  class="form-control" maxlength="250"
+                      formControlName="descricao" placeholder="Descrição."></textarea>
                     </div>
                   </div>
             </div>

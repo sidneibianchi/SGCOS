@@ -21,7 +21,7 @@
       <th>Nome</th>
       <th>Email</th>
       <th>Login</th>
-      <th>Editar | Excluir</th>
+      <th>Excluir</th>
     </tr>
   </thead>
   <tbody *ngIf="users">
@@ -32,9 +32,9 @@
       <td>{{user.userName | uppercase}}</td>
       <td>
         <div style="margin: auto;">
-          <button class="btn btn-sm btn-success" tooltip="Editar" (click)="router.navigate(['/user/registration'])">
+          <!-- <button class="btn btn-sm btn-success" tooltip="Editar" (click)="router.navigate(['/user/registration'])">
             <i class="fa fa-edit"></i>
-          </button>
+          </button> -->
           <button style="margin-left: 15px;" class="btn btn-sm btn-danger" tooltip="Excluir"
             (click)="excluirUser(user, confirm)">
             <i class="fa fa-eraser"></i>
@@ -111,21 +111,24 @@
                   Deve ser um e-mail válido.
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-row">
+              <div class="form-group col-md-4">
                 <label for="">Usuario:</label>
                 <input class="form-control" type="text" formControlName="userName" [ngClass]="{'is-invalid': registerForm.get('userName').errors &&
-                                            registerForm.get('userName').touched}" placeholder="Insira o nome de Usuário" />
+                                            registerForm.get('userName').touched}" placeholder="Insira o nome de Usuário"  maxlength="40"/>
                 <div *ngIf="registerForm.get('userName').hasError('required') &&
                             registerForm.get('userName').touched" class="invalid-feedback">
                   Usuário é obrigatório.
                 </div>
               </div>
+              </div>
               <div formGroupName="passwords">
-                <div class="form-group">
+                  <div class="form-row">
+                <div class="form-group col-md-4">
                   <label for="">Senha:</label>
                   <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': registerForm.get('passwords.password').errors &&
                                                registerForm.get('passwords.password').touched}"
-                    placeholder="Digite uma Senha" />
+                    placeholder="Digite uma Senha"  maxlength="40"/>
                   <div *ngIf="registerForm.get('passwords.password').hasError('minlength') &&
                     registerForm.get('passwords.password').touched" class="invalid-feedback">
                     Deve conter no mínimo 4 caracters
@@ -135,9 +138,9 @@
                     Senha é obrigatório.
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-4">
                   <label for="">Confirmar Senha:</label>
-                  <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': registerForm.get('passwords.confirmPassword').errors 
+                  <input class="form-control" type="password" maxlength="40" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': registerForm.get('passwords.confirmPassword').errors 
                                  && registerForm.get('passwords.confirmPassword').touched 
                                  ||registerForm.get('passwords.confirmPassword').hasError('mismatch') 
                                  && registerForm.get('passwords.confirmPassword').touched }" placeholder="Confirme a Senha" />
@@ -150,8 +153,8 @@
                     Confirmação não confere
                   </div>
                 </div>
+                </div>
               </div>
-              
             </form>
       </div>
       <div class="modal-footer d-flex">

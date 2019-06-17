@@ -32,7 +32,7 @@
      <!--  <td>{{cliente.id}}</td> -->
       <td>{{cliente.nome | uppercase}}</td>
       <td>{{cliente.contato | uppercase}}</td>
-      <td>
+      <td style="width: 120px;">
         <div *ngIf="!cliente.telefones.length">
           Não Informado
         </div>
@@ -108,7 +108,7 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                       <label>Nome</label>
                       <input type="text" class="form-control" formControlName="nome" 
                       [ngClass]="{'is-invalid': registerForm.get('nome').errors && registerForm.get('nome').touched}"
-                      placeholder="Nome" maxlength="150">
+                      placeholder="Nome" maxlength="100">
                       <div *ngIf="registerForm.get('nome').hasError('required')
                               && registerForm.get('nome').touched" class="invalid-feedback">
                               Nome é obrigatório.
@@ -317,7 +317,7 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
         <button class="btn btn-secondary" (click)="fechaModal(template)">
           Fechar
         </button>
-        <button class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">
+        <button #salvar class="btn btn-primary ml-auto" [disabled]="!registerForm.valid" (click)="salvarAlteracao(template)">
           Salvar
         </button>
       </div>

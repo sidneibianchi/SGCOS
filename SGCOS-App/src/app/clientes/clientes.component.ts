@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class ClientesComponent implements OnInit {
 
  @ViewChild('cpf') InputCpf: ElementRef;
+ @ViewChild('salvar') btnSalvar: ElementRef;
  @ViewChild('tabCli') tabCli: TabsetComponent;
 
   titulo = 'Clientes';
@@ -222,11 +223,14 @@ export class ClientesComponent implements OnInit {
   }
 
   salvarAlteracao(template: any) {
+    this.btnSalvar.nativeElement.disabled = true;
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.cliente = Object.assign({}, this.registerForm.value);
         const exp = /\.|\-|\//g;
+        if(this.cliente.cpfCnpj !== null) {
         this.cliente.cpfCnpj =  this.cliente.cpfCnpj.replace(exp, '');
+        }
         console.log(this.cliente);
         this.clienteService.postCliente(this.cliente).subscribe(
           (novoCliente: Cliente) => {
@@ -255,6 +259,7 @@ export class ClientesComponent implements OnInit {
           });
       }
     }
+    this.btnSalvar.nativeElement.disabled = false;
   }
 
   LimpaCliente() {
@@ -401,7 +406,7 @@ export class ClientesComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    this.toastr.show('Você saiu do sistema.');
+    /* this.toastr.show('Você saiu do sistema.'); */
     this.router.navigate(['/user/login']);
   }
 

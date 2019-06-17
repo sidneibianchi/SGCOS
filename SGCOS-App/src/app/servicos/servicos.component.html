@@ -19,8 +19,8 @@
   <thead class="thead-dark">
     <tr>
      <!--  <th>#</th> -->
-      <th>Nr Ordem se Serviço</th>
-      <th>Data Atendimento</th>
+      <th>Nr Ordem de Serviço</th>
+      <th>Data de Atendimento</th>
       <th>Dias de Garantia</th>
       <th>Status</th>
       <th>Detalhes</th> 
@@ -69,7 +69,7 @@
               <label>{{servico.defeito}}</label>
               <h6>Serviço executado</h6>
               <label>{{servico.servicosExecutados}}</label>
-              <h6>Peças substituidas</h6>
+              <h6>Peças substituídas</h6>
               <label>{{servico.pecasSubstituidas}}</label>
               <h6>Observações</h6>
               <label>{{servico.observacao}}</label>
@@ -105,7 +105,7 @@
             <div class="form-group col-md-3">
               <label>Nr ordem</label>
               <input type="text" class="form-control" 
-              [ngClass]="{'is-invalid': registerForm.get('nrOrdem').errors && registerForm.get('nrOrdem').touched}"
+              [ngClass]="{'is-invalid': registerForm.get('nrOrdem').errors && registerForm.get('nrOrdem').touched}" maxlength="10"
               formControlName="nrOrdem" placeholder="Nr Ordem de serviço." onkeypress="return SomenteNumero(event)">
               <div *ngIf="registerForm.get('nrOrdem').hasError('required')
                    && registerForm.get('nrOrdem').touched" class="invalid-feedback">
@@ -117,7 +117,7 @@
               <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat : 'DD/MM/YYYY'}"
               [(ngModel)]="dtAtendimento"  maxlength="8"
               [ngClass]="{'is-invalid': registerForm.get('dtAtendimento').errors && registerForm.get('dtAtendimento').touched}"
-              class="form-control" formControlName="dtAtendimento" placeholder="Data Atendimento."
+              class="form-control" formControlName="dtAtendimento" placeholder="Data de atendimento."
               onkeypress="return SomenteNumero(event)" [minDate]="minDate" [maxDate]="maxDate" 
               onblur="return isDataValida(this)" >
               <div *ngIf="registerForm.get('dtAtendimento').hasError('required')
@@ -128,7 +128,7 @@
             <div class="form-group col-md-3">
               <label>Dias de garantia</label>
               <input type="text" class="form-control" 
-              [ngClass]="{'is-invalid': registerForm.get('qtdDiasGarantia').errors && registerForm.get('qtdDiasGarantia').touched}"
+              [ngClass]="{'is-invalid': registerForm.get('qtdDiasGarantia').errors && registerForm.get('qtdDiasGarantia').touched}" maxlength="3"
               formControlName="qtdDiasGarantia" placeholder="Dias de garantia" onkeypress="return SomenteNumero(event)">
               <div *ngIf="registerForm.get('qtdDiasGarantia').hasError('required')
                    && registerForm.get('qtdDiasGarantia').touched" class="invalid-feedback">
@@ -141,7 +141,7 @@
               <label>Defeito</label>
               <input type="text" class="form-control" 
               [ngClass]="{'is-invalid': registerForm.get('defeito').errors && registerForm.get('defeito').touched}"
-              formControlName="defeito" placeholder="Defeito.">
+              formControlName="defeito" placeholder="Defeito." maxlength="90">
               <div *ngIf="registerForm.get('defeito').hasError('required')
                    && registerForm.get('defeito').touched" class="invalid-feedback">
                    Defeito é obrigatório.
@@ -153,7 +153,7 @@
               <label>Serviço executado</label>
               <input type="text" class="form-control" 
               [ngClass]="{'is-invalid': registerForm.get('servicosExecutados').errors && registerForm.get('servicosExecutados').touched}"
-              formControlName="servicosExecutados" placeholder="Serviço executado.">
+              formControlName="servicosExecutados" placeholder="Serviço executado." maxlength="90">
               <div *ngIf="registerForm.get('servicosExecutados').hasError('required')
                    && registerForm.get('servicosExecutados').touched" class="invalid-feedback">
                    Serviço executado é obrigatório.
@@ -162,16 +162,16 @@
           </div> 
           <div class="form-row">
             <div class="form-group col-md-12">
-              <label>Peças substituidas</label>
+              <label>Peças substituídas</label>
               <input type="text" class="form-control" 
-              formControlName="pecasSubstituidas" placeholder="Peças Substituidas.">
+              formControlName="pecasSubstituidas" placeholder="Peças substituídas." maxlength="90">
             </div>
           </div> 
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Observações</label>
-              <input type="text" class="form-control" 
-              formControlName="observacao" placeholder="Observações.">
+              <textarea type="text" class="form-control" 
+              formControlName="observacao" placeholder="Observações." maxlength="250"></textarea>
             </div>
           </div> 
           <div class="form-row">
@@ -179,7 +179,7 @@
               <label>Valor do serviço</label>
               <input type="text" currencyMask
               [ngClass]="{'is-invalid': registerForm.get('valorServico').errors && registerForm.get('valorServico').touched}"
-              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" maxlength="8"
               class="form-control" formControlName="valorServico" placeholder="R$ 0,00" onkeypress="return SomenteNumero(event)"> 
               <div *ngIf="registerForm.get('valorServico').hasError('required')
                    && registerForm.get('valorServico').touched" class="invalid-feedback">
