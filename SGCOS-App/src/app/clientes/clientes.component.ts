@@ -228,7 +228,7 @@ export class ClientesComponent implements OnInit {
       if (this.modoSalvar === 'post') {
         this.cliente = Object.assign({}, this.registerForm.value);
         const exp = /\.|\-|\//g;
-        if(this.cliente.cpfCnpj !== null) {
+        if (this.cliente.cpfCnpj !== null) {
         this.cliente.cpfCnpj =  this.cliente.cpfCnpj.replace(exp, '');
         }
         console.log(this.cliente);
