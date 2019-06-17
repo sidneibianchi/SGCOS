@@ -180,7 +180,7 @@
               <label>Valor do serviço</label>
               <input type="text" currencyMask
               [ngClass]="{'is-invalid': registerForm.get('valorServico').errors && registerForm.get('valorServico').touched}"
-              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" maxlength="12"
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }" maxlength="20"
               class="form-control" formControlName="valorServico" placeholder="R$ 0,00" onkeypress="return SomenteNumero(event)"> 
               <div *ngIf="registerForm.get('valorServico').hasError('required')
                    && registerForm.get('valorServico').touched" class="invalid-feedback">
