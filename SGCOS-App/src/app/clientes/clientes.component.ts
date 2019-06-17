@@ -120,9 +120,13 @@ export class ClientesComponent implements OnInit {
 
   VerificaSeExisteCliente(cpfcnpj: string, template: any) {
 
-    if (cpfcnpj === this.cliente.cpfCnpj) {
+    if (cpfcnpj === '') {
       return;
-   }
+    }
+
+    if (cpfcnpj === this.cliente.cpfCnpj) {
+        return;
+    }
 
     const exp = /\.|\-|\//g;
     cpfcnpj = cpfcnpj.replace(exp, '');

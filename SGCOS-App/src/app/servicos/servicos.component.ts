@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ServicoService } from '../_services/Servico.service';
 import { BsModalService, BsModalRef, BsLocaleService, DateFormatter } from 'ngx-bootstrap';
@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Servico } from '../_models/Servico';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap';
+import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
+import { toInt } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 
 defineLocale('pt-br', ptBrLocale);
@@ -17,6 +19,7 @@ defineLocale('pt-br', ptBrLocale);
 })
 export class ServicosComponent implements OnInit {
 
+  @ViewChild('nrOrdem') NrOrdem: ElementRef;
 
     constructor(private servicoService: ServicoService,
                 private modalService: BsModalService,
@@ -184,6 +187,28 @@ export class ServicosComponent implements OnInit {
         console.log(error);
         this.toastr.error(`Erro ao tentar carregar serviços: ${error}`);
       });
+  }
+
+
+  VerificaNrOrdem(nrordem: string, template: any) {
+
+    console.log(nrordem);
+
+    if (nrordem === '') {
+      return;
+    }
+
+    console.log(nrordem);
+
+    const ret =  this.servicos.filter(
+         servico => servico.nrOrdem.toString() === nrordem);
+
+    if (ret.length > 0 ) {
+        this.toastr.warning('Ordem de serviço já possui um cadastrado no sistema.');
+        this.novoServico(template);
+        this.NrOrdem.nativeElement.focus();
+      }
+
   }
 
 }

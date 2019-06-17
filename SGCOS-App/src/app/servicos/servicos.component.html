@@ -104,7 +104,7 @@
           <div class="form-row">
             <div class="form-group col-md-3">
               <label>Nr ordem</label>
-              <input type="text" class="form-control" 
+              <input type="text" class="form-control" #nrOrdem  (blur)="VerificaNrOrdem(nrOrdem.value, template);"
               [ngClass]="{'is-invalid': registerForm.get('nrOrdem').errors && registerForm.get('nrOrdem').touched}" maxlength="10"
               formControlName="nrOrdem" placeholder="Nr Ordem de serviço." onkeypress="return SomenteNumero(event)">
               <div *ngIf="registerForm.get('nrOrdem').hasError('required')
