@@ -831,7 +831,9 @@ var ClientesComponent = /** @class */ (function () {
         this.clienteService.getClienteById(cli.id)
             .subscribe(function (cliente) {
             _this.cliente = Object.assign({}, cliente);
-            _this.cliente.cpfCnpj = _this.FormataCpfCnpj(_this.cliente.cpfCnpj);
+            if (_this.cliente.cpfCnpj !== null) {
+                _this.cliente.cpfCnpj = _this.FormataCpfCnpj(_this.cliente.cpfCnpj);
+            }
             _this.registerForm.patchValue(_this.cliente);
             _this.cliente.enderecos.forEach(function (endereco) {
                 _this.enderecos.push(_this.criaEndereco(endereco));
@@ -984,7 +986,7 @@ var ClientesComponent = /** @class */ (function () {
             if (this.modoSalvar === 'post') {
                 this.cliente = Object.assign({}, this.registerForm.value);
                 var exp = /\.|\-|\//g;
-                if (this.cliente.cpfCnpj !== null) {
+                if (this.cliente.cpfCnpj !== '') {
                     this.cliente.cpfCnpj = this.cliente.cpfCnpj.replace(exp, '');
                 }
                 console.log(this.cliente);

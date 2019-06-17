@@ -99,10 +99,10 @@ class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-nam
                         onkeyup="javascript:return aplica_mascara_cpfcnpj(this,18,event)"
                         (blur)="VerificaSeExisteCliente(cpf.value, template);"
                         onkeypress="return SomenteNumero(event)">
-                        <!-- <div *ngIf="registerForm.get('cpfCnpj').hasError('required')
+                        <div *ngIf="registerForm.get('cpfCnpj').hasError('required')
                               && registerForm.get('cpfCnpj').touched" class="invalid-feedback">
                               O CPF/ CNPJ é obrigatório.
-                        </div> -->
+                        </div>
                     </div>
                     <div class="form-group col-md-9">
                       <label>Nome</label>
