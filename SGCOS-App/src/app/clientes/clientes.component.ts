@@ -52,7 +52,7 @@ export class ClientesComponent implements OnInit {
         (cliente: Cliente) => {
           this.cliente = Object.assign({}, cliente);
           if (this.cliente.cpfCnpj !== null) {
-          this.cliente.cpfCnpj = this.FormataCpfCnpj(this.cliente.cpfCnpj);
+            this.cliente.cpfCnpj = this.FormataCpfCnpj(this.cliente.cpfCnpj);
           }
           this.registerForm.patchValue(this.cliente);
 
