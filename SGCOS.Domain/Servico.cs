@@ -19,7 +19,7 @@ namespace SGCOS.Domain
             
             try
             {
-                if (DtAtendimento.AddDays(QtdDiasGarantia) >= DateTime.Now)
+                if (DtAtendimento.AddDays(QtdDiasGarantia + 1) >= DateTime.Now)
                     return true;
                 else
                     return false;
