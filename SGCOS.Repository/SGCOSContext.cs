@@ -37,6 +37,8 @@ namespace SGCOS.Repository
                         .IsRequired();
 
             });
+
+            modelBuilder.Entity<Servico>().Property(Servico => Servico.ValorServico).HasColumnType("decimal(12, 10)");
         }
 
         #endregion 
