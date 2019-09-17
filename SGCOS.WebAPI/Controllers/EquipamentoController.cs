@@ -176,7 +176,7 @@ namespace SGCOS.WebAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPost("upload")]
+        /* [HttpPost("upload")]
         public async Task<IActionResult> Upload()
         {
             try
@@ -204,7 +204,7 @@ namespace SGCOS.WebAPI.Controllers
             }
 
             return BadRequest("Erro ao tentar realizar upload");
-        }
+        } */
 
     }
 }
