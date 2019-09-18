@@ -7,7 +7,7 @@ import { Servico } from '../_models/Servico';
   providedIn: 'root'
 })
 export class ServicoService {
-  baseURL = 'https://sgcos.azurewebsites.net/api/servico';
+  baseURL = 'http://localhost:5000/api/servico';
 
   constructor(private http: HttpClient) { }
 

@@ -7,7 +7,7 @@ import { Equipamento } from '../_models/Equipamento';
   providedIn: 'root'
 })
 export class EquipamentoService {
-  baseURL = 'https://sgcos.azurewebsites.net/api/equipamento';
+  baseURL = 'http://localhost:5000/api/equipamento';
 
   constructor(private http: HttpClient) { }
 

@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using SGCOS.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using SGCOS.Domain.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -39,7 +28,7 @@ namespace SGCOS.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SGCOSContext>(
-                x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection"))
             ); 
             
             IdentityBuilder builder = services.AddIdentityCore<User>(options => 
@@ -104,10 +93,10 @@ namespace SGCOS.API
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseStaticFiles();
-            app.UseStaticFiles( new StaticFileOptions(){
+            /* app.UseStaticFiles( new StaticFileOptions(){
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                 RequestPath = new PathString("/Resources")
-            }); 
+            });  */
             app.UseMvc();
         }
     }

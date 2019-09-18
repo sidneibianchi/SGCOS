@@ -138,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 var ClienteService = /** @class */ (function () {
     function ClienteService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/cliente';
+        this.baseURL = 'http://localhost:5000/api/cliente';
     }
     ClienteService.prototype.getAllCliente = function () {
         return this.http.get(this.baseURL);
@@ -193,7 +193,7 @@ __webpack_require__.r(__webpack_exports__);
 var EquipamentoService = /** @class */ (function () {
     function EquipamentoService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/equipamento';
+        this.baseURL = 'http://localhost:5000/api/equipamento';
     }
     EquipamentoService.prototype.getAllEquipamento = function () {
         return this.http.get(this.baseURL);
@@ -248,7 +248,7 @@ __webpack_require__.r(__webpack_exports__);
 var ServicoService = /** @class */ (function () {
     function ServicoService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/servico';
+        this.baseURL = 'http://localhost:5000/api/servico';
     }
     ServicoService.prototype.getAllServico = function () {
         return this.http.get(this.baseURL);
@@ -304,7 +304,7 @@ __webpack_require__.r(__webpack_exports__);
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/user/';
+        this.baseURL = 'http://localhost:5000/api/user/';
         this.jwtHelper = new _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_3__["JwtHelperService"]();
     }
     AuthService.prototype.login = function (model) {
@@ -1470,7 +1470,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark  bg-dark\">\r\n    <div class=\"container\">\r\n  <a class=\"navbar-brand\" routerLink=\"clientes\">SGCOS</a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div *ngIf=\"loggedIn()\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"clientes\">Clientes<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"equipamentos\">Equipamentos<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"servicos\">Serviços<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li  *ngIf=\"roleName() == 'Administrador'\"  routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" [routerLink]=\"['user/usuarios']\">Usuarios<span class=\"sr-only\">(current)</span></a>\r\n     </li>\r\n      </ul>\r\n    </div>\r\n     <button *ngIf=\"loggedIn()\" class=\"btn btn-success\" (click)=\"logout()\" style=\"cursor: pointer\">Sair</button> \r\n  </div>  \r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark  bg-dark\">\r\n    <div class=\"container\">\r\n  <a class=\"navbar-brand\" routerLink=\"clientes\">SGCOS</a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div *ngIf=\"loggedIn()\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"clientes\">Clientes<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"equipamentos\">Equipamentos<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"servicos\">Serviços<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li>\r\n        <a class=\"nav-link\" [routerLink]=\"['user/usuarios']\">Usuarios<span class=\"sr-only\">(current)</span></a>\r\n     </li>\r\n      </ul>\r\n    </div>\r\n     <button *ngIf=\"loggedIn()\" class=\"btn btn-success\" (click)=\"logout()\" style=\"cursor: pointer\">Sair</button> \r\n  </div>  \r\n</nav>\r\n"
 
 /***/ }),
 
@@ -1799,7 +1799,7 @@ module.exports = ".form-signin {\r\n    width: 100%;\r\n    max-width: 330px;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-titulo [titulo]=\"titulo\"></app-titulo>\r\n\r\n<body class=\"text-center\" data-gr-c-s-loaded=\"true\">\r\n  <form class=\"form-signin\" #loginForm=\"ngForm\" (ngSubmit)=\"login()\">\r\n    <img class=\"mb-4\" src=\"\" alt=\"\" width=\"72\" height=\"72\">\r\n    <h1 class=\"h3 mb-3 font-weight-normal\">Login</h1>\r\n    <label for=\"username\" class=\"sr-only\">Usuário</label>\r\n    <input type=\"email\" id=\"username\" class=\"form-control\" placeholder=\"Usuário\"\r\n    name=\"username\" required [(ngModel)]=\"model.username\">\r\n    <br>\r\n    <label for=\"password\" class=\"sr-only\">Password</label>\r\n    <input type=\"password\" id=\"password\" class=\"form-control\" placeholder=\"Senha\"\r\n    name=\"password\" required [(ngModel)]=\"model.password\">\r\n    <!--div class=\"checkbox mb-3\">\r\n      <label>\r\n        <input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n      </label>\r\n    </div-->\r\n    <button [disabled]=\"!loginForm.valid\" class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>\r\n    <!-- <p class=\"mt-5 mb-3 text-muted\">Não tem login? Cadastre-se abaixo</p>\r\n    <button class=\"btn btn-lg btn-link btn-block\" (click)=\"router.navigate(['/user/registration'])\">Quero me cadastrar</button> -->\r\n  </form>  \r\n\r\n</body>"
+module.exports = "<app-titulo [titulo]=\"titulo\"></app-titulo>\r\n\r\n<body class=\"text-center\" data-gr-c-s-loaded=\"true\">\r\n  <form class=\"form-signin\" #loginForm=\"ngForm\" (ngSubmit)=\"login()\">\r\n    <img class=\"mb-4\" src=\"\" alt=\"\" width=\"72\" height=\"72\">\r\n    <h1 class=\"h3 mb-3 font-weight-normal\">Login</h1>\r\n    <label for=\"username\" class=\"sr-only\">Usuário</label>\r\n    <input type=\"email\" id=\"username\" class=\"form-control\" placeholder=\"Usuário\"\r\n    name=\"username\" required [(ngModel)]=\"model.username\">\r\n    <br>\r\n    <label for=\"password\" class=\"sr-only\">Password</label>\r\n    <input type=\"password\" id=\"password\" class=\"form-control\" placeholder=\"Senha\"\r\n    name=\"password\" required [(ngModel)]=\"model.password\">\r\n    <!--div class=\"checkbox mb-3\">\r\n      <label>\r\n        <input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n      </label>\r\n    </div-->\r\n    <button [disabled]=\"!loginForm.valid\" class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>\r\n    <p class=\"mt-5 mb-3 text-muted\">Não tem login? Cadastre-se abaixo</p>\r\n    <button class=\"btn btn-lg btn-link btn-block\" (click)=\"router.navigate(['/user/registration'])\">Quero me cadastrar</button>\r\n  </form>  \r\n\r\n</body>"
 
 /***/ }),
 
@@ -2301,7 +2301,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Sidnei\Downloads\SGCOS\SGCOS-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\sidneib\Desktop\SGCOS\SGCOS-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })
