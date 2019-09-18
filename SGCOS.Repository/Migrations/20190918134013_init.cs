@@ -207,6 +207,7 @@ namespace SGCOS.Repository.Migrations
                     Descricao = table.Column<string>(nullable: true),
                     Marca = table.Column<string>(nullable: true),
                     Modelo = table.Column<string>(nullable: true),
+                    ImagemURL = table.Column<string>(nullable: true),
                     ClienteId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -253,7 +254,7 @@ namespace SGCOS.Repository.Migrations
                     PecasSubstituidas = table.Column<string>(nullable: true),
                     Observacao = table.Column<string>(nullable: true),
                     DtAtendimento = table.Column<DateTime>(nullable: false),
-                    ValorServico = table.Column<decimal>(nullable: false),
+                    ValorServico = table.Column<decimal>(type: "decimal(12, 10)", nullable: false),
                     QtdDiasGarantia = table.Column<int>(nullable: false),
                     EquipamentoId = table.Column<int>(nullable: false)
                 },

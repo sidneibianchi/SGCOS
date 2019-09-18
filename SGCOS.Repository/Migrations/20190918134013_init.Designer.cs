@@ -10,14 +10,14 @@ using SGCOS.Repository;
 namespace SGCOS.Repository.Migrations
 {
     [DbContext(typeof(SGCOSContext))]
-    [Migration("20190605034106_init")]
+    [Migration("20190918134013_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -147,6 +147,8 @@ namespace SGCOS.Repository.Migrations
 
                     b.Property<string>("Descricao");
 
+                    b.Property<string>("ImagemURL");
+
                     b.Property<string>("Marca");
 
                     b.Property<string>("Modelo");
@@ -275,7 +277,8 @@ namespace SGCOS.Repository.Migrations
 
                     b.Property<string>("ServicosExecutados");
 
-                    b.Property<decimal>("ValorServico");
+                    b.Property<decimal>("ValorServico")
+                        .HasColumnType("decimal(12, 10)");
 
                     b.HasKey("Id");
 
