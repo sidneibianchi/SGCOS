@@ -138,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 var ClienteService = /** @class */ (function () {
     function ClienteService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/cliente';
+        this.baseURL = 'http://localhost:5000/api/cliente';
     }
     ClienteService.prototype.getAllCliente = function () {
         return this.http.get(this.baseURL);
@@ -193,7 +193,7 @@ __webpack_require__.r(__webpack_exports__);
 var EquipamentoService = /** @class */ (function () {
     function EquipamentoService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/equipamento';
+        this.baseURL = 'http://localhost:5000/api/equipamento';
     }
     EquipamentoService.prototype.getAllEquipamento = function () {
         return this.http.get(this.baseURL);
@@ -206,6 +206,12 @@ var EquipamentoService = /** @class */ (function () {
     };
     EquipamentoService.prototype.getEquipamentoByCliente = function (idCliente) {
         return this.http.get(this.baseURL + "/getByCliente/" + idCliente);
+    };
+    EquipamentoService.prototype.postUpload = function (file, name) {
+        var fileToUplaod = file[0];
+        var formData = new FormData();
+        formData.append('file', fileToUplaod, name);
+        return this.http.post(this.baseURL + "/upload", formData);
     };
     EquipamentoService.prototype.postEquipamento = function (equipamento) {
         return this.http.post(this.baseURL, equipamento);
@@ -248,7 +254,7 @@ __webpack_require__.r(__webpack_exports__);
 var ServicoService = /** @class */ (function () {
     function ServicoService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/servico';
+        this.baseURL = 'http://localhost:5000/api/servico';
     }
     ServicoService.prototype.getAllServico = function () {
         return this.http.get(this.baseURL);
@@ -304,7 +310,7 @@ __webpack_require__.r(__webpack_exports__);
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.baseURL = 'https://sgcos.azurewebsites.net/api/user/';
+        this.baseURL = 'http://localhost:5000/api/user/';
         this.jwtHelper = new _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_3__["JwtHelperService"]();
     }
     AuthService.prototype.login = function (model) {
@@ -1271,7 +1277,7 @@ module.exports = "i {\r\n    font-size: 25px;\r\n}\r\n\r\n.iconesSociais a {\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar por Nr de série\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <div>\r\n  <button class=\"btn btn-sm btn-outline-primary\"  (click)=\"novoEquipamento(template)\" *ngIf=\"idCliente !== 0\"> \r\n    <i class=\"fa fa-plus-circle\" style=\"font-size: 12px;\"></i>&nbsp;\r\n    Novo Equipamento\r\n  </button>\r\n</div>\r\n</div>\r\n<br>\r\n<div class=\"table-responsive\">\r\n  <table class=\"table table-striped table-sm\" style=\"font-size: 12px;\">\r\n    <thead class=\"thead-dark\">\r\n    <tr>\r\n     <!--  <th>#</th> -->\r\n      <th>Nr de Série</th>\r\n      <th>Marca</th>\r\n      <th>Modelo</th>\r\n      <th>Editar</th>\r\n      <th>Excluir</th>\r\n      <th>Serviços</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"equipamentos\">\r\n    <tr *ngFor=\"let equipamento of equipamentoFiltrados\">  \r\n      <!-- <td>{{equipamento.id}}</td> -->\r\n      <td>{{equipamento.nrSerie | uppercase}}</td>\r\n      <td>{{equipamento.marca | uppercase}}</td>\r\n      <td>{{equipamento.modelo | uppercase}}</td>\r\n      <td>\r\n        <button style=\"margin-left: 1px;\" class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarEquipamento(equipamento, template)\">\r\n          <i class=\"fa fa-edit\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <button style=\"margin-left: 2px;\" class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirEquipamento(equipamento, confirm)\">\r\n          <i class=\"fa fa-eraser\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <a style=\"margin-left:7px;\" [routerLink]=\"['/servicos', equipamento.id, 'edit']\" tooltip=\"Cadastrar serviços\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-eye\" style=\"font-size: 12px;\"></i>\r\n        </a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!equipamentos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum equipamento encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n</div>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" \r\n     class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Equipamentos</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n              <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>Número de Série</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"10\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('nrSerie').errors && registerForm.get('nrSerie').touched}\"\r\n                      formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                      <div *ngIf=\"registerForm.get('nrSerie').hasError('required')\r\n                              && registerForm.get('nrSerie').touched\" class=\"invalid-feedback\">\r\n                              Número de série é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                    <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Marca</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}\"\r\n                      formControlName=\"marca\" placeholder=\"Marca\">\r\n                      <div *ngIf=\"registerForm.get('marca').hasError('required')\r\n                              && registerForm.get('marca').touched\" class=\"invalid-feedback\">\r\n                              A marca é obrigatória.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Modelo</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}\"\r\n                      formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n                      <div *ngIf=\"registerForm.get('modelo').hasError('required')\r\n                              && registerForm.get('modelo').touched\" class=\"invalid-feedback\">\r\n                              Modelo é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-12\">\r\n                      <label>Descrição</label>\r\n                      <textarea  class=\"form-control\" maxlength=\"250\"\r\n                      formControlName=\"descricao\" placeholder=\"Descrição.\"></textarea>\r\n                    </div>\r\n                  </div>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarEquipamento(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Equipamento\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarEquipamento}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar por Nr de série\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <div>\r\n  <button class=\"btn btn-sm btn-outline-primary\"  (click)=\"novoEquipamento(template)\" *ngIf=\"idCliente !== 0\"> \r\n    <i class=\"fa fa-plus-circle\" style=\"font-size: 12px;\"></i>&nbsp;\r\n    Novo Equipamento\r\n  </button>\r\n</div>\r\n</div>\r\n<br>\r\n<div class=\"table-responsive\">\r\n  <table class=\"table table-striped table-sm\" style=\"font-size: 12px;\">\r\n    <thead class=\"thead-dark\">\r\n    <tr>\r\n     <!--  <th>#</th> -->\r\n      <th>Nr de Série</th>\r\n      <th>Marca</th>\r\n      <th>Modelo</th>\r\n      <th>Editar</th>\r\n      <th>Excluir</th>\r\n      <th>Serviços</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"equipamentos\">\r\n    <tr *ngFor=\"let equipamento of equipamentoFiltrados\">  \r\n      <!-- <td>{{equipamento.id}}</td> -->\r\n      <td>{{equipamento.nrSerie | uppercase}}</td>\r\n      <td>{{equipamento.marca | uppercase}}</td>\r\n      <td>{{equipamento.modelo | uppercase}}</td>\r\n      <td>\r\n        <button style=\"margin-left: 1px;\" class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarEquipamento(equipamento, template)\">\r\n          <i class=\"fa fa-edit\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <button style=\"margin-left: 2px;\" class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirEquipamento(equipamento, confirm)\">\r\n          <i class=\"fa fa-eraser\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <a style=\"margin-left:7px;\" [routerLink]=\"['/servicos', equipamento.id, 'edit']\" tooltip=\"Cadastrar serviços\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-eye\" style=\"font-size: 12px;\"></i>\r\n        </a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!equipamentos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum equipamento encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n</div>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" \r\n     class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Equipamentos</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n              <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>Número de Série</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"10\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('nrSerie').errors && registerForm.get('nrSerie').touched}\"\r\n                      formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                      <div *ngIf=\"registerForm.get('nrSerie').hasError('required')\r\n                              && registerForm.get('nrSerie').touched\" class=\"invalid-feedback\">\r\n                              Número de série é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-9\">\r\n                      <label>Imagem</label>\r\n                      <table>\r\n                        <tr>\r\n                          <td>\r\n                            <button class=\"btn btn-success\" (click)=\"file.click()\">\r\n                              Enviar Imagem\r\n                            </button>\r\n                            <input type=\"file\" #file [ngClass]=\"{'is-invalid': registerForm.get('imagemURL').errors \r\n                && registerForm.get('imagemURL').touched}\" (change)=\"onFileChange($event)\" class=\"form-control is-invalid\"\r\n                              formControlName=\"imagemURL\" placeholder=\"\" style=\"display: none\">\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                      <div *ngIf=\"registerForm.get('imagemURL').hasError('required')\r\n          && registerForm.get('imagemURL').touched\" class=\"invalid-feedback\">\r\n                        Imagem é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                    <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Marca</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}\"\r\n                      formControlName=\"marca\" placeholder=\"Marca\">\r\n                      <div *ngIf=\"registerForm.get('marca').hasError('required')\r\n                              && registerForm.get('marca').touched\" class=\"invalid-feedback\">\r\n                              A marca é obrigatória.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Modelo</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}\"\r\n                      formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n                      <div *ngIf=\"registerForm.get('modelo').hasError('required')\r\n                              && registerForm.get('modelo').touched\" class=\"invalid-feedback\">\r\n                              Modelo é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-12\">\r\n                      <label>Descrição</label>\r\n                      <textarea  class=\"form-control\" maxlength=\"250\"\r\n                      formControlName=\"descricao\" placeholder=\"Descrição.\"></textarea>\r\n                    </div>\r\n                  </div>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarEquipamento(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Equipamento\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarEquipamento}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1310,6 +1316,9 @@ var EquipamentosComponent = /** @class */ (function () {
         this.titulo = 'Equipamentos';
         this.bodyDeletarEquipamento = '';
         this.modoSalvar = 'post';
+        this.imagemLargura = 50;
+        this.imagemMargem = 2;
+        this.mostrarImagem = false;
     }
     Object.defineProperty(EquipamentosComponent.prototype, "filtroLista", {
         get: function () {
@@ -1358,6 +1367,9 @@ var EquipamentosComponent = /** @class */ (function () {
             _this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
         });
     };
+    EquipamentosComponent.prototype.alternarImagem = function () {
+        this.mostrarImagem = !this.mostrarImagem;
+    };
     EquipamentosComponent.prototype.getAllEquipamentos = function () {
         var _this = this;
         this.equipamentoService.getAllEquipamento().subscribe(function (Equipamentos) {
@@ -1375,13 +1387,43 @@ var EquipamentosComponent = /** @class */ (function () {
             descricao: [''],
             marca: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             modelo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+            imagemURL: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             clienteId: []
         });
+    };
+    EquipamentosComponent.prototype.onFileChange = function (event) {
+        var reader = new FileReader();
+        if (event.target.files && event.target.files.length) {
+            this.file = event.target.files;
+            console.log(this.file);
+        }
+    };
+    EquipamentosComponent.prototype.uploadImagem = function () {
+        var _this = this;
+        if (this.modoSalvar === 'post') {
+            var nomeArquivo = this.equipamento.imagemURL.split('\\', 3);
+            this.equipamento.imagemURL = nomeArquivo[2];
+            this.equipamentoService.postUpload(this.file, nomeArquivo[2])
+                .subscribe(function () {
+                _this.dataAtual = new Date().getMilliseconds().toString();
+                _this.getAllEquipamentos();
+            });
+        }
+        else {
+            this.equipamento.imagemURL = this.fileNameToUpdate;
+            this.equipamentoService.postUpload(this.file, this.fileNameToUpdate)
+                .subscribe(function () {
+                _this.dataAtual = new Date().getMilliseconds().toString();
+                _this.getAllEquipamentos();
+            });
+        }
     };
     EquipamentosComponent.prototype.editarEquipamento = function (equipamento, template) {
         this.modoSalvar = 'put';
         this.openModal(template);
         this.equipamento = Object.assign({}, equipamento);
+        this.fileNameToUpdate = equipamento.imagemURL.toString();
+        this.equipamento.imagemURL = '';
         console.log(equipamento);
         this.registerForm.patchValue(this.equipamento);
     };
@@ -1410,6 +1452,7 @@ var EquipamentosComponent = /** @class */ (function () {
                 this.equipamento = Object.assign({}, this.registerForm.value);
                 this.equipamento.clienteId = this.idCliente;
                 console.log(this.equipamento);
+                this.uploadImagem();
                 this.equipamentoService.postEquipamento(this.equipamento).subscribe(function (novoEquipamento) {
                     template.hide();
                     _this.getEquipamentosPorCliente(_this.equipamento.clienteId);
@@ -1421,6 +1464,7 @@ var EquipamentosComponent = /** @class */ (function () {
             else {
                 this.equipamento = Object.assign({ id: this.equipamento.id }, this.registerForm.value);
                 console.log(this.equipamento);
+                this.uploadImagem();
                 this.equipamentoService.putEquipamento(this.equipamento).subscribe(function () {
                     template.hide();
                     _this.getEquipamentosPorCliente(_this.equipamento.clienteId);
@@ -1470,7 +1514,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark  bg-dark\">\r\n    <div class=\"container\">\r\n  <a class=\"navbar-brand\" routerLink=\"clientes\">SGCOS</a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div *ngIf=\"loggedIn()\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"clientes\">Clientes<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"equipamentos\">Equipamentos<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"servicos\">Serviços<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li  *ngIf=\"roleName() == 'Administrador'\"  routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" [routerLink]=\"['user/usuarios']\">Usuarios<span class=\"sr-only\">(current)</span></a>\r\n     </li>\r\n      </ul>\r\n    </div>\r\n     <button *ngIf=\"loggedIn()\" class=\"btn btn-success\" (click)=\"logout()\" style=\"cursor: pointer\">Sair</button> \r\n  </div>  \r\n</nav>\r\n"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark  bg-dark\">\r\n    <div class=\"container\">\r\n  <a class=\"navbar-brand\" routerLink=\"clientes\">SGCOS</a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n\r\n  <div *ngIf=\"loggedIn()\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\r\n    <ul class=\"navbar-nav mr-auto\">\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"clientes\">Clientes<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"equipamentos\">Equipamentos<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li class=\"nav-item\" routerLinkActive=\"active\">\r\n        <a class=\"nav-link\" routerLink=\"servicos\">Serviços<span class=\"sr-only\">(current)</span></a>\r\n      </li>\r\n      <li>\r\n        <a class=\"nav-link\" [routerLink]=\"['user/usuarios']\">Usuarios<span class=\"sr-only\">(current)</span></a>\r\n     </li>\r\n      </ul>\r\n    </div>\r\n     <button *ngIf=\"loggedIn()\" class=\"btn btn-success\" (click)=\"logout()\" style=\"cursor: pointer\">Sair</button> \r\n  </div>  \r\n</nav>\r\n"
 
 /***/ }),
 
@@ -1799,7 +1843,7 @@ module.exports = ".form-signin {\r\n    width: 100%;\r\n    max-width: 330px;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-titulo [titulo]=\"titulo\"></app-titulo>\r\n\r\n<body class=\"text-center\" data-gr-c-s-loaded=\"true\">\r\n  <form class=\"form-signin\" #loginForm=\"ngForm\" (ngSubmit)=\"login()\">\r\n    <img class=\"mb-4\" src=\"\" alt=\"\" width=\"72\" height=\"72\">\r\n    <h1 class=\"h3 mb-3 font-weight-normal\">Login</h1>\r\n    <label for=\"username\" class=\"sr-only\">Usuário</label>\r\n    <input type=\"email\" id=\"username\" class=\"form-control\" placeholder=\"Usuário\"\r\n    name=\"username\" required [(ngModel)]=\"model.username\">\r\n    <br>\r\n    <label for=\"password\" class=\"sr-only\">Password</label>\r\n    <input type=\"password\" id=\"password\" class=\"form-control\" placeholder=\"Senha\"\r\n    name=\"password\" required [(ngModel)]=\"model.password\">\r\n    <!--div class=\"checkbox mb-3\">\r\n      <label>\r\n        <input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n      </label>\r\n    </div-->\r\n    <button [disabled]=\"!loginForm.valid\" class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>\r\n    <!-- <p class=\"mt-5 mb-3 text-muted\">Não tem login? Cadastre-se abaixo</p>\r\n    <button class=\"btn btn-lg btn-link btn-block\" (click)=\"router.navigate(['/user/registration'])\">Quero me cadastrar</button> -->\r\n  </form>  \r\n\r\n</body>"
+module.exports = "<app-titulo [titulo]=\"titulo\"></app-titulo>\r\n\r\n<body class=\"text-center\" data-gr-c-s-loaded=\"true\">\r\n  <form class=\"form-signin\" #loginForm=\"ngForm\" (ngSubmit)=\"login()\">\r\n    <img class=\"mb-4\" src=\"\" alt=\"\" width=\"72\" height=\"72\">\r\n    <h1 class=\"h3 mb-3 font-weight-normal\">Login</h1>\r\n    <label for=\"username\" class=\"sr-only\">Usuário</label>\r\n    <input type=\"email\" id=\"username\" class=\"form-control\" placeholder=\"Usuário\"\r\n    name=\"username\" required [(ngModel)]=\"model.username\">\r\n    <br>\r\n    <label for=\"password\" class=\"sr-only\">Password</label>\r\n    <input type=\"password\" id=\"password\" class=\"form-control\" placeholder=\"Senha\"\r\n    name=\"password\" required [(ngModel)]=\"model.password\">\r\n    <!--div class=\"checkbox mb-3\">\r\n      <label>\r\n        <input type=\"checkbox\" value=\"remember-me\"> Remember me\r\n      </label>\r\n    </div-->\r\n    <button [disabled]=\"!loginForm.valid\" class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Entrar</button>\r\n    <p class=\"mt-5 mb-3 text-muted\">Não tem login? Cadastre-se abaixo</p>\r\n    <button class=\"btn btn-lg btn-link btn-block\" (click)=\"router.navigate(['/user/registration'])\">Quero me cadastrar</button>\r\n  </form>  \r\n\r\n</body>"
 
 /***/ }),
 
@@ -2301,7 +2345,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Sidnei\Downloads\SGCOS\SGCOS-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\sidneib\Desktop\UploadImagem\SGCOS\SGCOS-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

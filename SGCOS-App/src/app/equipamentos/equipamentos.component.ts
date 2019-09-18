@@ -24,6 +24,16 @@ export class EquipamentosComponent implements OnInit {
   registerForm: FormGroup;
   returnedArray: Equipamento[];
 
+  imagemLargura = 50;
+  imagemMargem = 2;
+  mostrarImagem = false;
+
+  file: File;
+  fileNameToUpdate: string;
+
+  dataAtual: string;
+
+
   constructor(private equipamentoService: EquipamentoService,
               private modalService: BsModalService,
               private fb: FormBuilder,
@@ -85,6 +95,10 @@ export class EquipamentosComponent implements OnInit {
       });
   }
 
+  alternarImagem() {
+    this.mostrarImagem = !this.mostrarImagem;
+  }
+
   getAllEquipamentos() {
     this.equipamentoService.getAllEquipamento().subscribe(
       (Equipamentos: Equipamento[]) => {
@@ -103,14 +117,51 @@ export class EquipamentosComponent implements OnInit {
       descricao: [''],
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
+      imagemURL: ['', Validators.required],
       clienteId: []
     });
   }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
+      console.log(this.file);
+    }
+  }
+
+  uploadImagem() {
+    if (this.modoSalvar === 'post') {
+      const nomeArquivo = this.equipamento.imagemURL.split('\\', 3);
+      this.equipamento.imagemURL = nomeArquivo[2];
+
+      this.equipamentoService.postUpload(this.file, nomeArquivo[2])
+        .subscribe(
+          () => {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.getAllEquipamentos();
+          }
+        );
+    } else {
+      this.equipamento.imagemURL = this.fileNameToUpdate;
+      this.equipamentoService.postUpload(this.file, this.fileNameToUpdate)
+        .subscribe(
+          () => {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.getAllEquipamentos();
+          }
+        );
+    }
+  }
+
 
   editarEquipamento(equipamento: Equipamento, template: any) {
     this.modoSalvar = 'put';
     this.openModal(template);
     this.equipamento = Object.assign({}, equipamento);
+    this.fileNameToUpdate = equipamento.imagemURL.toString();
+    this.equipamento.imagemURL = '';
     console.log(equipamento);
     this.registerForm.patchValue(this.equipamento);
   }
@@ -142,6 +193,7 @@ export class EquipamentosComponent implements OnInit {
         this.equipamento = Object.assign({}, this.registerForm.value);
         this.equipamento.clienteId = this.idCliente;
         console.log(this.equipamento);
+        this.uploadImagem();
         this.equipamentoService.postEquipamento(this.equipamento).subscribe(
           (novoEquipamento: Equipamento) => {
             template.hide();
@@ -153,6 +205,7 @@ export class EquipamentosComponent implements OnInit {
       } else {
         this.equipamento = Object.assign({ id: this.equipamento.id }, this.registerForm.value);
         console.log(this.equipamento);
+        this.uploadImagem();
         this.equipamentoService.putEquipamento(this.equipamento).subscribe(
           () => {
             template.hide();
