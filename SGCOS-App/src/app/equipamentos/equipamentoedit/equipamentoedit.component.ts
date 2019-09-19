@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Equipamento } from '../_models/Equipamento';
+import { Equipamento } from 'src/app/_models/Equipamento';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EquipamentoService } from 'src/app/_services/Equipamento.service';
 import { BsModalService } from 'ngx-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EquipamentoService } from '../_services/Equipamento.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-equipamentos',
-  templateUrl: './equipamentos.component.html',
-  styleUrls: ['./equipamentos.component.css']
+  selector: 'app-equipamentoedit',
+  templateUrl: './equipamentoedit.component.html',
+  styleUrls: ['./equipamentoedit.component.css']
 })
-export class EquipamentosComponent implements OnInit {
+export class EquipamentoeditComponent implements OnInit {
 
   titulo = 'Equipamentos';
   FiltroLista: string;
@@ -23,7 +23,7 @@ export class EquipamentosComponent implements OnInit {
   modoSalvar = 'post';
   registerForm: FormGroup;
   returnedArray: Equipamento[];
-
+  imagemURL = 'assets/img/upload.png';
 
   imagemLargura = 50;
   imagemMargem = 2;
@@ -33,7 +33,6 @@ export class EquipamentosComponent implements OnInit {
   fileNameToUpdate: string;
 
   dataAtual: string;
-
 
   constructor(private equipamentoService: EquipamentoService,
               private modalService: BsModalService,

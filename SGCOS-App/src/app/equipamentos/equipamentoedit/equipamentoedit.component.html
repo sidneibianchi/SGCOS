@@ -1,0 +1,99 @@
+<br>
+<app-titulo [titulo]="titulo"></app-titulo>
+<form [formGroup]="registerForm">
+  <div class="row">
+    <div class="col-md-8">
+      <tabset>
+        <tab heading="Equipamento">
+          <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label>Número de Série</label>
+                    <input type="text" class="form-control" maxlength="10"
+                    [ngClass]="{'is-invalid': registerForm.get('nrSerie').errors && registerForm.get('nrSerie').touched}"
+                    formControlName="nrSerie" placeholder="Número de Série.">
+                    <div *ngIf="registerForm.get('nrSerie').hasError('required')
+                            && registerForm.get('nrSerie').touched" class="invalid-feedback">
+                            Número de série é obrigatório.
+                    </div>
+                </div>
+                </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Marca</label>
+              <input type="text" class="form-control" maxlength="50"
+              [ngClass]="{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}"
+              formControlName="marca" placeholder="Marca">
+              <div *ngIf="registerForm.get('marca').hasError('required')
+                      && registerForm.get('marca').touched" class="invalid-feedback">
+                      A marca é obrigatória.
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Modelo</label>
+              <input type="text" class="form-control" maxlength="50"
+              [ngClass]="{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}"
+              formControlName="modelo" placeholder="Modelo.">
+              <div *ngIf="registerForm.get('modelo').hasError('required')
+                      && registerForm.get('modelo').touched" class="invalid-feedback">
+                      Modelo é obrigatório.
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Descrição</label>
+              <textarea  class="form-control" maxlength="250"
+              formControlName="descricao" placeholder="Descrição."></textarea>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Servicos">
+          <div>
+            <div >
+              <fieldset class="form-group">
+                <legend class="d-flex justify-content-between capitalize">
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-end">
+          <!-- {{registerForm.value | json}} -->
+          <button [disabled]="!registerForm.valid" class="btn btn-success my-2" >Salvar
+            Alterações</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-row">
+        <div class="form-group col-md-9">
+          <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid"
+            formControlName="imagemURL" placeholder="" style="display: none">
+        </div>
+      </div>
+      <div class="card profile-card-2">
+        <div class="card-img-block">
+          <img [src]="imagemURL" class="img-fluid" (click)="file.click()" style="cursor: pointer; width: 350px;"
+            alt="Card image cap" />
+        </div>
+        <div class="card-body pt-3">
+          <h4>Equipamento</h4>
+          <p class="card-text">
+            <b>Marca:</b> 
+            <br>
+            <b>Modelo:</b> 
+          </p>
+          <hr>
+          <p class="card-text">
+            <b>Cliente</b><br>
+            <small class="text-muted">Telefone: </small>
+            <br>
+            <small class="text-muted">e-mail: </small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
