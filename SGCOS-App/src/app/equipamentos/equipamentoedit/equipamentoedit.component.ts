@@ -18,7 +18,7 @@ export class EquipamentoeditComponent implements OnInit {
   equipamentoFiltrados: Equipamento[];
   equipamentos: Equipamento[];
   equipamento: Equipamento;
-  idCliente: number;
+  idEquipamento: number;
   bodyDeletarEquipamento = '';
   modoSalvar = 'post';
   registerForm: FormGroup;
@@ -58,9 +58,9 @@ export class EquipamentoeditComponent implements OnInit {
     );
   }
 
-  novoEquipamento(template: any) {
+  novoEquipamento() {
     this.modoSalvar = 'post';
-    this.openModal(template);
+    //this.openModal(template);
   }
 
   openModal(template: any) {
@@ -69,29 +69,31 @@ export class EquipamentoeditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idCliente = +this.route.snapshot.paramMap.get('idCliente');
-    if (this.idCliente !== 0 ) {
-      this.getEquipamentosPorCliente(this.idCliente);
+    console.log('oninit');
+    this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
+    if (this.idEquipamento !== 0 ) {
+      console.log(this.idEquipamento);
+      this.getEquipamentosPorId(this.idEquipamento);
     } else {
+      console.log('getall');
       this.getAllEquipamentos();
     }
     this.validation();
-
   }
 
   roleName() {
     return sessionStorage.getItem('role');
   }
 
-  getEquipamentosPorCliente(idCliente: number) {
-    this.equipamentoService.getEquipamentoByCliente(idCliente).subscribe(
-      (Equipamentos: Equipamento[]) => {
-        this.equipamentos = Equipamentos;
-        this.equipamentoFiltrados = this.equipamentos;
-        console.log(this.equipamentos);
+  getEquipamentosPorId(idEquipamento: number) {
+    this.equipamentoService.getEquipamentoById(idEquipamento).subscribe(
+      (Equipamento: Equipamento) => {
+        this.equipamento = Equipamento;
+        console.log(this.equipamento);
+        this.editarEquipamento(this.equipamento);
       }, error => {
         console.log(error);
-        this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
+        this.toastr.error('Erro ao tentar carregar equipamento: ${error}');
       });
   }
 
@@ -156,13 +158,18 @@ export class EquipamentoeditComponent implements OnInit {
   }
 
 
-  editarEquipamento(equipamento: Equipamento, template: any) {
+  editarEquipamento(equipamento: Equipamento) {
     this.modoSalvar = 'put';
-    this.openModal(template);
-    this.equipamento = Object.assign({}, equipamento);
-    this.fileNameToUpdate = equipamento.imagemURL.toString();
-    this.equipamento.imagemURL = '';
+    console.log('1');
     console.log(equipamento);
+    //this.openModal(template);
+    this.equipamento = Object.assign({}, equipamento);
+    console.log('2');
+    console.log(this.equipamento);
+    this.fileNameToUpdate = this.equipamento.imagemURL.toString();
+    console.log('3');
+    this.equipamento.imagemURL = '';
+    console.log(this.equipamento);
     this.registerForm.patchValue(this.equipamento);
   }
 
@@ -191,13 +198,13 @@ export class EquipamentoeditComponent implements OnInit {
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.equipamento = Object.assign({}, this.registerForm.value);
-        this.equipamento.clienteId = this.idCliente;
+        //this.equipamento.clienteId = this.idCliente;
         console.log(this.equipamento);
         this.uploadImagem();
         this.equipamentoService.postEquipamento(this.equipamento).subscribe(
           (novoEquipamento: Equipamento) => {
             template.hide();
-            this.getEquipamentosPorCliente(this.equipamento.clienteId);
+            //this.getEquipamentosPorCliente(this.equipamento.clienteId);
             this.toastr.success('Equipamento inserido com sucesso!');
           }, error => {
             this.toastr.error('Erro ao incluir equipamento: ${error}');
@@ -209,7 +216,7 @@ export class EquipamentoeditComponent implements OnInit {
         this.equipamentoService.putEquipamento(this.equipamento).subscribe(
           () => {
             template.hide();
-            this.getEquipamentosPorCliente(this.equipamento.clienteId);
+            //this.getEquipamentosPorCliente(this.equipamento.clienteId);
             this.toastr.success('Equipamento alterado com sucesso!');
           }, error => {
             console.log(error);
