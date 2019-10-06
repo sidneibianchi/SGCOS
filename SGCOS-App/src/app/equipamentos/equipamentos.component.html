@@ -47,7 +47,7 @@
         </button>
       </td>
       <td>
-        <a style="margin-left:7px;" [routerLink]="['/equipamentoEdit', equipamento.id, 'edit']" tooltip="Cadastrar serviços" class="btn btn-sm btn-warning">
+        <a style="margin-left:7px;" [routerLink]="['/servicos', equipamento.id, 'edit']" tooltip="Cadastrar serviços" class="btn btn-sm btn-warning">
           <i class="fa fa-eye" style="font-size: 12px;"></i>
         </a>
       </td>
@@ -76,7 +76,7 @@
       <div class="modal-body">
         <form [formGroup]="registerForm">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
               <div class="form-row">
                     <div class="form-group col-md-3">
                       <label>Número de Série</label>
@@ -137,6 +137,36 @@
                       formControlName="descricao" placeholder="Descrição."></textarea>
                     </div>
                   </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-row">
+                <div class="form-group col-md-9">
+                  <input type="file" #file (change)="onFileChange($event, $event.target.files)" class="form-control is-invalid"
+                  formControlName="imagemURL" placeholder="" style="display: none">
+                </div>
+              </div>
+              <div class="card profile-card-2">
+                <div class="card-img-block">
+                  <img [src]="imagemURL" class="img-fluid" (click)="file.click()" style="cursor: pointer; width: 350px;"
+                    alt="Card image cap" />
+                </div>
+                <div class="card-body pt-3">
+                  <h4>Equipamento</h4>
+                  <p class="card-text">
+                    <b>Marca:</b> 
+                    <br>
+                    <b>Modelo:</b> 
+                  </p>
+                  <hr>
+                  <p class="card-text">
+                    <b>Cliente</b><br>
+                    <small class="text-muted">Telefone: </small>
+                    <br>
+                    <small class="text-muted">e-mail: </small>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </form>

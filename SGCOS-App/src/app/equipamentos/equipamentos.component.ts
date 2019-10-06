@@ -32,6 +32,8 @@ export class EquipamentosComponent implements OnInit {
   file: File;
   fileNameToUpdate: string;
 
+  imagemURL = 'assets/img/upload.png';
+
   dataAtual: string;
 
 
@@ -123,13 +125,11 @@ export class EquipamentosComponent implements OnInit {
     });
   }
 
-  onFileChange(event) {
+  onFileChange(equipamento: any, file: FileList) {
     const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      this.file = event.target.files;
-      console.log(this.file);
-    }
+    reader.onload = (event: any) => this.imagemURL = event.target.result;
+    this.file = equipamento.target.files;
+    reader.readAsDataURL(file[0]);
   }
 
   uploadImagem() {
