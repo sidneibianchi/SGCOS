@@ -120,7 +120,7 @@ export class EquipamentosComponent implements OnInit {
       descricao: [''],
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
-      imagemURL: ['', Validators.required],
+      imagemURL: [''],
       clienteId: []
     });
   }
@@ -162,6 +162,7 @@ export class EquipamentosComponent implements OnInit {
     this.openModal(template);
     this.equipamento = Object.assign({}, equipamento);
     this.fileNameToUpdate = equipamento.imagemURL.toString();
+    this.imagemURL = `http://localhost:5000/resources/images/${this.equipamento.imagemURL}?_ts=${this.dataAtual}`;
     this.equipamento.imagemURL = '';
     console.log(equipamento);
     this.registerForm.patchValue(this.equipamento);
