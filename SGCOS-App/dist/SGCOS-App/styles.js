@@ -598,8 +598,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Sidnei\Downloads\SGCOS\SGCOS-App\src\styles.css */"./src/styles.css");
-module.exports = __webpack_require__(/*! C:\Users\Sidnei\Downloads\SGCOS\SGCOS-App\node_modules\ngx-toastr\toastr.css */"./node_modules/ngx-toastr/toastr.css");
+__webpack_require__(/*! C:\Users\sidneib\Desktop\UploadImagem\SGCOS\SGCOS-App\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! C:\Users\sidneib\Desktop\UploadImagem\SGCOS\SGCOS-App\node_modules\ngx-toastr\toastr.css */"./node_modules/ngx-toastr/toastr.css");
 
 
 /***/ })

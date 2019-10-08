@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Equipamento } from '../_models/Equipamento';
+import { Equipamento } from 'src/app/_models/Equipamento';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EquipamentoService } from 'src/app/_services/Equipamento.service';
 import { BsModalService } from 'ngx-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EquipamentoService } from '../_services/Equipamento.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-equipamentos',
-  templateUrl: './equipamentos.component.html',
-  styleUrls: ['./equipamentos.component.css']
+  selector: 'app-equipamentoedit',
+  templateUrl: './equipamentoedit.component.html',
+  styleUrls: ['./equipamentoedit.component.css']
 })
-export class EquipamentosComponent implements OnInit {
+export class EquipamentoeditComponent implements OnInit {
 
   titulo = 'Equipamentos';
   FiltroLista: string;
   equipamentoFiltrados: Equipamento[];
   equipamentos: Equipamento[];
   equipamento: Equipamento;
-  idCliente: number;
+  idEquipamento: number;
   bodyDeletarEquipamento = '';
   modoSalvar = 'post';
   registerForm: FormGroup;
   returnedArray: Equipamento[];
-
+  imagemURL = 'assets/img/upload.png';
 
   imagemLargura = 50;
   imagemMargem = 2;
@@ -32,10 +32,7 @@ export class EquipamentosComponent implements OnInit {
   file: File;
   fileNameToUpdate: string;
 
-  imagemURL = 'assets/img/upload.png';
-
   dataAtual: string;
-
 
   constructor(private equipamentoService: EquipamentoService,
               private modalService: BsModalService,
@@ -61,9 +58,9 @@ export class EquipamentosComponent implements OnInit {
     );
   }
 
-  novoEquipamento(template: any) {
+  novoEquipamento() {
     this.modoSalvar = 'post';
-    this.openModal(template);
+
   }
 
   openModal(template: any) {
@@ -72,29 +69,31 @@ export class EquipamentosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idCliente = +this.route.snapshot.paramMap.get('idCliente');
-    if (this.idCliente !== 0 ) {
-      this.getEquipamentosPorCliente(this.idCliente);
+    console.log('oninit');
+    this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
+    if (this.idEquipamento !== 0 ) {
+      console.log(this.idEquipamento);
+      this.getEquipamentosPorId(this.idEquipamento);
     } else {
+      console.log('getall');
       this.getAllEquipamentos();
     }
     this.validation();
-
   }
 
   roleName() {
     return sessionStorage.getItem('role');
   }
 
-  getEquipamentosPorCliente(idCliente: number) {
-    this.equipamentoService.getEquipamentoByCliente(idCliente).subscribe(
-      (Equipamentos: Equipamento[]) => {
-        this.equipamentos = Equipamentos;
-        this.equipamentoFiltrados = this.equipamentos;
-        console.log(this.equipamentos);
+  getEquipamentosPorId(idEquipamento: number) {
+    this.equipamentoService.getEquipamentoById(idEquipamento).subscribe(
+      (Equip: Equipamento) => {
+        this.equipamento = Equip;
+        console.log(this.equipamento);
+        this.editarEquipamento(this.equipamento);
       }, error => {
         console.log(error);
-        this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
+        this.toastr.error('Erro ao tentar carregar equipamento: ${error}');
       });
   }
 
@@ -125,12 +124,14 @@ export class EquipamentosComponent implements OnInit {
     });
   }
 
-  onFileChange(equipamento: any, file: FileList) {
+/*   onFileChange(event) {
     const reader = new FileReader();
-    reader.onload = (event: any) => this.imagemURL = event.target.result;
-    this.file = equipamento.target.files;
-    reader.readAsDataURL(file[0]);
-  }
+
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
+      console.log(this.file);
+    }
+  } */
 
   uploadImagem() {
     if (this.modoSalvar === 'post') {
@@ -157,14 +158,25 @@ export class EquipamentosComponent implements OnInit {
   }
 
 
-  editarEquipamento(equipamento: Equipamento, template: any) {
+  onFileChange(equipamento: any, file: FileList) {
+    const reader = new FileReader();
+    reader.onload = (event: any) => this.imagemURL = event.target.result;
+    this.file = equipamento.target.files;
+    reader.readAsDataURL(file[0]);
+  }
+
+
+  editarEquipamento(equipamento: Equipamento) {
     this.modoSalvar = 'put';
-    this.openModal(template);
-    this.equipamento = Object.assign({}, equipamento);
-    this.fileNameToUpdate = equipamento.imagemURL.toString();
-    this.imagemURL = `http://localhost:5000/resources/images/${this.equipamento.imagemURL}?_ts=${this.dataAtual}`;
-    this.equipamento.imagemURL = '';
+    console.log('1');
     console.log(equipamento);
+    this.equipamento = Object.assign({}, equipamento);
+    console.log('2');
+    console.log(this.equipamento);
+    this.fileNameToUpdate = this.equipamento.imagemURL.toString();
+    console.log('3');
+    this.equipamento.imagemURL = '';
+    console.log(this.equipamento);
     this.registerForm.patchValue(this.equipamento);
   }
 
@@ -193,13 +205,13 @@ export class EquipamentosComponent implements OnInit {
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.equipamento = Object.assign({}, this.registerForm.value);
-        this.equipamento.clienteId = this.idCliente;
+        /*this.equipamento.clienteId = this.idCliente;*/
         console.log(this.equipamento);
         this.uploadImagem();
         this.equipamentoService.postEquipamento(this.equipamento).subscribe(
           (novoEquipamento: Equipamento) => {
-            template.hide();
-            this.getEquipamentosPorCliente(this.equipamento.clienteId);
+            /* template.hide(); */
+            /*this.getEquipamentosPorCliente(this.equipamento.clienteId);*/
             this.toastr.success('Equipamento inserido com sucesso!');
           }, error => {
             this.toastr.error('Erro ao incluir equipamento: ${error}');
@@ -210,8 +222,8 @@ export class EquipamentosComponent implements OnInit {
         this.uploadImagem();
         this.equipamentoService.putEquipamento(this.equipamento).subscribe(
           () => {
-            template.hide();
-            this.getEquipamentosPorCliente(this.equipamento.clienteId);
+            /* template.hide(); */
+            /*this.getEquipamentosPorCliente(this.equipamento.clienteId);*/
             this.toastr.success('Equipamento alterado com sucesso!');
           }, error => {
             console.log(error);
@@ -220,5 +232,7 @@ export class EquipamentosComponent implements OnInit {
       }
     }
   }
+
+
 
 }

@@ -6,6 +6,7 @@ export interface Equipamento {
     descricao: string;
     marca: string;
     modelo: string;
+    imagemURL: string;
     clienteId: number;
     servicos: Servico[];
 }

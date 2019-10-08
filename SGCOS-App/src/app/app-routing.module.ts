@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientesComponent } from './clientes/clientes.component';
 import { EquipamentosComponent } from './equipamentos/equipamentos.component';
+import { EquipamentoeditComponent } from './equipamentos/equipamentoedit/equipamentoedit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ServicosComponent } from './servicos/servicos.component';
 import { UserComponent } from './user/user.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   },
   {path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard]},
   {path: 'equipamentos/:idCliente/edit', component: EquipamentosComponent, canActivate: [AuthGuard]},
+  {path: 'equipamentoEdit/:idEquipamento/edit', component: EquipamentoeditComponent, canActivate: [AuthGuard]},
   {path: 'equipamentos', component: EquipamentosComponent, canActivate: [AuthGuard]},
   {path: 'servicos/:idEquipamento/edit', component: ServicosComponent, canActivate: [AuthGuard]},
   {path: 'servicos', component: ServicosComponent, canActivate: [AuthGuard]},

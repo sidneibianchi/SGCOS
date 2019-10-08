@@ -7,7 +7,7 @@ import { Equipamento } from '../_models/Equipamento';
   providedIn: 'root'
 })
 export class EquipamentoService {
-  baseURL = 'https://sgcos.azurewebsites.net/api/equipamento';
+  baseURL = 'http://localhost:5000/api/equipamento';
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +25,14 @@ export class EquipamentoService {
 
   getEquipamentoByCliente(idCliente: number): Observable<Equipamento[]> {
     return this.http.get<Equipamento[]>(`${this.baseURL}/getByCliente/${idCliente}`);
+  }
+
+  postUpload(file: File, name: string) {
+    const fileToUplaod = <File> file[0];
+    const formData = new FormData();
+    formData.append('file', fileToUplaod, name);
+
+    return this.http.post(`${this.baseURL}/upload`, formData);
   }
 
   postEquipamento(equipamento: Equipamento) {

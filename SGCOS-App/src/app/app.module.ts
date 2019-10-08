@@ -15,6 +15,7 @@ import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { EquipamentosComponent } from './equipamentos/equipamentos.component';
+import { EquipamentoeditComponent } from './equipamentos/equipamentoedit/equipamentoedit.component';
 import { DateFormatPipePipe } from './_helps/DateFormatPipe.pipe';
 import { HourFormatPipePipe } from './_helps/HourFormatPipe.pipe';
 import { TituloComponent } from './_shared/titulo/titulo.component';
@@ -40,6 +41,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
       HourFormatPipePipe,
       ClientesComponent,
       EquipamentosComponent,
+      EquipamentoeditComponent,
       DashboardComponent,
       TituloComponent,
       ServicosComponent,

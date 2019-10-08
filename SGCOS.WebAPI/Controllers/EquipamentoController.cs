@@ -176,8 +176,8 @@ namespace SGCOS.WebAPI.Controllers
             return BadRequest();
         }
 
-        /* [HttpPost("upload")]
-        public async Task<IActionResult> Upload()
+        [HttpPost("upload")]
+        public IActionResult Upload()
         {
             try
             {
@@ -202,9 +202,7 @@ namespace SGCOS.WebAPI.Controllers
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Banco Dados Falhou {ex.Message}");
             }
-
-            return BadRequest("Erro ao tentar realizar upload");
-        } */
+        } 
 
     }
 }
