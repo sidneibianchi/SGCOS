@@ -138,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 var ClienteService = /** @class */ (function () {
     function ClienteService(http) {
         this.http = http;
-        this.baseURL = 'http://localhost:5000/api/cliente';
+        this.baseURL = 'https://sgcos.azurewebsites.net/api/cliente';
     }
     ClienteService.prototype.getAllCliente = function () {
         return this.http.get(this.baseURL);
@@ -193,7 +193,7 @@ __webpack_require__.r(__webpack_exports__);
 var EquipamentoService = /** @class */ (function () {
     function EquipamentoService(http) {
         this.http = http;
-        this.baseURL = 'http://localhost:5000/api/equipamento';
+        this.baseURL = 'https://sgcos.azurewebsites.net/api/equipamento';
     }
     EquipamentoService.prototype.getAllEquipamento = function () {
         return this.http.get(this.baseURL);
@@ -254,7 +254,7 @@ __webpack_require__.r(__webpack_exports__);
 var ServicoService = /** @class */ (function () {
     function ServicoService(http) {
         this.http = http;
-        this.baseURL = 'http://localhost:5000/api/servico';
+        this.baseURL = 'https://sgcos.azurewebsites.net/api/servico';
     }
     ServicoService.prototype.getAllServico = function () {
         return this.http.get(this.baseURL);
@@ -310,7 +310,7 @@ __webpack_require__.r(__webpack_exports__);
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.baseURL = 'http://localhost:5000/api/user/';
+        this.baseURL = 'https://sgcos.azurewebsites.net/api/user/';
         this.jwtHelper = new _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_3__["JwtHelperService"]();
     }
     AuthService.prototype.login = function (model) {
@@ -575,18 +575,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var _clientes_clientes_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./clientes/clientes.component */ "./src/app/clientes/clientes.component.ts");
 /* harmony import */ var _equipamentos_equipamentos_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./equipamentos/equipamentos.component */ "./src/app/equipamentos/equipamentos.component.ts");
-/* harmony import */ var _helps_DateFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./_helps/DateFormatPipe.pipe */ "./src/app/_helps/DateFormatPipe.pipe.ts");
-/* harmony import */ var _helps_HourFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_helps/HourFormatPipe.pipe */ "./src/app/_helps/HourFormatPipe.pipe.ts");
-/* harmony import */ var _shared_titulo_titulo_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./_shared/titulo/titulo.component */ "./src/app/_shared/titulo/titulo.component.ts");
-/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/fesm5/ngx-mask.js");
-/* harmony import */ var _servicos_servicos_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./servicos/servicos.component */ "./src/app/servicos/servicos.component.ts");
-/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./user/user.component */ "./src/app/user/user.component.ts");
-/* harmony import */ var _user_login_login_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./user/login/login.component */ "./src/app/user/login/login.component.ts");
-/* harmony import */ var _user_registration_registration_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./user/registration/registration.component */ "./src/app/user/registration/registration.component.ts");
-/* harmony import */ var _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./auth/auth.interceptor */ "./src/app/auth/auth.interceptor.ts");
-/* harmony import */ var ngx_currency__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ngx-currency */ "./node_modules/ngx-currency/index.js");
-/* harmony import */ var _user_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./user/usuarios/usuarios.component */ "./src/app/user/usuarios/usuarios.component.ts");
-/* harmony import */ var ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ngx-bootstrap/pagination */ "./node_modules/ngx-bootstrap/pagination/fesm5/ngx-bootstrap-pagination.js");
+/* harmony import */ var _equipamentos_equipamentoedit_equipamentoedit_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./equipamentos/equipamentoedit/equipamentoedit.component */ "./src/app/equipamentos/equipamentoedit/equipamentoedit.component.ts");
+/* harmony import */ var _helps_DateFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_helps/DateFormatPipe.pipe */ "./src/app/_helps/DateFormatPipe.pipe.ts");
+/* harmony import */ var _helps_HourFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./_helps/HourFormatPipe.pipe */ "./src/app/_helps/HourFormatPipe.pipe.ts");
+/* harmony import */ var _shared_titulo_titulo_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./_shared/titulo/titulo.component */ "./src/app/_shared/titulo/titulo.component.ts");
+/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/fesm5/ngx-mask.js");
+/* harmony import */ var _servicos_servicos_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./servicos/servicos.component */ "./src/app/servicos/servicos.component.ts");
+/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./user/user.component */ "./src/app/user/user.component.ts");
+/* harmony import */ var _user_login_login_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./user/login/login.component */ "./src/app/user/login/login.component.ts");
+/* harmony import */ var _user_registration_registration_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./user/registration/registration.component */ "./src/app/user/registration/registration.component.ts");
+/* harmony import */ var _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./auth/auth.interceptor */ "./src/app/auth/auth.interceptor.ts");
+/* harmony import */ var ngx_currency__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ngx-currency */ "./node_modules/ngx-currency/index.js");
+/* harmony import */ var _user_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./user/usuarios/usuarios.component */ "./src/app/user/usuarios/usuarios.component.ts");
+/* harmony import */ var ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ngx-bootstrap/pagination */ "./node_modules/ngx-bootstrap/pagination/fesm5/ngx-bootstrap-pagination.js");
+
 
 
 
@@ -622,17 +624,18 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
                 _nav_nav_component__WEBPACK_IMPORTED_MODULE_11__["NavComponent"],
-                _helps_DateFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_15__["DateFormatPipePipe"],
-                _helps_HourFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_16__["HourFormatPipePipe"],
+                _helps_DateFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_16__["DateFormatPipePipe"],
+                _helps_HourFormatPipe_pipe__WEBPACK_IMPORTED_MODULE_17__["HourFormatPipePipe"],
                 _clientes_clientes_component__WEBPACK_IMPORTED_MODULE_13__["ClientesComponent"],
                 _equipamentos_equipamentos_component__WEBPACK_IMPORTED_MODULE_14__["EquipamentosComponent"],
+                _equipamentos_equipamentoedit_equipamentoedit_component__WEBPACK_IMPORTED_MODULE_15__["EquipamentoeditComponent"],
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_12__["DashboardComponent"],
-                _shared_titulo_titulo_component__WEBPACK_IMPORTED_MODULE_17__["TituloComponent"],
-                _servicos_servicos_component__WEBPACK_IMPORTED_MODULE_19__["ServicosComponent"],
-                _user_user_component__WEBPACK_IMPORTED_MODULE_20__["UserComponent"],
-                _user_login_login_component__WEBPACK_IMPORTED_MODULE_21__["LoginComponent"],
-                _user_registration_registration_component__WEBPACK_IMPORTED_MODULE_22__["RegistrationComponent"],
-                _user_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_25__["UsuariosComponent"]
+                _shared_titulo_titulo_component__WEBPACK_IMPORTED_MODULE_18__["TituloComponent"],
+                _servicos_servicos_component__WEBPACK_IMPORTED_MODULE_20__["ServicosComponent"],
+                _user_user_component__WEBPACK_IMPORTED_MODULE_21__["UserComponent"],
+                _user_login_login_component__WEBPACK_IMPORTED_MODULE_22__["LoginComponent"],
+                _user_registration_registration_component__WEBPACK_IMPORTED_MODULE_23__["RegistrationComponent"],
+                _user_usuarios_usuarios_component__WEBPACK_IMPORTED_MODULE_26__["UsuariosComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -647,16 +650,16 @@ var AppModule = /** @class */ (function () {
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["TabsModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["TooltipModule"].forRoot(),
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsDatepickerModule"].forRoot(),
-                ngx_mask__WEBPACK_IMPORTED_MODULE_18__["NgxMaskModule"].forRoot(),
-                ngx_currency__WEBPACK_IMPORTED_MODULE_24__["NgxCurrencyModule"],
+                ngx_mask__WEBPACK_IMPORTED_MODULE_19__["NgxMaskModule"].forRoot(),
+                ngx_currency__WEBPACK_IMPORTED_MODULE_25__["NgxCurrencyModule"],
                 ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["PopoverModule"].forRoot(),
-                ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_26__["PaginationModule"].forRoot()
+                ngx_bootstrap_pagination__WEBPACK_IMPORTED_MODULE_27__["PaginationModule"].forRoot()
             ],
             providers: [
                 _services_Cliente_service__WEBPACK_IMPORTED_MODULE_10__["ClienteService"],
                 {
                     provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
-                    useClass: _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_23__["AuthInterceptor"],
+                    useClass: _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_24__["AuthInterceptor"],
                     multi: true
                 }
             ],
@@ -1269,7 +1272,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2VxdWlwYW1lbnRvcy9lcXVpcGFtZW50b2VkaXQvZXF1aXBhbWVudG9lZGl0LmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "i {\r\n    font-size: 25px;\r\n}\r\n\r\n.iconesSociais a {\r\n    color: rgb(94, 94, 94);\r\n}\r\n\r\n.capitalize {\r\n  text-transform: capitalize;\r\n  border-bottom: 1px solid silver;\r\n}\r\n\r\n.tab-pane {\r\n  padding: 20px 8px 8px;\r\n  border-top: 0px;\r\n  border-right: 1px solid #dee2e6;\r\n  border-bottom: 1px solid #dee2e6;\r\n  border-left: 1px solid #dee2e6;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXF1aXBhbWVudG9zL2VxdWlwYW1lbnRvZWRpdC9lcXVpcGFtZW50b2VkaXQuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7RUFDRSwwQkFBMEI7RUFDMUIsK0JBQStCO0FBQ2pDOztBQUVBO0VBQ0UscUJBQXFCO0VBQ3JCLGVBQWU7RUFDZiwrQkFBK0I7RUFDL0IsZ0NBQWdDO0VBQ2hDLDhCQUE4QjtBQUNoQyIsImZpbGUiOiJzcmMvYXBwL2VxdWlwYW1lbnRvcy9lcXVpcGFtZW50b2VkaXQvZXF1aXBhbWVudG9lZGl0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpIHtcclxuICAgIGZvbnQtc2l6ZTogMjVweDtcclxufVxyXG5cclxuLmljb25lc1NvY2lhaXMgYSB7XHJcbiAgICBjb2xvcjogcmdiKDk0LCA5NCwgOTQpO1xyXG59XHJcblxyXG4uY2FwaXRhbGl6ZSB7XHJcbiAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIHNpbHZlcjtcclxufVxyXG5cclxuLnRhYi1wYW5lIHtcclxuICBwYWRkaW5nOiAyMHB4IDhweCA4cHg7XHJcbiAgYm9yZGVyLXRvcDogMHB4O1xyXG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICNkZWUyZTY7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNkZWUyZTY7XHJcbiAgYm9yZGVyLWxlZnQ6IDFweCBzb2xpZCAjZGVlMmU2O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -1280,7 +1283,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\n<app-titulo [titulo]=titulo></app-titulo>"
+module.exports = "<br>\r\n<app-titulo [titulo]=\"titulo\"></app-titulo>\r\n<form [formGroup]=\"registerForm\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-8\">\r\n      <tabset>\r\n        <tab heading=\"Equipamento\">\r\n          <div class=\"form-row\">\r\n                <div class=\"form-group col-md-3\">\r\n                    <label>Número de Série</label>\r\n                    <input type=\"text\" class=\"form-control\" maxlength=\"10\"\r\n                    [ngClass]=\"{'is-invalid': registerForm.get('nrSerie').errors && registerForm.get('nrSerie').touched}\"\r\n                    formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                    <div *ngIf=\"registerForm.get('nrSerie').hasError('required')\r\n                            && registerForm.get('nrSerie').touched\" class=\"invalid-feedback\">\r\n                            Número de série é obrigatório.\r\n                    </div>\r\n                </div>\r\n                </div>\r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-6\">\r\n              <label>Marca</label>\r\n              <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n              [ngClass]=\"{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}\"\r\n              formControlName=\"marca\" placeholder=\"Marca\">\r\n              <div *ngIf=\"registerForm.get('marca').hasError('required')\r\n                      && registerForm.get('marca').touched\" class=\"invalid-feedback\">\r\n                      A marca é obrigatória.\r\n              </div>\r\n            </div>\r\n            <div class=\"form-group col-md-6\">\r\n              <label>Modelo</label>\r\n              <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n              [ngClass]=\"{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}\"\r\n              formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n              <div *ngIf=\"registerForm.get('modelo').hasError('required')\r\n                      && registerForm.get('modelo').touched\" class=\"invalid-feedback\">\r\n                      Modelo é obrigatório.\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"form-row\">\r\n            <div class=\"form-group col-md-12\">\r\n              <label>Descrição</label>\r\n              <textarea  class=\"form-control\" maxlength=\"250\"\r\n              formControlName=\"descricao\" placeholder=\"Descrição.\"></textarea>\r\n            </div>\r\n          </div>\r\n        </tab>\r\n        <tab heading=\"Servicos\">\r\n          <div>\r\n            <div >\r\n              <fieldset class=\"form-group\">\r\n                <legend class=\"d-flex justify-content-between capitalize\">\r\n                </legend>\r\n                \r\n\r\n\r\n\r\n              </fieldset>\r\n            </div>\r\n          </div>\r\n        </tab>\r\n      </tabset>\r\n      <div class=\"row\">\r\n        <div class=\"col-md-12 d-flex justify-content-end\">\r\n          <!-- {{registerForm.value | json}} -->\r\n          <button [disabled]=\"!registerForm.valid\" class=\"btn btn-success my-2\" (click)=\"salvarEquipamento()\" >Salvar\r\n            Alterações</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-md-4\">\r\n      <div class=\"form-row\">\r\n        <div class=\"form-group col-md-9\">\r\n          <input type=\"file\" #file (change)=\"onFileChange($event, $event.target.files)\" class=\"form-control is-invalid\"\r\n          formControlName=\"imagemURL\" placeholder=\"\" style=\"display: none\">\r\n        </div>\r\n      </div>\r\n      <div class=\"card profile-card-2\">\r\n        <div class=\"card-img-block\">\r\n          <img [src]=\"imagemURL\" class=\"img-fluid\" (click)=\"file.click()\" style=\"cursor: pointer; width: 350px;\"\r\n            alt=\"Card image cap\" />\r\n        </div>\r\n        <div class=\"card-body pt-3\">\r\n          <h4>Equipamento</h4>\r\n          <p class=\"card-text\">\r\n            <b>Marca:</b> \r\n            <br>\r\n            <b>Modelo:</b> \r\n          </p>\r\n          <hr>\r\n          <p class=\"card-text\">\r\n            <b>Cliente</b><br>\r\n            <small class=\"text-muted\">Telefone: </small>\r\n            <br>\r\n            <small class=\"text-muted\">e-mail: </small>\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</form>"
 
 /***/ }),
 
@@ -1296,13 +1299,203 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EquipamentoeditComponent", function() { return EquipamentoeditComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_services_Equipamento_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/Equipamento.service */ "./src/app/_services/Equipamento.service.ts");
+/* harmony import */ var ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-bootstrap */ "./node_modules/ngx-bootstrap/esm5/ngx-bootstrap.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
 
 
 var EquipamentoeditComponent = /** @class */ (function () {
-    function EquipamentoeditComponent() {
+    function EquipamentoeditComponent(equipamentoService, modalService, fb, router, toastr, route) {
+        this.equipamentoService = equipamentoService;
+        this.modalService = modalService;
+        this.fb = fb;
+        this.router = router;
+        this.toastr = toastr;
+        this.route = route;
         this.titulo = 'Equipamentos';
+        this.bodyDeletarEquipamento = '';
+        this.modoSalvar = 'post';
+        this.imagemURL = 'assets/img/upload.png';
+        this.imagemLargura = 50;
+        this.imagemMargem = 2;
+        this.mostrarImagem = false;
     }
+    Object.defineProperty(EquipamentoeditComponent.prototype, "filtroLista", {
+        get: function () {
+            return this.FiltroLista;
+        },
+        set: function (value) {
+            this.FiltroLista = value;
+            this.equipamentoFiltrados = this.filtroLista ? this.filtrarEquipamentos(this.filtroLista) : this.equipamentos;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    EquipamentoeditComponent.prototype.filtrarEquipamentos = function (filtrarPor) {
+        filtrarPor = filtrarPor.toLocaleLowerCase();
+        return this.equipamentos.filter(function (equipamento) { return equipamento.nrSerie.toLocaleLowerCase().indexOf(filtrarPor) !== -1; });
+    };
+    EquipamentoeditComponent.prototype.novoEquipamento = function () {
+        this.modoSalvar = 'post';
+    };
+    EquipamentoeditComponent.prototype.openModal = function (template) {
+        this.registerForm.reset();
+        template.show();
+    };
     EquipamentoeditComponent.prototype.ngOnInit = function () {
+        console.log('oninit');
+        this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
+        if (this.idEquipamento !== 0) {
+            console.log(this.idEquipamento);
+            this.getEquipamentosPorId(this.idEquipamento);
+        }
+        else {
+            console.log('getall');
+            this.getAllEquipamentos();
+        }
+        this.validation();
+    };
+    EquipamentoeditComponent.prototype.roleName = function () {
+        return sessionStorage.getItem('role');
+    };
+    EquipamentoeditComponent.prototype.getEquipamentosPorId = function (idEquipamento) {
+        var _this = this;
+        this.equipamentoService.getEquipamentoById(idEquipamento).subscribe(function (Equip) {
+            _this.equipamento = Equip;
+            console.log(_this.equipamento);
+            _this.editarEquipamento(_this.equipamento);
+        }, function (error) {
+            console.log(error);
+            _this.toastr.error('Erro ao tentar carregar equipamento: ${error}');
+        });
+    };
+    EquipamentoeditComponent.prototype.alternarImagem = function () {
+        this.mostrarImagem = !this.mostrarImagem;
+    };
+    EquipamentoeditComponent.prototype.getAllEquipamentos = function () {
+        var _this = this;
+        this.equipamentoService.getAllEquipamento().subscribe(function (Equipamentos) {
+            _this.equipamentos = Equipamentos;
+            _this.equipamentoFiltrados = _this.equipamentos;
+            console.log(_this.equipamentos);
+        }, function (error) {
+            console.log(error);
+            _this.toastr.error('Erro ao tentar carregar equipamentos: ${error}');
+        });
+    };
+    EquipamentoeditComponent.prototype.validation = function () {
+        this.registerForm = this.fb.group({
+            nrSerie: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            descricao: [''],
+            marca: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            modelo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            imagemURL: [''],
+            clienteId: []
+        });
+    };
+    /*   onFileChange(event) {
+        const reader = new FileReader();
+    
+        if (event.target.files && event.target.files.length) {
+          this.file = event.target.files;
+          console.log(this.file);
+        }
+      } */
+    EquipamentoeditComponent.prototype.uploadImagem = function () {
+        var _this = this;
+        if (this.modoSalvar === 'post') {
+            var nomeArquivo = this.equipamento.imagemURL.split('\\', 3);
+            this.equipamento.imagemURL = nomeArquivo[2];
+            this.equipamentoService.postUpload(this.file, nomeArquivo[2])
+                .subscribe(function () {
+                _this.dataAtual = new Date().getMilliseconds().toString();
+                _this.getAllEquipamentos();
+            });
+        }
+        else {
+            this.equipamento.imagemURL = this.fileNameToUpdate;
+            this.equipamentoService.postUpload(this.file, this.fileNameToUpdate)
+                .subscribe(function () {
+                _this.dataAtual = new Date().getMilliseconds().toString();
+                _this.getAllEquipamentos();
+            });
+        }
+    };
+    EquipamentoeditComponent.prototype.onFileChange = function (equipamento, file) {
+        var _this = this;
+        var reader = new FileReader();
+        reader.onload = function (event) { return _this.imagemURL = event.target.result; };
+        this.file = equipamento.target.files;
+        reader.readAsDataURL(file[0]);
+    };
+    EquipamentoeditComponent.prototype.editarEquipamento = function (equipamento) {
+        this.modoSalvar = 'put';
+        console.log('1');
+        console.log(equipamento);
+        this.equipamento = Object.assign({}, equipamento);
+        console.log('2');
+        console.log(this.equipamento);
+        this.fileNameToUpdate = this.equipamento.imagemURL.toString();
+        console.log('3');
+        this.equipamento.imagemURL = '';
+        console.log(this.equipamento);
+        this.registerForm.patchValue(this.equipamento);
+    };
+    EquipamentoeditComponent.prototype.excluirEquipamento = function (equipamento, template) {
+        this.openModal(template);
+        this.equipamento = equipamento;
+        this.bodyDeletarEquipamento = "Tem certeza que deseja excluir o equipamento: " + equipamento.nrSerie;
+    };
+    EquipamentoeditComponent.prototype.confirmeDelete = function (template) {
+        var _this = this;
+        var clienteId = this.equipamento.clienteId;
+        this.equipamentoService.deleteEquipamento(this.equipamento.id).subscribe(function () {
+            template.hide();
+            _this.ngOnInit();
+            /* this.getEquipamentosPorCliente(clienteId); */
+            _this.toastr.success('Equipamento excluido com sucesso!');
+        }, function (error) {
+            _this.toastr.error('Erro ao tentar excluir equipamento: ${error}');
+            console.log(error);
+        });
+    };
+    EquipamentoeditComponent.prototype.salvarEquipamento = function (template) {
+        var _this = this;
+        if (this.registerForm.valid) {
+            if (this.modoSalvar === 'post') {
+                this.equipamento = Object.assign({}, this.registerForm.value);
+                /*this.equipamento.clienteId = this.idCliente;*/
+                console.log(this.equipamento);
+                this.uploadImagem();
+                this.equipamentoService.postEquipamento(this.equipamento).subscribe(function (novoEquipamento) {
+                    /* template.hide(); */
+                    /*this.getEquipamentosPorCliente(this.equipamento.clienteId);*/
+                    _this.toastr.success('Equipamento inserido com sucesso!');
+                }, function (error) {
+                    _this.toastr.error('Erro ao incluir equipamento: ${error}');
+                });
+            }
+            else {
+                this.equipamento = Object.assign({ id: this.equipamento.id }, this.registerForm.value);
+                console.log(this.equipamento);
+                this.uploadImagem();
+                this.equipamentoService.putEquipamento(this.equipamento).subscribe(function () {
+                    /* template.hide(); */
+                    /*this.getEquipamentosPorCliente(this.equipamento.clienteId);*/
+                    _this.toastr.success('Equipamento alterado com sucesso!');
+                }, function (error) {
+                    console.log(error);
+                    _this.toastr.error('Erro ao alterar equipamento: ${error}');
+                });
+            }
+        }
     };
     EquipamentoeditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1310,7 +1503,12 @@ var EquipamentoeditComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./equipamentoedit.component.html */ "./src/app/equipamentos/equipamentoedit/equipamentoedit.component.html"),
             styles: [__webpack_require__(/*! ./equipamentoedit.component.css */ "./src/app/equipamentos/equipamentoedit/equipamentoedit.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_Equipamento_service__WEBPACK_IMPORTED_MODULE_3__["EquipamentoService"],
+            ngx_bootstrap__WEBPACK_IMPORTED_MODULE_4__["BsModalService"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"]])
     ], EquipamentoeditComponent);
     return EquipamentoeditComponent;
 }());
@@ -1326,7 +1524,7 @@ var EquipamentoeditComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "i {\r\n    font-size: 25px;\r\n}\r\n\r\n.iconesSociais a {\r\n    color: rgb(94, 94, 94);\r\n}\r\n\r\n.capitalize {\r\n  text-transform: capitalize;\r\n  border-bottom: 1px solid silver;\r\n}\r\n\r\n.tab-pane {\r\n  padding: 20px 8px 8px;\r\n  border-top: 0px;\r\n  border-right: 1px solid #dee2e6;\r\n  border-bottom: 1px solid #dee2e6;\r\n  border-left: 1px solid #dee2e6;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXF1aXBhbWVudG9zL2VxdWlwYW1lbnRvcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksZUFBZTtBQUNuQjs7QUFFQTtJQUNJLHNCQUFzQjtBQUMxQjs7QUFFQTtFQUNFLDBCQUEwQjtFQUMxQiwrQkFBK0I7QUFDakM7O0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsZUFBZTtFQUNmLCtCQUErQjtFQUMvQixnQ0FBZ0M7RUFDaEMsOEJBQThCO0FBQ2hDIiwiZmlsZSI6InNyYy9hcHAvZXF1aXBhbWVudG9zL2VxdWlwYW1lbnRvcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaSB7XHJcbiAgICBmb250LXNpemU6IDI1cHg7XHJcbn1cclxuXHJcbi5pY29uZXNTb2NpYWlzIGEge1xyXG4gICAgY29sb3I6IHJnYig5NCwgOTQsIDk0KTtcclxufVxyXG5cclxuLmNhcGl0YWxpemUge1xyXG4gIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBzaWx2ZXI7XHJcbn1cclxuXHJcbi50YWItcGFuZSB7XHJcbiAgcGFkZGluZzogMjBweCA4cHggOHB4O1xyXG4gIGJvcmRlci10b3A6IDBweDtcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCAjZGVlMmU2O1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZGVlMmU2O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgI2RlZTJlNjtcclxufSJdfQ== */"
+module.exports = "i {\r\n    font-size: 25px;\r\n}\r\n\r\n.iconesSociais a {\r\n    color: rgb(94, 94, 94);\r\n}\r\n\r\n.capitalize {\r\n  text-transform: capitalize;\r\n  border-bottom: 1px solid silver;\r\n}\r\n\r\n.tab-pane {\r\n  padding: 20px 8px 8px;\r\n  border-top: 0px;\r\n  border-right: 1px solid #dee2e6;\r\n  border-bottom: 1px solid #dee2e6;\r\n  border-left: 1px solid #dee2e6;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZXF1aXBhbWVudG9zL2VxdWlwYW1lbnRvcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksZUFBZTtBQUNuQjs7QUFFQTtJQUNJLHNCQUFzQjtBQUMxQjs7QUFFQTtFQUNFLDBCQUEwQjtFQUMxQiwrQkFBK0I7QUFDakM7O0FBRUE7RUFDRSxxQkFBcUI7RUFDckIsZUFBZTtFQUNmLCtCQUErQjtFQUMvQixnQ0FBZ0M7RUFDaEMsOEJBQThCO0FBQ2hDIiwiZmlsZSI6InNyYy9hcHAvZXF1aXBhbWVudG9zL2VxdWlwYW1lbnRvcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaSB7XHJcbiAgICBmb250LXNpemU6IDI1cHg7XHJcbn1cclxuXHJcbi5pY29uZXNTb2NpYWlzIGEge1xyXG4gICAgY29sb3I6IHJnYig5NCwgOTQsIDk0KTtcclxufVxyXG5cclxuLmNhcGl0YWxpemUge1xyXG4gIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBzaWx2ZXI7XHJcbn1cclxuXHJcbi50YWItcGFuZSB7XHJcbiAgcGFkZGluZzogMjBweCA4cHggOHB4O1xyXG4gIGJvcmRlci10b3A6IDBweDtcclxuICBib3JkZXItcmlnaHQ6IDFweCBzb2xpZCAjZGVlMmU2O1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZGVlMmU2O1xyXG4gIGJvcmRlci1sZWZ0OiAxcHggc29saWQgI2RlZTJlNjtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -1337,7 +1535,7 @@ module.exports = "i {\r\n    font-size: 25px;\r\n}\r\n\r\n.iconesSociais a {\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar por Nr de série\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <div>\r\n  <button class=\"btn btn-sm btn-outline-primary\"  (click)=\"novoEquipamento(template)\" *ngIf=\"idCliente !== 0\"> \r\n    <i class=\"fa fa-plus-circle\" style=\"font-size: 12px;\"></i>&nbsp;\r\n    Novo Equipamento\r\n  </button>\r\n</div>\r\n</div>\r\n<br>\r\n<div class=\"table-responsive\">\r\n  <table class=\"table table-striped table-sm\" style=\"font-size: 12px;\">\r\n    <thead class=\"thead-dark\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nr de Série</th>\r\n      <th>Marca</th>\r\n      <th>Modelo</th>\r\n      <th>Editar</th>\r\n      <th>Excluir</th>\r\n      <th>Serviços</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"equipamentos\">\r\n    <tr *ngFor=\"let equipamento of equipamentoFiltrados\">  \r\n      <td>\r\n        <img src=\"http://localhost:5000/resources/images/{{equipamento.imagemURL}}?_ts={{dataAtual}}\"\r\n         [style.width.px]=\"imagemLargura\" [style.margin.px]=\"imagemMargem\">\r\n      </td>\r\n      <td>{{equipamento.nrSerie | uppercase}}</td>\r\n      <td>{{equipamento.marca | uppercase}}</td>\r\n      <td>{{equipamento.modelo | uppercase}}</td>\r\n      <td>\r\n        <button style=\"margin-left: 1px;\" class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarEquipamento(equipamento, template)\">\r\n          <i class=\"fa fa-edit\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <button style=\"margin-left: 2px;\" class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirEquipamento(equipamento, confirm)\">\r\n          <i class=\"fa fa-eraser\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <a style=\"margin-left:7px;\" [routerLink]=\"['/equipamentoEdit', equipamento.id, 'edit']\" tooltip=\"Cadastrar serviços\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-eye\" style=\"font-size: 12px;\"></i>\r\n        </a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!equipamentos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum equipamento encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n</div>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" \r\n     class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Equipamentos</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n              <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-3\">\r\n                      <label>Número de Série</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"10\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('nrSerie').errors && registerForm.get('nrSerie').touched}\"\r\n                      formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                      <div *ngIf=\"registerForm.get('nrSerie').hasError('required')\r\n                              && registerForm.get('nrSerie').touched\" class=\"invalid-feedback\">\r\n                              Número de série é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-9\">\r\n                      <label>Imagem</label>\r\n                      <table>\r\n                        <tr>\r\n                          <td>\r\n                            <button class=\"btn btn-success\" (click)=\"file.click()\">\r\n                              Enviar Imagem\r\n                            </button>\r\n                            <input type=\"file\" #file [ngClass]=\"{'is-invalid': registerForm.get('imagemURL').errors \r\n                && registerForm.get('imagemURL').touched}\" (change)=\"onFileChange($event)\" class=\"form-control is-invalid\"\r\n                              formControlName=\"imagemURL\" placeholder=\"\" style=\"display: none\">\r\n                          </td>\r\n                        </tr>\r\n                      </table>\r\n                      <div *ngIf=\"registerForm.get('imagemURL').hasError('required')\r\n          && registerForm.get('imagemURL').touched\" class=\"invalid-feedback\">\r\n                        Imagem é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                    <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Marca</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}\"\r\n                      formControlName=\"marca\" placeholder=\"Marca\">\r\n                      <div *ngIf=\"registerForm.get('marca').hasError('required')\r\n                              && registerForm.get('marca').touched\" class=\"invalid-feedback\">\r\n                              A marca é obrigatória.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Modelo</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}\"\r\n                      formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n                      <div *ngIf=\"registerForm.get('modelo').hasError('required')\r\n                              && registerForm.get('modelo').touched\" class=\"invalid-feedback\">\r\n                              Modelo é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-12\">\r\n                      <label>Descrição</label>\r\n                      <textarea  class=\"form-control\" maxlength=\"250\"\r\n                      formControlName=\"descricao\" placeholder=\"Descrição.\"></textarea>\r\n                    </div>\r\n                  </div>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarEquipamento(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Equipamento\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarEquipamento}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<br>\r\n<app-titulo [titulo]=titulo></app-titulo>\r\n<div class=\"d-flex\">\r\n  <div class=\"form-inline mr-auto\" action=\"\">\r\n    <div class=\"form-group mb-2\"><input type=\"text\" class=\"form-control mr-2\" placeholder=\"Filtrar por Nr de série\"\r\n        [(ngModel)]=\"filtroLista\">\r\n    </div>\r\n  </div>\r\n  <div>\r\n  <button class=\"btn btn-sm btn-outline-primary\"  (click)=\"novoEquipamento(template)\" *ngIf=\"idCliente !== 0\"> \r\n    <i class=\"fa fa-plus-circle\" style=\"font-size: 12px;\"></i>&nbsp;\r\n    Novo Equipamento\r\n  </button>\r\n</div>\r\n</div>\r\n<br>\r\n<div class=\"table-responsive\">\r\n  <table class=\"table table-striped table-sm\" style=\"font-size: 12px;\">\r\n    <thead class=\"thead-dark\">\r\n    <tr>\r\n      <th>#</th>\r\n      <th>Nr de Série</th>\r\n      <th>Marca</th>\r\n      <th>Modelo</th>\r\n      <th>Editar</th>\r\n      <th>Excluir</th>\r\n      <th>Serviços</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody *ngIf=\"equipamentos\">\r\n    <tr *ngFor=\"let equipamento of equipamentoFiltrados\">  \r\n      <td>\r\n        <img src=\"https://sgcos.azurewebsites.net/resources/images/{{equipamento.imagemURL}}?_ts={{dataAtual}}\"\r\n         [style.width.px]=\"imagemLargura\" [style.margin.px]=\"imagemMargem\" >\r\n      </td>\r\n      <td>{{equipamento.nrSerie | uppercase}}</td>\r\n      <td>{{equipamento.marca | uppercase}}</td>\r\n      <td>{{equipamento.modelo | uppercase}}</td>\r\n      <td>\r\n        <button style=\"margin-left: 1px;\" class=\"btn btn-sm btn-success\" tooltip=\"Editar\" (click)=\"editarEquipamento(equipamento, template)\">\r\n          <i class=\"fa fa-edit\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <button style=\"margin-left: 2px;\" class=\"btn btn-sm btn-danger\" tooltip=\"Excluir\" (click)=\"excluirEquipamento(equipamento, confirm)\">\r\n          <i class=\"fa fa-eraser\" style=\"font-size: 12px;\"></i>\r\n        </button>\r\n      </td>\r\n      <td>\r\n        <a style=\"margin-left:7px;\" [routerLink]=\"['/servicos', equipamento.id, 'edit']\" tooltip=\"Cadastrar serviços\" class=\"btn btn-sm btn-warning\">\r\n          <i class=\"fa fa-eye\" style=\"font-size: 12px;\"></i>\r\n        </a>\r\n      </td>\r\n    </tr>\r\n  </tbody>\r\n  <tfoot *ngIf=\"!equipamentos\">\r\n    <tr>\r\n      <td colspan=\"7\" class=\"text-center\">\r\n        <h4>Nenhum equipamento encontrado</h4>\r\n      </td>\r\n    </tr>\r\n  </tfoot>\r\n</table>\r\n</div>\r\n\r\n<div bsModal #template=\"bs-modal\"  [config]= \"{ignoreBackdropClick: true, keyboard: false}\" \r\n     class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-lg\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 id=\"dialog-sizes-name1\" class=\"modal-title pull-left\">Equipamentos</h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"template.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <form [formGroup]=\"registerForm\">\r\n          <div class=\"row\">\r\n            <div class=\"col-md-8\">\r\n              <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Número de Série</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"10\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('nrSerie').errors && registerForm.get('nrSerie').touched}\"\r\n                      formControlName=\"nrSerie\" placeholder=\"Número de Série.\">\r\n                      <div *ngIf=\"registerForm.get('nrSerie').hasError('required')\r\n                              && registerForm.get('nrSerie').touched\" class=\"invalid-feedback\">\r\n                              Número de série é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                    <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Marca</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('marca').errors && registerForm.get('marca').touched}\"\r\n                      formControlName=\"marca\" placeholder=\"Marca\">\r\n                      <div *ngIf=\"registerForm.get('marca').hasError('required')\r\n                              && registerForm.get('marca').touched\" class=\"invalid-feedback\">\r\n                              A marca é obrigatória.\r\n                      </div>\r\n                    </div>\r\n                    <div class=\"form-group col-md-6\">\r\n                      <label>Modelo</label>\r\n                      <input type=\"text\" class=\"form-control\" maxlength=\"50\"\r\n                      [ngClass]=\"{'is-invalid': registerForm.get('modelo').errors && registerForm.get('modelo').touched}\"\r\n                      formControlName=\"modelo\" placeholder=\"Modelo.\">\r\n                      <div *ngIf=\"registerForm.get('modelo').hasError('required')\r\n                              && registerForm.get('modelo').touched\" class=\"invalid-feedback\">\r\n                              Modelo é obrigatório.\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"form-row\">\r\n                    <div class=\"form-group col-md-12\">\r\n                      <label>Descrição</label>\r\n                      <textarea  class=\"form-control\" maxlength=\"250\"\r\n                      formControlName=\"descricao\" placeholder=\"Descrição.\"></textarea>\r\n                    </div>\r\n                  </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-4\">\r\n              <div class=\"form-row\">\r\n                <div class=\"form-group col-md-9\">\r\n                  <input type=\"file\" #file (change)=\"onFileChange($event, $event.target.files)\" class=\"form-control is-invalid\"\r\n                  formControlName=\"imagemURL\" placeholder=\"\" style=\"display: none\">\r\n                </div>\r\n              </div>\r\n              <div class=\"card profile-card-2\">\r\n                <div class=\"card-img-block\">\r\n                  <img [src]=\"imagemURL\" class=\"img-fluid\" (click)=\"file.click()\" style=\"cursor: pointer; width: 350px;\"\r\n                    alt=\"Card image cap\"/>\r\n                </div>\r\n                <!-- <div class=\"card-body pt-3\">\r\n                  <h4>Equipamento</h4>\r\n                  <p class=\"card-text\">\r\n                    <b>Marca:</b> \r\n                    <br>\r\n                    <b>Modelo:</b> \r\n                  </p>\r\n                  <hr>\r\n                  <p class=\"card-text\">\r\n                    <b>Cliente</b><br>\r\n                    <small class=\"text-muted\">Telefone: </small>\r\n                    <br>\r\n                    <small class=\"text-muted\">e-mail: </small>\r\n                  </p>\r\n                </div> -->\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div class=\"modal-footer d-flex\">\r\n        <button class=\"btn btn-secondary\" (click)=\"template.hide()\">\r\n          Fechar\r\n        </button>\r\n        <button class=\"btn btn-primary ml-auto\" [disabled]=\"!registerForm.valid\" (click)=\"salvarEquipamento(template)\">\r\n          Salvar\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<div bsModal #confirm=\"bs-modal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"dialog-sizes-name1\">\r\n  <div class=\"modal-dialog modal-sm\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h4 class=\"modal-title pull-left\">\r\n          Deletando Equipamento\r\n        </h4>\r\n        <button type=\"button\" class=\"close pull-right\" (click)=\"confirm.hide()\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p>{{bodyDeletarEquipamento}}</p>\r\n      </div>\r\n      <div class=\"modal-footer btn-group d-flex\">\r\n        <button type=\"button\" class=\"btn btn-outline-primary\" (click)=\"confirm.hide()\">\r\n          CANCELAR\r\n        </button>\r\n        <button type=\"button\" class=\"btn btn-outline-danger\" (click)=\"confirmeDelete(confirm)\">\r\n          DELETAR\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1379,6 +1577,7 @@ var EquipamentosComponent = /** @class */ (function () {
         this.imagemLargura = 50;
         this.imagemMargem = 2;
         this.mostrarImagem = false;
+        this.imagemURL = 'assets/img/upload.png';
     }
     Object.defineProperty(EquipamentosComponent.prototype, "filtroLista", {
         get: function () {
@@ -1447,16 +1646,16 @@ var EquipamentosComponent = /** @class */ (function () {
             descricao: [''],
             marca: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             modelo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            imagemURL: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+            imagemURL: [''],
             clienteId: []
         });
     };
-    EquipamentosComponent.prototype.onFileChange = function (event) {
+    EquipamentosComponent.prototype.onFileChange = function (equipamento, file) {
+        var _this = this;
         var reader = new FileReader();
-        if (event.target.files && event.target.files.length) {
-            this.file = event.target.files;
-            console.log(this.file);
-        }
+        reader.onload = function (event) { return _this.imagemURL = event.target.result; };
+        this.file = equipamento.target.files;
+        reader.readAsDataURL(file[0]);
     };
     EquipamentosComponent.prototype.uploadImagem = function () {
         var _this = this;
@@ -1483,6 +1682,7 @@ var EquipamentosComponent = /** @class */ (function () {
         this.openModal(template);
         this.equipamento = Object.assign({}, equipamento);
         this.fileNameToUpdate = equipamento.imagemURL.toString();
+        this.imagemURL = "https://sgcos.azurewebsites.net/resources/images/" + this.equipamento.imagemURL + "?_ts=" + this.dataAtual;
         this.equipamento.imagemURL = '';
         console.log(equipamento);
         this.registerForm.patchValue(this.equipamento);

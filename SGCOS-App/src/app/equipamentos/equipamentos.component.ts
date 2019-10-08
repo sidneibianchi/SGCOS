@@ -162,7 +162,7 @@ export class EquipamentosComponent implements OnInit {
     this.openModal(template);
     this.equipamento = Object.assign({}, equipamento);
     this.fileNameToUpdate = equipamento.imagemURL.toString();
-    this.imagemURL = `http://localhost:5000/resources/images/${this.equipamento.imagemURL}?_ts=${this.dataAtual}`;
+    this.imagemURL = `https://sgcos.azurewebsites.net/resources/images/${this.equipamento.imagemURL}?_ts=${this.dataAtual}`;
     this.equipamento.imagemURL = '';
     console.log(equipamento);
     this.registerForm.patchValue(this.equipamento);

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  baseURL = 'http://localhost:5000/api/user/';
+  baseURL = 'https://sgcos.azurewebsites.net/api/user/';
   jwtHelper = new JwtHelperService();
   decodedToken: any;
 
