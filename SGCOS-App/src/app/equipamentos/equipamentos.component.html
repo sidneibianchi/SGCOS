@@ -31,7 +31,7 @@
     <tr *ngFor="let equipamento of equipamentoFiltrados">  
       <td>
         <img src="http://localhost:5000/resources/images/{{equipamento.imagemURL}}?_ts={{dataAtual}}"
-         [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem" class="pic">
+         [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem" >
       </td>
       <td>{{equipamento.nrSerie | uppercase}}</td>
       <td>{{equipamento.marca | uppercase}}</td>
@@ -130,7 +130,7 @@
               <div class="card profile-card-2">
                 <div class="card-img-block">
                   <img [src]="imagemURL" class="img-fluid" (click)="file.click()" style="cursor: pointer; width: 350px;"
-                    alt="Card image cap" />
+                    alt="Card image cap"/>
                 </div>
                 <!-- <div class="card-body pt-3">
                   <h4>Equipamento</h4>

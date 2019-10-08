@@ -18,14 +18,3 @@ i {
   border-bottom: 1px solid #dee2e6;
   border-left: 1px solid #dee2e6;
 }
-
-.pic {
-  transition-duration: 0.7s;
-}
-
-.pic:hover {
-  
-  -webkit-transition: width 3.3s linear 0s;
-  transition: width 3.3s linear 0s;
-  z-index: 10;
-}
