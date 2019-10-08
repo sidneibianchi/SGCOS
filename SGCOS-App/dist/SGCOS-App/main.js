@@ -1596,6 +1596,7 @@ var EquipamentosComponent = /** @class */ (function () {
     };
     EquipamentosComponent.prototype.novoEquipamento = function (template) {
         this.modoSalvar = 'post';
+        this.imagemURL = 'assets/img/upload.png';
         this.openModal(template);
     };
     EquipamentosComponent.prototype.openModal = function (template) {
