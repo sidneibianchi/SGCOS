@@ -63,6 +63,7 @@ export class EquipamentosComponent implements OnInit {
 
   novoEquipamento(template: any) {
     this.modoSalvar = 'post';
+    this.imagemURL = 'assets/img/upload.png';
     this.openModal(template);
   }
 
