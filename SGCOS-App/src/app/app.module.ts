@@ -30,6 +30,7 @@ import { TouchSequence } from 'selenium-webdriver';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { UsuariosComponent } from './user/usuarios/usuarios.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import {BuscaCEPService} from './_services/BuscaCEP.service';
 
 
 
@@ -75,7 +76,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
          provide: HTTP_INTERCEPTORS,
          useClass: AuthInterceptor,
          multi: true
-      }
+      },
+      BuscaCEPService
    ],
    bootstrap: [
       AppComponent
