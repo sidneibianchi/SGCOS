@@ -11,6 +11,7 @@ import { toInt } from 'ngx-bootstrap/chronos/utils/type-checks';
 
 defineLocale('pt-br', ptBrLocale);
 
+
 @Component({
   selector: 'app-servicos',
   templateUrl: './servicos.component.html',
@@ -52,6 +53,7 @@ export class ServicosComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
 
+
   dataAtual =  (this.maxDate);
 
   filtrarServicos(filtrarPor: string): Servico[] {
@@ -60,7 +62,6 @@ export class ServicosComponent implements OnInit {
       servico => servico.nrOrdem.toString().indexOf(filtrarPor) !== -1
     );
   }
-
 
   ngOnInit() {
     this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');

@@ -16,7 +16,7 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="servicos">Serviços<span class="sr-only">(current)</span></a>
       </li>
-      <li>
+      <li *ngIf="roleName() == 'Administrador'" class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['user/usuarios']">Usuarios<span class="sr-only">(current)</span></a>
      </li>
       </ul>
