@@ -99,6 +99,26 @@ var HourFormatPipePipe = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./src/app/_models/Cep.ts":
+/*!********************************!*\
+  !*** ./src/app/_models/Cep.ts ***!
+  \********************************/
+/*! exports provided: Cep */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Cep", function() { return Cep; });
+var Cep = /** @class */ (function () {
+    function Cep() {
+    }
+    return Cep;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/_models/Cliente.ts":
 /*!************************************!*\
   !*** ./src/app/_models/Cliente.ts ***!
@@ -132,6 +152,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _models_Cep__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_models/Cep */ "./src/app/_models/Cep.ts");
+
 
 
 
@@ -140,11 +162,20 @@ var BuscaCEPService = /** @class */ (function () {
         this.http = http;
     }
     BuscaCEPService.prototype.buscaBep = function (cep) {
+        var _this = this;
         return this.http.get("http://viacep.com.br/ws/" + cep + "/json/")
-            .toPromise()
-            .then(function (response) {
-            console.log(response);
-        });
+            .subscribe(function (data) { return _this.resultado = _this.converterRespostaParaEndereco(data); });
+    };
+    BuscaCEPService.prototype.converterRespostaParaEndereco = function (cepNaResposta) {
+        var cep = new _models_Cep__WEBPACK_IMPORTED_MODULE_3__["Cep"]();
+        cep.cep = cepNaResposta.cep;
+        cep.logradouro = cepNaResposta.logradouro;
+        cep.complemento = cepNaResposta.complemento;
+        cep.bairro = cepNaResposta.bairro;
+        cep.cidade = cepNaResposta.localidade;
+        cep.estado = cepNaResposta.uf;
+        console.log(cep);
+        return cep;
     };
     BuscaCEPService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -940,8 +971,9 @@ var ClientesComponent = /** @class */ (function () {
         this.validation();
     };
     ClientesComponent.prototype.buscaCep = function (cep) {
-        this.buscaCepService.buscaBep(cep);
-        console.log();
+        console.log(cep);
+        var teste = this.buscaCepService.buscaBep(cep);
+        console.log(teste);
     };
     ClientesComponent.prototype.filtrarClientes = function (filtrarPor) {
         filtrarPor = filtrarPor.toLocaleLowerCase();
@@ -1702,7 +1734,7 @@ var EquipamentosComponent = /** @class */ (function () {
             descricao: [''],
             marca: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             modelo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            imagemURL: [''],
+            imagemURL: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             clienteId: []
         });
     };
@@ -2358,7 +2390,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " <div class=\"container\">\r\n  <div>\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div> "
+module.exports = " <div class=\"container\">\n  <div>\n    <router-outlet></router-outlet>\n  </div>\n</div> "
 
 /***/ }),
 
@@ -2661,7 +2693,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\sidneib\Desktop\UploadImagem\SGCOS\SGCOS-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\sidnei\Downloads\SGCOS\SGCOS-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

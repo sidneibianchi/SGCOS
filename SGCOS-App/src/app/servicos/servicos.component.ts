@@ -138,6 +138,7 @@ export class ServicosComponent implements OnInit {
 
   salvarServico(template: any) {
     if (this.registerForm.valid) {
+        console.log(this.servico);
         if (this.modoSalvar === 'post') {
         this.servico = Object.assign({}, this.registerForm.value);
         this.servico.equipamentoId = this.idEquipamento;

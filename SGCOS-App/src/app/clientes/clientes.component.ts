@@ -6,7 +6,6 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { ToastrService } from 'ngx-toastr';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { Router } from '@angular/router';
-import { BuscaCEPService } from '../_services/BuscaCEP.service';
 import { Endereco } from '../_models/Endereco';
 
 
@@ -37,8 +36,7 @@ export class ClientesComponent implements OnInit {
               private modalService: BsModalService,
               private fb: FormBuilder,
               public router: Router,
-              private toastr: ToastrService,
-              private buscaCepService: BuscaCEPService ) { }
+              private toastr: ToastrService) { }
 
 
   get filtroLista(): string {
@@ -115,12 +113,6 @@ export class ClientesComponent implements OnInit {
     this.getClientes();
     this.validation();
   }
-
-  buscaCep(cep: string) {
-    this.buscaCepService.buscaBep(cep);
-    console.log();
-  }
-
 
   filtrarClientes(filtrarPor: string): Cliente[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
