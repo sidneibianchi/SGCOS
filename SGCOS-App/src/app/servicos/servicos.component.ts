@@ -9,8 +9,8 @@ import { defineLocale, ptBrLocale } from 'ngx-bootstrap';
 import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { toInt } from 'ngx-bootstrap/chronos/utils/type-checks';
 
-
 defineLocale('pt-br', ptBrLocale);
+
 
 @Component({
   selector: 'app-servicos',
@@ -53,6 +53,7 @@ export class ServicosComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
 
+
   dataAtual =  (this.maxDate);
 
   filtrarServicos(filtrarPor: string): Servico[] {
@@ -61,7 +62,6 @@ export class ServicosComponent implements OnInit {
       servico => servico.nrOrdem.toString().indexOf(filtrarPor) !== -1
     );
   }
-
 
   ngOnInit() {
     this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
@@ -114,6 +114,7 @@ export class ServicosComponent implements OnInit {
     console.log(servico);
     this.registerForm.patchValue(this.servico);
   }
+
 
   excluirServico(servico: Servico, template: any) {
     this.openModal(template);
