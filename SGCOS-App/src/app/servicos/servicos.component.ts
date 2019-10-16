@@ -8,6 +8,10 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap';
 import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 import { toInt } from 'ngx-bootstrap/chronos/utils/type-checks';
+import { EquipamentoService } from '../_services/Equipamento.service';
+import { Equipamento } from '../_models/Equipamento';
+import { Cliente } from '../_models/Cliente';
+import { ClienteService } from '../_services/Cliente.service';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -22,6 +26,8 @@ export class ServicosComponent implements OnInit {
   @ViewChild('nrOrdem') NrOrdem: ElementRef;
 
     constructor(private servicoService: ServicoService,
+                private equipamentoService: EquipamentoService,
+                private clienteService: ClienteService,
                 private modalService: BsModalService,
                 private fb: FormBuilder,
                 private toastr: ToastrService,
@@ -52,6 +58,8 @@ export class ServicosComponent implements OnInit {
   dtAtendimento: string;
   minDate: Date;
   maxDate: Date;
+  equipamento: Equipamento;
+  cliente: Cliente;
 
 
   dataAtual =  (this.maxDate);
@@ -67,6 +75,7 @@ export class ServicosComponent implements OnInit {
     this.idEquipamento = +this.route.snapshot.paramMap.get('idEquipamento');
     if (this.idEquipamento !== 0) {
       this.getServicosPorEquipamento(this.idEquipamento.toString());
+      this.getEquipamentoPorId(this.idEquipamento);
     } else {
       this.getAllServicos();
     }
@@ -205,21 +214,36 @@ export class ServicosComponent implements OnInit {
       });
   }
 
+  getEquipamentoPorId(idEquipamento: number) {
+    this.equipamentoService.getEquipamentoById(idEquipamento).subscribe(
+      (Equip: Equipamento) => {
+        this.equipamento = Equip;
+        console.log(this.equipamento);
+        this.getClientePorId(this.equipamento.clienteId);
+      }, error => {
+        console.log(error);
+        this.toastr.error(`Erro ao tentar carregar equipamento: ${error}`);
+      });
+  }
+
+  getClientePorId(idCliente: number) {
+    this.clienteService.getClienteById(idCliente).subscribe(
+      (cli: Cliente) => {
+        this.cliente = cli;
+        console.log(this.cliente);
+      }, error => {
+        console.log(error);
+        this.toastr.error(`Erro ao tentar carregar cliente: ${error}`);
+      });
+  }
 
   VerificaNrOrdem(nrordem: string, template: any) {
-
-    console.log(nrordem);
-
     if (nrordem === '') {
       return;
     }
 
-    console.log(nrordem);
-
     const ret =  this.servicosComp.filter(
          servico => servico.nrOrdem.toString() === nrordem);
-
-    console.log(nrordem);
 
     if (ret.length > 0 ) {
         this.toastr.warning('Ordem de serviço já possui um cadastrado no sistema.');

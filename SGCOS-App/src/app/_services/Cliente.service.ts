@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from '../_models/Cliente';
 import { Endereco } from '../_models/Endereco';
-import 'rxjs/add/operator/map';
+
 
 @Injectable({
   providedIn: 'root'
