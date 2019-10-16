@@ -31,6 +31,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { UsuariosComponent } from './user/usuarios/usuarios.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
+import { NgxViacepModule } from '@brunoc/ngx-viacep'; // Importando o módulo
+
 
 @NgModule({
    declarations: [
@@ -65,7 +67,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
       NgxMaskModule.forRoot(),
       NgxCurrencyModule,
       PopoverModule.forRoot(),
-      PaginationModule.forRoot()
+      PaginationModule.forRoot(),
+      NgxViacepModule // Registrando o módulo
 
    ],
    providers: [

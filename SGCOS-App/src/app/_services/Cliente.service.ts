@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from '../_models/Cliente';
+import { Endereco } from '../_models/Endereco';
+import 'rxjs/add/operator/map';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,31 @@ import { Cliente } from '../_models/Cliente';
 export class ClienteService {
   baseURL = 'https://sgcos.azurewebsites.net/api/cliente';
 
+
+  resultado: Endereco;
+  cep: Endereco;
+
   constructor(private http: HttpClient) { }
 
   getAllCliente(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.baseURL);
   }
+
+  buscarCep(cep: string) {
+
+    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
+        .subscribe(data => this.resultado = this.converterRespostaParaCep(data));
+  }
+
+  private converterRespostaParaCep(cepNaResposta): Endereco {
+    this.cep.id = 0;
+    this.cep.cep = cepNaResposta.cep;
+    this.cep.logradouro = cepNaResposta.logradouro;
+    this.cep.bairro = cepNaResposta.bairro;
+    this.cep.cidade = cepNaResposta.localidade;
+    this.cep.uf = cepNaResposta.uf;
+    return this.cep;
+}
 
   getClienteById(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseURL}/${id}`);

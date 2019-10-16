@@ -30,6 +30,7 @@ export class ClientesComponent implements OnInit {
   registerForm: FormGroup;
   FiltroLista: string;
   endereco: Endereco;
+  cep: string;
 
 
   constructor(private clienteService: ClienteService,
@@ -73,6 +74,7 @@ export class ClientesComponent implements OnInit {
     this.tabCli.tabs[0].active = true;
     /* this.InputCpf.nativeElement.disabled = true; */
   }
+
 
   novoCliente(template: any) {
     this.modoSalvar = 'post';
@@ -275,7 +277,6 @@ export class ClientesComponent implements OnInit {
     this.cliente = new Cliente();
   }
 
-
   getClientes() {
     this.clienteService.getAllCliente().subscribe(
       (Clientes: Cliente[]) => {
@@ -361,7 +362,6 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-
   Validacnpj(cnpj: string): boolean {
     if (cnpj === null) {
         return false;
@@ -422,4 +422,9 @@ export class ClientesComponent implements OnInit {
   userName() {
     return sessionStorage.getItem('username');
   }
+
+  buscaCep() {
+    this.clienteService.buscarCep('06716-210');
+  }
+
 }
