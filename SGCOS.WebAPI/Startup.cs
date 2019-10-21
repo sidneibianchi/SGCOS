@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SGCOS.Domain;
 
 namespace SGCOS.API
 {
@@ -81,7 +82,7 @@ namespace SGCOS.API
             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling =
             Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
             
-
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<ISGCOSRepository, SGCOSRepository>();
             services.AddAutoMapper();
@@ -108,6 +109,8 @@ namespace SGCOS.API
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                 RequestPath = new PathString("/Resources")
             }); 
+
+            
             app.UseMvc();
         }
     }

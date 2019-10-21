@@ -37,5 +37,11 @@ namespace SGCOS.Repository
         Task<Servico[]> GetAllServicoAsyncByEquipamento(string equipamentoId);
 
         #endregion
+
+
+        #region Email
+        Task SendEmailAsync(string email, string subject, string message);
+        
+        #endregion
     }
 }
