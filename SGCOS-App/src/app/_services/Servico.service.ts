@@ -34,4 +34,9 @@ export class ServicoService {
   deleteServico(id: number) {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
+
+  enviaEmail(destinatario: string, servico: Servico) {
+    return this.http.post(`${this.baseURL}/enviaEmail/${destinatario}`, servico);
+  }
+
 }
