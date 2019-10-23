@@ -173,9 +173,21 @@ namespace SGCOS.WebAPI.Controllers
 
                message.Subject = "teste email ";
 
-               message.Body = new TextPart("html"){
-                   Text = "<b> teste </b> : <p>mensagem do email</p> "
-               };
+
+               var bodyBuilder = new BodyBuilder ();
+               bodyBuilder.HtmlBody = "<b>This is some html text</b>";
+               bodyBuilder.TextBody = "This is some plain text";
+
+               message.Body = bodyBuilder.ToMessageBody ();
+
+
+
+
+               /*message.Body = new TextPart("plan"){
+                   //Text = "<b> teste </b> : <p>mensagem do email</p> "
+
+                
+               };*/
 
                using(var client = new SmtpClient()){
                    client.Connect("smtp.gmail.com",587,false);
