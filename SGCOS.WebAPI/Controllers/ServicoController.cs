@@ -179,7 +179,7 @@ namespace SGCOS.WebAPI.Controllers
                message.Body = bodyBuilder.ToMessageBody ();
 
                using(var client = new SmtpClient()){
-                   client.Connect("email-ssl.com.br",587,false);
+                   client.Connect("email-ssl.com.br",465,false);
                    client.Authenticate("contato@mab.servicos.ws","@Simmasa0603");
                    client.Send(message);
                    client.Disconnect(true);
