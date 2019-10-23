@@ -317,10 +317,36 @@
           </table>
     		</div>    
     		<div class="modal-footer d-flex">      
-      			<button type="button" class="btn btn-outline-primary" (click)="enviarEmail(servico, detalhes, confirm)">
+      			<button type="button" class="btn btn-outline-primary" (click)="enviarEmail(servico, detalhes, emailDest)">
         			Enviar por Email
       			</button>
       			<button type="button" class="btn btn-outline-danger" (click)="detalhes.hide()">
+          		CANCELAR
+        		</button>
+    		</div>
+  		</div>
+	</div>
+</div>
+
+<div bsModal #emailDest="bs-modal" class="modal fade"  tabindex="-2" role="dialog" aria-labelledby="dialog-sizes-name1" >
+	<div class="modal-dialog modal-sm">
+  		<div class="modal-content">
+    		<div class="modal-header">
+      			<h4 class="modal-title pull-left">
+        			Deletando Serviço
+      			</h4>
+      			<button type="button" class="close pull-right" (click)="emailDest.hide()" aria-label="Close">
+        			<span aria-hidden="true">&times;</span>
+      			</button>
+    		</div>
+    		<div class="modal-body">
+      			<p>{{bodyEmailDestinatario}}</p>
+    		</div>    
+    		<div class="modal-footer btn-group d-flex">      
+      			<button type="button" class="btn btn-outline-primary" (click)="confirmeEnvio(emailDest)">
+        			ENVIAR
+      			</button>
+      			<button type="button" class="btn btn-outline-danger" (click)="emailDest.hide()">
           		CANCELAR
         		</button>
     		</div>

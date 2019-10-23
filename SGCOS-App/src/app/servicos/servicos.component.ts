@@ -60,6 +60,7 @@ export class ServicosComponent implements OnInit {
   maxDate: Date;
   equipamento: Equipamento;
   cliente: Cliente;
+  bodyEmailDestinatario = '';
 
 
   dataAtual =  (this.maxDate);
@@ -146,6 +147,16 @@ export class ServicosComponent implements OnInit {
 
   }
 
+  confirmeEnvio(template: any) {
+    this.servicoService.enviaEmail('sidneibianchi007@hotmail.com', this.servico).subscribe(
+      () => {
+        template.hide();
+        this.toastr.success('Email enviado com sucesso!');
+      }, error => {
+      this.toastr.error(`Erro ao tentar enviar email: ${error}`);
+      console.log(error);
+    });
+  }
 
   confirmeDelete(template: any) {
     this.servicoService.deleteServico(this.servico.id).subscribe(
