@@ -173,42 +173,44 @@ namespace SGCOS.WebAPI.Controllers
                message.Subject = "teste email 4 ";
 
                var bodyBuilder = new BodyBuilder ();
-               bodyBuilder.HtmlBody = "$<h1>This is some html text</h1>" +
+               bodyBuilder.HtmlBody = "<h1>Sua nova ordem de serviço.</h1>" +
                 "<table>" +
                     "<tbody>"+
                     "<tr>"+
                         "<td><b>Nr Ordem :</b></td>"+
                         $"<td>{model.NrOrdem}</td>" +
+                    "</tr>" +
+                     "<tr>"+
                         "<td><b>Data de Atendimento :</b></td>" +
-                        $"<td>{model.DtAtendimento}</td>" +
+                        $"<td>{String.Format("{0:dd/MM/yyyy}",model.DtAtendimento) }</td>" +
+                    "</tr>" +
+                     "<tr>"+
                         "<td><b>Dias de Garantia :</b></td>" +
                         $"<td>{model.QtdDiasGarantia}</td>" +
                     "</tr>" +
                     "<tr>" +
                         "<td><b>Defeito :</b></td>" +
-                        $"<td colspan='5'>{model.Defeito}</td>" +
+                        $"<td>{model.Defeito}</td>" +
                     "</tr>" +
                     "<tr>" +
                         "<td><b>Serviços Executados :</b></td>" +
-                        $"<td colspan='5'{model.ServicosExecutados}</td>" +
+                        $"<td>{model.ServicosExecutados}</td>" +
                     "</tr>" +
                     "<tr>" +
                         "<td><b>Peças Substituidas :</b></td>" +
-                        $"<td colspan='5'>{model.PecasSubstituidas}</td>" +
+                        $"<td>{model.PecasSubstituidas}</td>" +
                     "</tr>" +
                     "<tr>" +
                         "<td><b>Observações :</b></td>" +
-                        $"<td colspan='5'>{model.Observacao}</td>" +
+                        $"<td>{model.Observacao}</td>" +
                     "</tr>" +
                     "<tr>" +
                         "<td><b>Valor :</b></td>" +
-                        $"<td colspan='5'>{model.ValorServico}</td>" +
+                        $"<td>{String.Format("{0:C}",model.ValorServico)}</td>" +
                     "</tr>" +
                     "</tbody>" +
                 "</table>";
  
-               bodyBuilder.TextBody = "This is some plain text";
-
                message.Body = bodyBuilder.ToMessageBody ();
 
                using(var client = new SmtpClient()){
