@@ -167,14 +167,14 @@ namespace SGCOS.WebAPI.Controllers
             {
                var message = new MimeMessage();
 
-               message.From.Add( new MailboxAddress("Mab Servicos","sidneibianchi0603@gmail.com"));
+               message.From.Add( new MailboxAddress("Mab Servicos","contato@mab.servicos.ws"));
 
-               message.To.Add( new MailboxAddress("Sidnei","contato@mab.servicos.ws"));
+               message.To.Add( new MailboxAddress("Sidnei","sidneibianchi0603@gmail.com"));
 
                message.Subject = "Assunto ";
 
                message.Body = new TextPart("plain"){
-                   Text = "<b>Esta<b/> mensagem do email."
+                   Text = "Esta mensagem do email nova 04."
                };
 
                using(var client = new SmtpClient()){
