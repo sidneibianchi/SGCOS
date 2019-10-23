@@ -162,7 +162,7 @@ namespace SGCOS.WebAPI.Controllers
         }
 
 
-        [HttpPost("{destinatario}")]
+        [HttpPost("enviaEmail/{destinatario}")]
         public IActionResult EnviaEmail(string destinatario, ServicoDto model)
         {
             try
