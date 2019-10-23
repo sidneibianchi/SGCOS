@@ -24,6 +24,7 @@ defineLocale('pt-br', ptBrLocale);
 export class ServicosComponent implements OnInit {
 
   @ViewChild('nrOrdem') NrOrdem: ElementRef;
+  @ViewChild('emailDestinatario') EmailDestinatario: ElementRef;
 
     constructor(private servicoService: ServicoService,
                 private equipamentoService: EquipamentoService,
@@ -61,7 +62,7 @@ export class ServicosComponent implements OnInit {
   equipamento: Equipamento;
   cliente: Cliente;
   bodyEmailDestinatario = '';
-
+  emailForm: FormGroup;
 
   dataAtual =  (this.maxDate);
 
@@ -133,22 +134,16 @@ export class ServicosComponent implements OnInit {
   }
 
 
-  enviarEmail(servico: Servico, detalhes: any, confirm: any) {
+  enviarEmail(servico: Servico, detalhes: any, emailDest: any) {
+    console.log(detalhes);
+    console.log(emailDest);
     detalhes.hide();
-    confirm.show();
+    emailDest.show();
     this.servico = servico;
-    this.servicoService.enviaEmail('sidneibianchi007@hotmail.com', this.servico).subscribe(
-      () => {
-        this.toastr.success('Email enviado com sucesso!');
-      }, error => {
-      this.toastr.error(`Erro ao tentar enviar email: ${error}`);
-      console.log(error);
-    });
-
   }
 
   confirmeEnvio(template: any) {
-    this.servicoService.enviaEmail('sidneibianchi007@hotmail.com', this.servico).subscribe(
+    this.servicoService.enviaEmail(this.EmailDestinatario.nativeElement.value, this.servico).subscribe(
       () => {
         template.hide();
         this.toastr.success('Email enviado com sucesso!');
