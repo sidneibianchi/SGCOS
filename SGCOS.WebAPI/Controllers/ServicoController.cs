@@ -169,7 +169,7 @@ namespace SGCOS.WebAPI.Controllers
 
                message.From.Add( new MailboxAddress("Mab Servicos","contato@mab.servicos.ws"));
 
-               message.To.Add( new MailboxAddress("Sidnei","sidneibianchi0603@gmail.com"));
+               message.To.Add( new MailboxAddress("Sidnei","contato@mab.servicos.ws"));
 
                message.Subject = "Assunto ";
 
