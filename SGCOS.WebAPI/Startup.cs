@@ -82,7 +82,6 @@ namespace SGCOS.API
             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling =
             Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
             
-            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<ISGCOSRepository, SGCOSRepository>();
             services.AddAutoMapper();

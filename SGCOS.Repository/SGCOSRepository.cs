@@ -3,21 +3,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using SGCOS.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Net.Mail;
-using System.Net;
+
 
 namespace SGCOS.Repository
 {
     public class SGCOSRepository : ISGCOSRepository
     {
         public readonly SGCOSContext _context;
-        public readonly EmailSettings _emailSettings;
-        public SGCOSRepository(SGCOSContext context, IOptions<EmailSettings> emailSettings)
+        public SGCOSRepository(SGCOSContext context)
         {
             _context = context;
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            _emailSettings = emailSettings.Value;
         }
         
         #region Geral
@@ -187,56 +183,6 @@ namespace SGCOS.Repository
 
         #endregion
 
-        #region Email
-        public Task SendEmailAsync(string email, string subject, string message)
-        {
-            try
-            {
-                Execute(email, subject, message).Wait();
-                return Task.FromResult(0);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-
-        public async Task Execute(string email, string subject, string message)
-        {
-            try
-            {
-                string toEmail = string.IsNullOrEmpty(email) ? _emailSettings.ToEmail : email;
-
-                MailMessage mail = new MailMessage()
-                {
-                    From = new MailAddress(_emailSettings.UsernameEmail, "Sidnei Bianchi")
-                };
-
-                mail.To.Add(new MailAddress(toEmail));
-                mail.CC.Add(new MailAddress(_emailSettings.CcEmail));
-
-                mail.Subject = "Mab - " + subject;
-                mail.Body = message;
-                mail.IsBodyHtml = true;
-                mail.Priority = MailPriority.High;
-
-                //outras opções
-                //mail.Attachments.Add(new Attachment(arquivo));
-                //
-
-                using (SmtpClient smtp = new SmtpClient(_emailSettings.PrimaryDomain, _emailSettings.PrimaryPort))
-                {
-                    smtp.Credentials = new NetworkCredential(_emailSettings.UsernameEmail,_emailSettings.UsernamePassword);
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(mail);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
+       
     }
 }

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using SGCOS.Domain;
 using SGCOS.Repository;
 using SGCOS.WebAPI.Dtos;
+using MailKit.Net.Smtp;
+using MailKit;
+using MimeKit;
 
 namespace SGCOS.WebAPI.Controllers
 {
@@ -136,15 +139,18 @@ namespace SGCOS.WebAPI.Controllers
         {
             try
             {
-                var servico = await _repo.GetAllServicoAsyncById(ServicoId);
+
+                this.EnviaEmail();
+                 var servico = await _repo.GetAllServicoAsyncById(ServicoId);
                 if (servico == null) return NotFound();
 
+                /*
                 _repo.Delete(servico);
 
                 if (await _repo.SaveChangesAsync())
-                {
+                { */
                     return Ok();
-                }
+                /* } */
             }
             catch (System.Exception ex)
             {
@@ -152,7 +158,48 @@ namespace SGCOS.WebAPI.Controllers
                 $"Banco de dados falhou: {ex.Message}");
             }
 
-            return BadRequest();
+           // return BadRequest();
+        }
+
+        public IActionResult EnviaEmail()
+        {
+            try
+            {
+               var message = new MimeMessage();
+
+               message.From.Add( new MailboxAddress("SGCOS","sidneibianchi0603@gmail.com"));
+
+               message.From.Add( new MailboxAddress("SGCOS","sidneibianchi0603@gmail.com"));
+
+               message.Subject = "teste email ";
+
+               message.Body = new TextPart("plain"){
+                   Text = "mensagem do email "
+               };
+
+               using(var client = new SmtpClient()){
+                   client.Connect("smtp.gmail.com",587,false);
+                   client.Authenticate("sidneibianchi0603@gmail.com","simmasa0603");
+                   client.Send(message);
+                   client.Disconnect(true);
+               }
+
+
+
+                return Ok();
+                
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+
+            
         }
     }
+
+
+    
+
 }
