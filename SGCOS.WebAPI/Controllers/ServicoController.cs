@@ -175,7 +175,7 @@ namespace SGCOS.WebAPI.Controllers
 
 
                var bodyBuilder = new BodyBuilder ();
-               bodyBuilder.HtmlBody = "<b>This is some html text</b>";
+               bodyBuilder.HtmlBody = "<h1>This is some html text</h1>";
                bodyBuilder.TextBody = "This is some plain text";
 
                message.Body = bodyBuilder.ToMessageBody ();
