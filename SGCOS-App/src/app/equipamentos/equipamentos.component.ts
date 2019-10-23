@@ -121,7 +121,7 @@ export class EquipamentosComponent implements OnInit {
       descricao: [''],
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
-      imagemURL: [''],
+      imagemURL: ['', Validators.required],
       clienteId: []
     });
   }

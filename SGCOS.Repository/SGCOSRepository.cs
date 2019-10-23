@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using SGCOS.Domain;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace SGCOS.Repository
 {
     public class SGCOSRepository : ISGCOSRepository
@@ -181,5 +182,7 @@ namespace SGCOS.Repository
         }
 
         #endregion
+
+       
     }
 }

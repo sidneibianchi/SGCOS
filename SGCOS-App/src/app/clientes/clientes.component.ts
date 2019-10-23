@@ -6,7 +6,6 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@ang
 import { ToastrService } from 'ngx-toastr';
 import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 import { Router } from '@angular/router';
-import { BuscaCEPService } from '../_services/BuscaCEP.service';
 import { Endereco } from '../_models/Endereco';
 
 
@@ -31,14 +30,14 @@ export class ClientesComponent implements OnInit {
   registerForm: FormGroup;
   FiltroLista: string;
   endereco: Endereco;
+  cep: string;
 
 
   constructor(private clienteService: ClienteService,
               private modalService: BsModalService,
               private fb: FormBuilder,
               public router: Router,
-              private toastr: ToastrService,
-              private buscaCepService: BuscaCEPService ) { }
+              private toastr: ToastrService) { }
 
 
   get filtroLista(): string {
@@ -75,6 +74,7 @@ export class ClientesComponent implements OnInit {
     this.tabCli.tabs[0].active = true;
     /* this.InputCpf.nativeElement.disabled = true; */
   }
+
 
   novoCliente(template: any) {
     this.modoSalvar = 'post';
@@ -115,12 +115,6 @@ export class ClientesComponent implements OnInit {
     this.getClientes();
     this.validation();
   }
-
-  buscaCep(cep: string) {
-    this.buscaCepService.buscaBep(cep);
-    console.log();
-  }
-
 
   filtrarClientes(filtrarPor: string): Cliente[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
@@ -283,7 +277,6 @@ export class ClientesComponent implements OnInit {
     this.cliente = new Cliente();
   }
 
-
   getClientes() {
     this.clienteService.getAllCliente().subscribe(
       (Clientes: Cliente[]) => {
@@ -369,7 +362,6 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-
   Validacnpj(cnpj: string): boolean {
     if (cnpj === null) {
         return false;
@@ -430,4 +422,9 @@ export class ClientesComponent implements OnInit {
   userName() {
     return sessionStorage.getItem('username');
   }
+
+  buscaCep() {
+    this.clienteService.buscarCep('06716-210');
+  }
+
 }

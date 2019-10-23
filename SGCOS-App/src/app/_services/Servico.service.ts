@@ -34,5 +34,4 @@ export class ServicoService {
   deleteServico(id: number) {
     return this.http.delete(`${this.baseURL}/${id}`);
   }
-
 }
