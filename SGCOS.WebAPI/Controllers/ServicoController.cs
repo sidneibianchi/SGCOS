@@ -173,7 +173,40 @@ namespace SGCOS.WebAPI.Controllers
                message.Subject = "teste email 4 ";
 
                var bodyBuilder = new BodyBuilder ();
-               bodyBuilder.HtmlBody = "<h1>This is some html text</h1>";
+               bodyBuilder.HtmlBody = "$<h1>This is some html text</h1>" +
+                "<table>" +
+                    "<tbody>"+
+                    "<tr>"+
+                        "<td><b>Nr Ordem :</b></td>"+
+                        $"<td>{model.NrOrdem}</td>" +
+                        "<td><b>Data de Atendimento :</b></td>" +
+                        $"<td>{model.DtAtendimento}</td>" +
+                        "<td><b>Dias de Garantia :</b></td>" +
+                        $"<td>{model.QtdDiasGarantia}</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td><b>Defeito :</b></td>" +
+                        $"<td colspan='5'>{model.Defeito}</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td><b>Serviços Executados :</b></td>" +
+                        $"<td colspan='5'{model.ServicosExecutados}</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td><b>Peças Substituidas :</b></td>" +
+                        $"<td colspan='5'>{model.PecasSubstituidas}</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td><b>Observações :</b></td>" +
+                        $"<td colspan='5'>{model.Observacao}</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                        "<td><b>Valor :</b></td>" +
+                        $"<td colspan='5'>{model.ValorServico}</td>" +
+                    "</tr>" +
+                    "</tbody>" +
+                "</table>";
+ 
                bodyBuilder.TextBody = "This is some plain text";
 
                message.Body = bodyBuilder.ToMessageBody ();
