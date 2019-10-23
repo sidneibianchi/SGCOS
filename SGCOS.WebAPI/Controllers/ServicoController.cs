@@ -167,7 +167,7 @@ namespace SGCOS.WebAPI.Controllers
             {
                var message = new MimeMessage();
 
-               message.From.Add( new MailboxAddress("Mab Servicos","contato@mab.servicos.ws"));
+               message.From.Add( new MailboxAddress("Mab Servicos","sidneibianchi0603@gmail.com"));
 
                message.To.Add( new MailboxAddress("Sidnei","contato@mab.servicos.ws"));
 
