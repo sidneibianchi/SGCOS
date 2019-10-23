@@ -168,7 +168,7 @@ namespace SGCOS.WebAPI.Controllers
             try
             {
                var message = new MimeMessage();
-               message.From.Add( new MailboxAddress("SGCOS","sidneibianchi0603@gmail.com"));
+               message.From.Add( new MailboxAddress("SGCOS","contato@mab.servicos.ws"));
                message.To.Add( new MailboxAddress("SGCOS",destinatario));
                message.Subject = "teste email ";
 
@@ -179,8 +179,8 @@ namespace SGCOS.WebAPI.Controllers
                message.Body = bodyBuilder.ToMessageBody ();
 
                using(var client = new SmtpClient()){
-                   client.Connect("smtp.gmail.com",587,false);
-                   client.Authenticate("sidneibianchi0603@gmail.com","simmasa0603");
+                   client.Connect("email-ssl.com.br",587,false);
+                   client.Authenticate("contato@mabservicos.hospedagemdesites.ws","@Simmasa0603");
                    client.Send(message);
                    client.Disconnect(true);
                }
