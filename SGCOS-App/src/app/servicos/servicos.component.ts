@@ -131,6 +131,22 @@ export class ServicosComponent implements OnInit {
     this.bodyDeletarServico = `Tem certeza que deseja excluir o serviço: ${servico.id}`;
   }
 
+
+  enviarEmail(servico: Servico, detalhes: any, confirm: any) {
+    detalhes.hide();
+    confirm.show();
+    this.servico = servico;
+    this.servicoService.enviaEmail('sidneibianchi007@hotmail.com', this.servico).subscribe(
+      () => {
+        this.toastr.success('Email enviado com sucesso!');
+      }, error => {
+      this.toastr.error(`Erro ao tentar enviar email: ${error}`);
+      console.log(error);
+    });
+
+  }
+
+
   confirmeDelete(template: any) {
     this.servicoService.deleteServico(this.servico.id).subscribe(
       () => {

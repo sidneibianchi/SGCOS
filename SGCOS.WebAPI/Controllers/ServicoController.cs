@@ -140,8 +140,8 @@ namespace SGCOS.WebAPI.Controllers
             try
             {
 
-                this.EnviaEmail();
-                 var servico = await _repo.GetAllServicoAsyncById(ServicoId);
+                //this.EnviaEmail();
+                var servico = await _repo.GetAllServicoAsyncById(ServicoId);
                 if (servico == null) return NotFound();
 
                 /*
@@ -161,33 +161,22 @@ namespace SGCOS.WebAPI.Controllers
            // return BadRequest();
         }
 
-        public IActionResult EnviaEmail()
+
+        [HttpPost("{destinatario}")]
+        public IActionResult EnviaEmail(string destinatario, ServicoDto model)
         {
             try
             {
                var message = new MimeMessage();
-
                message.From.Add( new MailboxAddress("SGCOS","sidneibianchi0603@gmail.com"));
-
-               message.To.Add( new MailboxAddress("SGCOS","sidneibianchi0603@gmail.com"));
-
+               message.To.Add( new MailboxAddress("SGCOS",destinatario));
                message.Subject = "teste email ";
-
 
                var bodyBuilder = new BodyBuilder ();
                bodyBuilder.HtmlBody = "<h1>This is some html text</h1>";
                bodyBuilder.TextBody = "This is some plain text";
 
                message.Body = bodyBuilder.ToMessageBody ();
-
-
-
-
-               /*message.Body = new TextPart("plan"){
-                   //Text = "<b> teste </b> : <p>mensagem do email</p> "
-
-                
-               };*/
 
                using(var client = new SmtpClient()){
                    client.Connect("smtp.gmail.com",587,false);
@@ -196,18 +185,13 @@ namespace SGCOS.WebAPI.Controllers
                    client.Disconnect(true);
                }
 
-
-
                 return Ok();
                 
             }
             catch (System.Exception)
-            {
-                
+            {                
                 throw;
             }
-
-            
         }
     }
 
