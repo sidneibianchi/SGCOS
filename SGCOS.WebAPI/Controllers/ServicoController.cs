@@ -182,7 +182,7 @@ namespace SGCOS.WebAPI.Controllers
                     "</tr>" +
                      "<tr>"+
                         "<td><b>Data de Atendimento :</b></td>" +
-                        $"<td>{String.Format("{0:MM/dd/yyyy}",model.DtAtendimento)}</td>" +
+                        $"<td>{String.Format("{0:dd/MM/yyyy}", model.DtAtendimento)}</td>" +
                     "</tr>" +
                      "<tr>"+
                         "<td><b>Dias de Garantia :</b></td>" +
