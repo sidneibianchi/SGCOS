@@ -171,6 +171,10 @@ namespace SGCOS.WebAPI.Controllers
                message.From.Add( new MailboxAddress("SGCOS","contato@mab.servicos.ws"));
                message.To.Add( new MailboxAddress("SGCOS",destinatario));
                message.Subject = "teste email 4 ";
+                
+               var data = Convert.ToDateTime(model.DtAtendimento);
+
+
 
                var bodyBuilder = new BodyBuilder ();
                bodyBuilder.HtmlBody = "<h1>Sua nova ordem de serviço.</h1>" +
@@ -182,7 +186,7 @@ namespace SGCOS.WebAPI.Controllers
                     "</tr>" +
                      "<tr>"+
                         "<td><b>Data de Atendimento :</b></td>" +
-                        $"<td>{String.Format("{0:dd/MM/yyyy}", model.DtAtendimento)}</td>" +
+                        $"<td>{String.Format("{0:dd/MM/yyyy}",data)}</td>" +
                     "</tr>" +
                      "<tr>"+
                         "<td><b>Dias de Garantia :</b></td>" +
