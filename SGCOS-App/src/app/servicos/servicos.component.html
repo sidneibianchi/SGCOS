@@ -30,7 +30,7 @@
     <tr *ngFor="let servico of servicoFiltrados">
       <!-- <td>{{servico.id}}</td> -->
       <td>{{servico.nrOrdem}}</td>
-      <td>{{servico.dtAtendimento | DateFormatPipe}}</td>
+      <td>{{servico.dtAtendimento}}</td>
       <td>{{servico.qtdDiasGarantia}}</td>
       <td>
         <div *ngIf="servico.garantia">
@@ -289,7 +289,7 @@
                 <td><b>Nr Ordem :</b></td>
                 <td>{{servico.nrOrdem}}</td>
                 <td><b>Data de Atendimento :</b></td>
-                <td>{{servico.dtAtendimento | DateFormatPipe}}</td>
+                <td>{{servico.dtAtendimento}}</td>
                 <td><b>Dias de Garantia :</b></td>
                 <td>{{servico.qtdDiasGarantia}}</td>
               </tr>
