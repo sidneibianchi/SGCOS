@@ -2017,6 +2017,7 @@ var ServicosComponent = /** @class */ (function () {
         this.servicoService.enviaEmail(this.EmailDestinatario.nativeElement.value, this.servico).subscribe(function () {
             template.hide();
             _this.toastr.success('Email enviado com sucesso!');
+            _this.EmailDestinatario.nativeElement.value = '';
         }, function (error) {
             _this.toastr.error("Erro ao tentar enviar email: " + error);
             console.log(error);
