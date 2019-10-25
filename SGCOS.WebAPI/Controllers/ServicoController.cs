@@ -170,7 +170,7 @@ namespace SGCOS.WebAPI.Controllers
                var message = new MimeMessage();
                message.From.Add( new MailboxAddress("SGCOS","contato@mab.servicos.ws"));
                message.To.Add( new MailboxAddress("SGCOS",destinatario));
-               message.Subject = "teste email 4 ";
+               message.Subject = "Ordem de serviço:" + model.NrOrdem;
                 
                var data = Convert.ToDateTime(model.DtAtendimento);
 
