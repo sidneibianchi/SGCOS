@@ -147,6 +147,7 @@ export class ServicosComponent implements OnInit {
       () => {
         template.hide();
         this.toastr.success('Email enviado com sucesso!');
+        this.EmailDestinatario.nativeElement.value = '';
       }, error => {
       this.toastr.error(`Erro ao tentar enviar email: ${error}`);
       console.log(error);
