@@ -276,4 +276,8 @@ export class ServicosComponent implements OnInit {
 
   }
 
+  roleName() {
+    return sessionStorage.getItem('role');
+  }
+
 }
