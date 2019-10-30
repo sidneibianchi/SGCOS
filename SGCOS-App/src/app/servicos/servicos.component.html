@@ -30,7 +30,7 @@
     <tr *ngFor="let servico of servicoFiltrados">
       <!-- <td>{{servico.id}}</td> -->
       <td>{{servico.nrOrdem}}</td>
-      <td>{{servico.dtAtendimento | slice:0:8}}</td>
+      <td>{{servico.dtAtendimento | slice:0:10}}</td>
       <td>{{servico.qtdDiasGarantia}}</td>
       <td>
         <div *ngIf="servico.garantia">
@@ -270,7 +270,7 @@
 </div>
 
 
-<div bsModal #detalhes="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+<!-- <div bsModal #detalhes="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
 	<div class="modal-dialog modal-lg">
   		<div class="modal-content">
     		<div class="modal-header">
@@ -288,7 +288,7 @@
                 <td><b>Nr Ordem :</b></td>
                 <td>{{servico.nrOrdem}}</td>
                 <td><b>Data de Atendimento :</b></td>
-                <td>{{servico.dtAtendimento | slice:0:8}}</td>
+                <td>{{servico.dtAtendimento | slice:0:10}}</td>
                 <td><b>Dias de Garantia :</b></td>
                 <td>{{servico.qtdDiasGarantia}}</td>
               </tr>
@@ -317,7 +317,7 @@
     		</div>    
     		<div class="modal-footer d-flex">      
       			<button type="button" class="btn btn-outline-primary" (click)="enviarEmail(servico, detalhes, emailDest)">
-        			Enviar por Email
+        			Enviar por E-mail
       			</button>
       			<button type="button" class="btn btn-outline-danger" (click)="detalhes.hide()">
           		CANCELAR
@@ -325,7 +325,106 @@
     		</div>
   		</div>
 	</div>
+</div> -->
+
+
+<div bsModal #detalhes="bs-modal"  [config]= "{ignoreBackdropClick: true, keyboard: false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Serviços</h4>
+        <button type="button" class="close pull-right" (click)="fechaModal(detalhes)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerFormEdit">  
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label>Nr ordem</label>
+              <input type="text" class="form-control"   
+              disabled
+              formControlName="nrOrdem">
+              
+            </div>
+            <div class="form-group col-md-3">
+              <label>Data de atendimento</label>
+              <input type="text" bsDatepicker disabled
+              value="{{dtAtendimento | DateFormatPipe}}"
+              class="form-control" formControlName="dtAtendimento" >
+            </div> 
+            <div class="form-group col-md-3">
+              <label>Dias de garantia</label>
+              <input type="text" class="form-control" 
+              disabled 
+              formControlName="qtdDiasGarantia" placeholder="Dias de garantia" >
+            </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Defeito</label>
+              <input type="text" class="form-control" 
+              disabled
+              formControlName="defeito" placeholder="Defeito." maxlength="90">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Serviço executado</label>
+              <input type="text" class="form-control" 
+              disabled
+              formControlName="servicosExecutados" placeholder="Serviço executado." maxlength="90">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Peças substituídas</label>
+              <input type="text" class="form-control" disabled
+              formControlName="pecasSubstituidas" placeholder="Peças substituídas.">
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Observações</label>
+              <div *ngIf="EstaNaGarantia == true">
+                <textarea type="text" class="form-control" 
+                formControlName="observacao" placeholder="Observações." maxlength="250"></textarea>
+              </div>
+              <div *ngIf="EstaNaGarantia == false">
+                <textarea type="text" class="form-control" disabled
+                formControlName="observacao" placeholder="Observações." maxlength="250"></textarea>
+               </div>
+            </div>
+          </div> 
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label>Valor do serviço</label>
+              <input type="text" currencyMask disabled
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
+               class="form-control" formControlName="valorServico" placeholder="R$ 0,00" > 
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex">
+        <button type="button" class="btn btn-outline-primary" (click)="enviarEmail(servico, detalhes, emailDest)">
+          Enviar por E-mail
+        </button>        
+        <button class="btn btn-secondary" (click)="fechaModal(detalhes)">
+          Fechar
+        </button>
+        <div *ngIf="EstaNaGarantia == true">
+        <button id="btnsalvar" class="btn btn-primary ml-auto" (click)="salvarServico(detalhes)">
+          Salvar
+        </button>
+      </div>
+      </div> 
+    </div>
+  </div>
 </div>
+
+
+
 
 <div bsModal #emailDest="bs-modal" class="modal fade"  tabindex="-2" role="dialog" aria-labelledby="dialog-sizes-name1" >
 	<div class="modal-dialog modal-ml">
@@ -343,7 +442,7 @@
             <div class="form-row">
               <div class="form-group col-md-12">
                 <label>Destinatário</label>
-                <input type="text" #emailDestinatario class="form-control" width="600px" placeholder="Inform um email para o envio.">
+                <input type="text" #emailDestinatario class="form-control" width="600px" placeholder="Informe um e-mail para o envio.">
               </div>
             </div>
           </form >

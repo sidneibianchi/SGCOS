@@ -139,18 +139,16 @@ namespace SGCOS.WebAPI.Controllers
         {
             try
             {
-
-                //this.EnviaEmail();
                 var servico = await _repo.GetAllServicoAsyncById(ServicoId);
                 if (servico == null) return NotFound();
 
-                /*
+                
                 _repo.Delete(servico);
 
                 if (await _repo.SaveChangesAsync())
-                { */
+                { 
                     return Ok();
-                /* } */
+                } 
             }
             catch (System.Exception ex)
             {
@@ -158,7 +156,7 @@ namespace SGCOS.WebAPI.Controllers
                 $"Banco de dados falhou: {ex.Message}");
             }
 
-           // return BadRequest();
+            return BadRequest();
         }
 
 

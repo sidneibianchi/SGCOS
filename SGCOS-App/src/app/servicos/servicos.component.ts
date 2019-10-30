@@ -55,6 +55,7 @@ export class ServicosComponent implements OnInit {
   modoSalvar = 'post';
   FiltroLista: string;
   registerForm: FormGroup;
+  registerFormEdit: FormGroup;
   idEquipamento: number;
   dtAtendimento: string;
   minDate: Date;
@@ -63,6 +64,7 @@ export class ServicosComponent implements OnInit {
   cliente: Cliente;
   bodyEmailDestinatario = '';
   emailForm: FormGroup;
+  EstaNaGarantia: boolean;
 
   dataAtual =  (this.maxDate);
 
@@ -116,14 +118,27 @@ export class ServicosComponent implements OnInit {
       valorServico: ['', Validators.required],
       equipamentoId: ['']
     });
+
+    this.registerFormEdit = this.fb.group({
+      nrOrdem: [''],
+      dtAtendimento: [''],
+      qtdDiasGarantia: [''],
+      defeito: [''],
+      servicosExecutados: [''],
+      pecasSubstituidas: [''],
+      observacao: [''],
+      valorServico: [''],
+      equipamentoId: ['']
+    });
   }
 
   editarServico(servico: Servico, template: any) {
     this.modoSalvar = 'put';
     this.openModal(template);
     this.servico = Object.assign({}, servico);
+    this.EstaNaGarantia = this.servico.garantia;
     console.log(servico);
-    this.registerForm.patchValue(this.servico);
+    this.registerFormEdit.patchValue(this.servico);
   }
 
 
@@ -169,7 +184,7 @@ export class ServicosComponent implements OnInit {
   }
 
   salvarServico(template: any) {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid || this.registerFormEdit.valid ) {
         console.log(this.servico);
         if (this.modoSalvar === 'post') {
         this.servico = Object.assign({}, this.registerForm.value);
@@ -185,7 +200,7 @@ export class ServicosComponent implements OnInit {
             this.toastr.error(`Erro ao incluir serviço: ${error}`);
           });
       } else {
-        this.servico = Object.assign({ id: this.servico.id }, this.registerForm.value);
+        this.servico = Object.assign({ id: this.servico.id }, this.registerFormEdit.value);
         console.log(this.servico);
         this.servicoService.putServico(this.servico).subscribe(
           () => {
@@ -198,6 +213,8 @@ export class ServicosComponent implements OnInit {
             this.toastr.error(`Erro ao alterar serviço: ${error}`);
           });
       }
+    } else {
+      console.log('entrou aqui');
     }
   }
 
