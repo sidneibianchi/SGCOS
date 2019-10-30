@@ -101,6 +101,11 @@ export class ServicosComponent implements OnInit {
     template.show();
   }
 
+  openModalEdit(detalhes: any) {
+    this.registerFormEdit.reset();
+    detalhes.show();
+  }
+
   fechaModal(template: any) {
     this.ngOnInit();
     template.hide();
@@ -134,7 +139,7 @@ export class ServicosComponent implements OnInit {
 
   editarServico(servico: Servico, template: any) {
     this.modoSalvar = 'put';
-    this.openModal(template);
+    this.openModalEdit(template);
     this.servico = Object.assign({}, servico);
     this.EstaNaGarantia = this.servico.garantia;
     console.log(servico);
@@ -150,8 +155,8 @@ export class ServicosComponent implements OnInit {
 
 
   enviarEmail(servico: Servico, detalhes: any, emailDest: any) {
-    console.log(detalhes);
-    console.log(emailDest);
+/*     console.log(detalhes);
+    console.log(emailDest); */
     detalhes.hide();
     emailDest.show();
     this.servico = servico;
