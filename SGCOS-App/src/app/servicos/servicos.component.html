@@ -23,7 +23,8 @@
       <th>Data de Atendimento</th>
       <th>Dias de Garantia</th>
       <th>Status</th>
-      <th>Detalhes</th> 
+      <th>Detalhes</th>
+      <th>Enviar</th> 
     </tr>
   </thead>
   <tbody *ngIf="servicos">
@@ -52,8 +53,6 @@
       </td>
       <td>
         <div>
-
-
             <button class="btn btn-sm btn-secondary" (click)="editarServico(servico,detalhes)" >
                 <i class="fa fa-bars" style="font-size: 12px;"></i>
                 Detalhes
@@ -119,6 +118,12 @@
         </ng-template>
       </div>
        
+      </td>
+      <td>
+        <button type="button" class="btn btn-sm btn-outline-primary" (click)="enviarEmail(servico, detalhes, emailDest)">
+          <i class="fa fa-envelope" style="font-size: 12px;"></i> 
+          Enviar por E-mail
+        </button>  
       </td>
     </tr>
   </tbody>
@@ -345,12 +350,11 @@
               <input type="text" class="form-control"   
               disabled
               formControlName="nrOrdem">
-              
             </div>
             <div class="form-group col-md-3">
               <label>Data de atendimento</label>
-              <input type="text" bsDatepicker disabled
-              value="{{dtAtendimento | DateFormatPipe}}"
+              <input type="text" bsDatepicker disabled 
+              value="{{dtAtendimento | DateFormatPipe}}" 
               class="form-control" formControlName="dtAtendimento" >
             </div> 
             <div class="form-group col-md-3">
@@ -406,10 +410,7 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer d-flex">
-        <button type="button" class="btn btn-outline-primary" (click)="enviarEmail(servico, detalhes, emailDest)">
-          Enviar por E-mail
-        </button>        
+      <div class="modal-footer d-flex">      
         <button class="btn btn-secondary" (click)="fechaModal(detalhes)">
           Fechar
         </button>
@@ -422,9 +423,6 @@
     </div>
   </div>
 </div>
-
-
-
 
 <div bsModal #emailDest="bs-modal" class="modal fade"  tabindex="-2" role="dialog" aria-labelledby="dialog-sizes-name1" >
 	<div class="modal-dialog modal-ml">
